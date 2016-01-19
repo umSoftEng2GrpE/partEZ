@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/partez":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/partez","hostpath":"C:/Users/nick/Code/partEZ","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/nick/Code/partEZ","disabled":false,"__vagrantfile":true}}}
