@@ -13,29 +13,29 @@ Discussed how to use the repos and forks
 Trying to decide on project
 Focused on the 3 favored ideas:
 Note Sharing App
-•	Why Not?
-•	Hard to get buy-in
-•	Not top priority
+â€¢	Why Not?
+â€¢	Hard to get buy-in
+â€¢	Not top priority
 Party Planning
-•	App to plan events
-•	Like facebook events
-•	Do more than the facebook 
-•	Chat specific to the event
-•	Facebook login
-•	Doodle poll style set up
-•	Seems like the best idea	
+â€¢	App to plan events
+â€¢	Like facebook events
+â€¢	Do more than the facebook 
+â€¢	Chat specific to the event
+â€¢	Facebook login
+â€¢	Doodle poll style set up
+â€¢	Seems like the best idea	
 iClicker app/voting
-•	Kind of separate
-•	Voting = elections (u of m, civic, etc)
-•	One user creates what you vote for
-•	Other users are able to vote
-•	iClicker has less security
+â€¢	Kind of separate
+â€¢	Voting = elections (u of m, civic, etc)
+â€¢	One user creates what you vote for
+â€¢	Other users are able to vote
+â€¢	iClicker has less security
 Finance Organizer 
-•	not easy to get info from Bank/Credit Card
-•	Nope
+â€¢	not easy to get info from Bank/Credit Card
+â€¢	Nope
 Chat App
-•	Talk with people on the same wifi network
-•	Already libraries that do it
+â€¢	Talk with people on the same wifi network
+â€¢	Already libraries that do it
 
 Focusing on iClicker and Party Planning:
 Features:
@@ -93,3 +93,7 @@ Collaborated on big user stories.
 Broke big user stories into detailed user stories for Iteration 1.
 Collaborated on Technical decisions and came up with justifications for each.
 --------------------------------------------------------------------------------
+Jan 19, 2016
+Discussed and came up with developer tasks for iteration 1 from detailed user stories.
+Discussed database requirements and layout.
+Briefly discussed UI requirements.
