@@ -1,34 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Email;
 
 use Mail;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class EmailController extends Controller
 {
     /**
-     * Send an e-mail reminder to the user.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * Send an invitation
      */
-    public function sendEmailInvitation($id)
+    public function sendInvitation()
     {
-        $user = User::findOrFail($id);
+        $data = array(
+            'event' => "a party!",
+        );
 
-        Mail::send('emails.invitation', ['user' => $user], function ($m) use ($user) {
-            $m->from('hello@partez.com', 'Your Application');
+        Mail::send('emails.invitation', $data, function ($message) {
 
-            $m->to('nickmanaigre@gmail.com', $user->name)->subject('Your Reminder!');
+            $message->from('parteznoreply@gmail.com', 'Party Planner');
+
+            $message->to('nickmanaigre@gmail.com')->subject('Event Invitation');
+
         });
-    }
 
-    public function index()
-    {
-        return view('home');
+        return view('success');
     }
 }
