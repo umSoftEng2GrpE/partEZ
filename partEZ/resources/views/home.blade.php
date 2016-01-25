@@ -10,8 +10,7 @@
                 <div class="panel-body">
                     You are logged in!
 
-                    <a href="{{ url('/login') }}">Login</a>
-                    <button href="{{ route('email') }}" type="button" class="btn btn-default">Send Email</button>
+                   <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
                 </div>
             </div>
         </div>
