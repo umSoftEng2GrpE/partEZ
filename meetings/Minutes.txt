@@ -1,4 +1,4 @@
-Jan 11, 2016
+﻿Jan 11, 2016
 Brainstomed ideas for the project:
 Study partner app to find study partners
 Note Sharing app for university students
@@ -97,3 +97,36 @@ Jan 19, 2016
 Discussed and came up with developer tasks for iteration 1 from detailed user stories.
 Discussed database requirements and layout.
 Briefly discussed UI requirements.
+--------------------------------------------------------------------------------
+Jan 22, 2016
+Continued to attempt to get all team members up to speed on the installation of the project
+---------------------------------------------------------------------------------
+Jan 25, 2016
+Greg had questions about how we are supposed to be using Git. Jen volunteered to come up with a quick document outlining how to
+Discussed front end design and how far we want to take the design at this iteration
+Nick has volunteered to look into models in Laravel for the middle layer.
+Database has been questioned
+Front End: agreed on future plan
+Database: everything needs to be changed because the one we currently have only runs on the virtual machine.
+Nick to build the models as fast as possible
+Max will start working on the email templates
+Developer tasks will go up on trello, devs will assign themselves
+1) Polling
+	view
+	functionality
+	email
+2) Event Creation
+	Account Creation
+3) Invite Functionality
+	Templates(Email)
+	Inactive Account
+	Invitee View
+Sprint Backlog
+-add last name to account creation (Delroy)
+-create Event button on dashboard (Greg, done)
+-models-figure it out (nick)
+	user
+	event (handle response)
+	polls
+	invitee
+
