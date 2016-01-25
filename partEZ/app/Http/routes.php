@@ -26,9 +26,17 @@ Route::get('/', function () {
 |
 */
 
+
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::auth();
+
+    Route::get('create_event', 'CreateEventController@index');
 });
+
+Route::get('profile', [
+    'middleware' => 'auth',
+    'uses' => 'ProfileController@show'
+]);
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();

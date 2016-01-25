@@ -11,6 +11,12 @@
                     You are logged in!
 
                    <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
+
+                    <br><br>
+                    <button href="{{ route('email') }}" type="button" class="btn btn-default">Send Email</button>
+                    <br><br>
+                    <button type="button" onclick="window.location='{{ url("/create_event") }}'">Create a new Event</button>
+
                 </div>
             </div>
         </div>
