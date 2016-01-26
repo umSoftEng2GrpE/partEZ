@@ -1,0 +1,36 @@
+﻿Using Git Remotes:
+Resources: https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes
+
+When you clone a repo, that repo (the actual URL you cloned from) is called "origin". When you push and pull from origin you are getting files and sending files to that url. This is typical usage.
+
+You ARE allowed to pull stuff from other forks of the same project, and the original project too. You can do this by adding more remotes
+To view the remotes you currently have:
+	git remote -v
+
+output before you add any additional remotes:
+origin  https://github.com/JenCabral/partEZ.git (fetch)
+origin  https://github.com/JenCabral/partEZ.git (push)
+
+Now you want to add more remotes:
+	git remote add NAMEYOUWANTTOREFERTOITAS URL
+eg:
+	git remote add mainRepo https://github.com/umSoftEng2GrpE/partEZ 
+Now when you do
+	git remote -v
+
+mainRepo        https://github.com/umSoftEng2GrpE/partEZ (fetch)
+mainRepo        https://github.com/umSoftEng2GrpE/partEZ (push)
+origin  https://github.com/JenCabral/partEZ.git (fetch)
+origin  https://github.com/JenCabral/partEZ.git (push)
+
+
+You can do this as many times as you want
+You can then do something like:
+	git pull mainRepo
+
+This will overwrite EVERYTHING on your computer with what is in mainRepo but only make these changes on your computer. It will notify you of merge conflicts and allow you to handle these. If you want these changes to go to YOUR origin remote then you MUST to do:
+	git push origin
+(you may be asked for branch name as well)
+**MAKE SURE YOU INCLUDE ORIGIN WHEN YOU PUSH AFTER YOU HAVE CREATED MORE THAN ONE REMOTE!!!**
+NEVER EVER git push to the mainRepo EXCEPT for meeting minute updates
+
