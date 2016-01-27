@@ -9,9 +9,17 @@
 
                 <div class="panel-body">
                     Your Application's Landing Page.
+
+                    Invite Email test: <button onclick="send()"><i class="fa fa-envelope"></i></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function send(){
+        alert("heyyyy");
+    }
+</script>
+
 @endsection
