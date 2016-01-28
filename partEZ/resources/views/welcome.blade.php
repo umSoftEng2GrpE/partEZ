@@ -9,17 +9,10 @@
 
                 <div class="panel-body">
                     Your Application's Landing Page.
-
-                    Invite Email test: <button onclick="send()"><i class="fa fa-envelope"></i></button>
+                    Invite Email test: <a role="button" href="{{url('success')}}" class="btn btn-primary"><i class="fa fa-btn fa-envelope"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function send(){
-        alert("heyyyy");
-    }
-</script>
-
 @endsection

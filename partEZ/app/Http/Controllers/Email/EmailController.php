@@ -20,7 +20,7 @@ class EmailController extends Controller
 
             $message->from('parteznoreply@gmail.com', 'Party Planner');
 
-            $message->to('nickmanaigre@gmail.com')->subject('Event Invitation');
+            $message->to("ewaschukmps@gmail.com")->subject('Event Invitation');
 
         });
 
