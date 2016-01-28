@@ -8,8 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
-                    Invite Email test: <a role="button" href="{{url('success')}}" class="btn btn-primary"><i class="fa fa-btn fa-envelope"></i></a>
+                    Welcome to partEz!
                 </div>
             </div>
         </div>

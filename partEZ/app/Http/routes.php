@@ -35,4 +35,5 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
     Route::get('/success', 'Email\EmailController@sendInvitation');
+    Route::get('/sendtest', 'Email\EmailController@sendTestEmail');
 });

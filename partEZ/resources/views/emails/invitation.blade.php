@@ -4,10 +4,10 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>Learning Laravel!</h2>
+<h2>It's a party!</h2>
 
 <div>
-    Welcome to {!! $event !!} website!
+    You've been invited to {!! $event !!}
 </div>
 
 </body>
