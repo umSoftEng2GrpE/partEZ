@@ -19,7 +19,7 @@ class EmailController extends Controller
 
         Mail::send('emails.invitation', $data, function ($message) {
             $message->from(env('MAIL_USERNAME'), 'partEz');
-            $message->to("ewaschukmps@gmail.com")->subject('Event Invitation');
+            $message->to(Auth::user()->email)->subject('Event Invitation');
 
         });
 
