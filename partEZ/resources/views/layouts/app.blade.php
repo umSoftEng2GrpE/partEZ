@@ -39,7 +39,11 @@
                 </button>
 
                 <!-- Branding Image -->
+                @if (Auth::check())
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                @else
                 <a class="navbar-brand" href="{{ url('/') }}">
+                @endif
                     partEz
                 </a>
             </div>
