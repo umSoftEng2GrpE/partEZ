@@ -12,12 +12,12 @@ class CreatePollOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Poll_Options', function (Blueprint $table) {
+        Schema::create('poll_options', function (Blueprint $table) {
             $table->integer('oid')->unsigned();
             $table->integer('pid')->unsigned();
             $table->primary('oid', 'pid');
             $table->timestamps();
-            $table->foreign('pid')->references('pid')->on('Polls')->onDelete('cascade');
+            $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
         });
     }
 
@@ -26,8 +26,8 @@ class CreatePollOptionsTable extends Migration
      *
      * @return void
      */
-    public function   down()
+    public function down()
     {
-        Schema::drop('Poll_Options');
+        Schema::drop('poll_options');
     }
 }
