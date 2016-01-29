@@ -8,7 +8,9 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
+
                     Welcome to partEz!
+
                 </div>
             </div>
         </div>
