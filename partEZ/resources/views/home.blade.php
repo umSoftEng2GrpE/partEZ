@@ -9,8 +9,6 @@
 
                 <div class="panel-body">
                     You are logged in!
-
-                   <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
                 </div>
             </div>
         </div>
