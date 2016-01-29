@@ -6,7 +6,7 @@
 /*This is the magic*/
 CREATE DATABASE IF NOT EXISTS partEz;
 USE partEz;
-
+/*
 DROP TABLE IF EXISTS userpollresponses;
 DROP TABLE IF EXISTS polloptions;
 DROP TABLE IF EXISTS polls;
@@ -58,7 +58,7 @@ CREATE TABLE userpollresponses ( uid int NOT NULL,
 	pid int NOT NULL,
 	optionid int NOT NULL,
 	pollresponse int, /*Really just a yes/no, 1/0, but couldn't remember if bool was built in*/
-	PRIMARY KEY ( uid, pid, optionid ),
+	/*PRIMARY KEY ( uid, pid, optionid ),
 	FOREIGN KEY ( uid ) REFERENCES users ( uid ) ON DELETE CASCADE,
 	FOREIGN KEY ( pid ) REFERENCES polls ( pid ) ON DELETE CASCADE );
-
+*/
