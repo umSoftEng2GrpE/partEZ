@@ -33,10 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-
-Route::post('create_event',
-    ['as' => 'create_event', 'uses' => 'PostEventController@index']);
-
+Route::post('create_event', ['uses' => 'PostEventController@index', 'as' => 'PostEvent.form']);
 
 Route::get('profile', [
     'middleware' => 'auth',

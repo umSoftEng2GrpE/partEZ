@@ -6,7 +6,8 @@
             <div class="col-md-10 col-md-offset-1">
 
                 <div class="well">
-                    {{ Form::open(array('action' => 'PostEventController@index()')) }}
+
+                    {{  Form::open(['route'=>'PostEvent.form', 'method' => 'post']) }}
                     <fieldset>
 
                         <legend>Create an event</legend>
