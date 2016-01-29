@@ -29,9 +29,14 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
-
     Route::get('create_event', 'CreateEventController@index');
 });
+
+
+
+Route::post('create_event',
+    ['as' => 'create_event', 'uses' => 'PostEventController@index']);
+
 
 Route::get('profile', [
     'middleware' => 'auth',
