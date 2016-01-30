@@ -10,7 +10,12 @@
                 <div class="panel-body">
                     You are logged in!
 
+
                    <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
+
+                    <br><br>
+                    <button type="button" onclick="window.location='{{ url("/create_event") }}'">Create a new Event</button>
+
                 </div>
             </div>
         </div>

@@ -12,7 +12,17 @@ class CreatePollResponsesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Poll_Responses', function (Blueprint $table) {
+            $table->integer('uid')->unsigned();
+            $table->integer('pid')->unsigned();
+            $table->integer('oid')->unsigned();
+            $table->primary('uid', 'pid', 'oid');
+            $table->timestamps();
+
+            $table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
+            $table->foreign('pid')->references('pid')->on('Polls')->onDelete('cascade');
+            $table->foreign('oid')->references('oid')->on('Poll_Options')->onDelete('cascade');
+        });
     }
 
     /**
@@ -22,6 +32,6 @@ class CreatePollResponsesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Poll_Responses');
     }
 }

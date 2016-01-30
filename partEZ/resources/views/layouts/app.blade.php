@@ -39,7 +39,11 @@
                 </button>
 
                 <!-- Branding Image -->
+                @if (Auth::check())
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                @else
                 <a class="navbar-brand" href="{{ url('/') }}">
+                @endif
                     partEz
                 </a>
             </div>
@@ -59,10 +63,11 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->fisrtname . ' ' . Auth::user()->lastname }} <span class="caret"></span>
+                                {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/sendtest') }}"><i class="fa fa-btn fa-envelope"></i>Send Test Email</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
