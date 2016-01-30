@@ -39,6 +39,5 @@ class EmailController extends Controller
 
         });
 
-        return view('success');
     }
 }
