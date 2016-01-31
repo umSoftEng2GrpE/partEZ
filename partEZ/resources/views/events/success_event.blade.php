@@ -9,6 +9,10 @@
 
                     <div class="panel-body">
                         You have successfully created an event!
+
+                        <br><br>
+                        <button type="button" onclick="window.location='{{ url("/home") }}'">Return Home</button>
+
                     </div>
                 </div>
             </div>
