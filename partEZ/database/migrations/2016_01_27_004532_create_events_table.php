@@ -12,7 +12,7 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Events', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('eid')->unsigned();
             $table->integer('uid')->unsigned();
             $table->string('name');
@@ -33,6 +33,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Events');
+        Schema::drop('events');
     }
 }

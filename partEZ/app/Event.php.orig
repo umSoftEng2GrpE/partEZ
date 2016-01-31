@@ -21,6 +21,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
+<<<<<<< HEAD
         'name', 'date', 'stime', 'etime', 'location', 'description'
     ];
 
@@ -31,5 +32,8 @@ class Event extends Model
      */
     protected $guarded = [
         'uid',
+=======
+        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description',
+>>>>>>> 8a9ab84689a4a7d7cfc7694018968735682d8429
     ];
 }
