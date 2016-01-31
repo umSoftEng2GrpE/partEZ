@@ -21,6 +21,15 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description',
+        'name', 'date', 'stime', 'etime', 'location', 'description'
+    ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'uid',
     ];
 }
