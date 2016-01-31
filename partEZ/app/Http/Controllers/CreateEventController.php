@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use Mockery\Exception;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use App\Event;
 use Illuminate\Support\Facades\Request;
@@ -59,14 +59,13 @@ class CreateEventController extends Controller
             print '<script type="text/javascript">';
             print 'alert("The system has encountered an error please try again later")';
             print '</script>';
+            return view('errors.error_event');
         }
 
         if($saveflag)
         {
             return view('events/success_event');
         }
-
-
     }
 
 }
