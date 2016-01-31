@@ -7,16 +7,24 @@
 
                 <div class="well">
 
-                    {{  Form::open(['route'=>'PostEvent.form', 'method' => 'post']) }}
+                    {{  Form::open(['url' => 'create_event']) }}
                     <fieldset>
 
                         <legend>Create an event</legend>
 
+                        <!-- Name -->
+                        <div class="form-group">
+                            {!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
+                            <div class="col-lg-10">
+                                {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
                         <!-- Where -->
                         <div class="form-group">
-                            {!! Form::label('where', 'Where:', ['class' => 'col-lg-2 control-label']) !!}
+                            {!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}
                             <div class="col-lg-10">
-                                {!! Form::text('Location', $value = null, ['required'], ['class' => 'form-control', 'placeholder' => 'email']) !!}
+                                {!! Form::text('location', null, ['required'], ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
@@ -24,25 +32,25 @@
                         <div class="form-group">
                             {!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}
                             <div class="col-lg-10">
-                                {!! Form::input('date', 'startDate') !!}
+                                {!! Form::text('date', null, ['class' => 'form-control'] ) !!}
                             </div>
                         </div>
 
                         <!-- Time -->
                         <div class="form-group">
-                            {!! Form::label('date', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
+                            {!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
                             <div class="col-lg-10">
-                                {!! Form::input('time', 'startDate') !!}
+                                {!! Form::text('stime', null ) !!}
                                 To:
-                                {!! Form::input('time', 'endDate') !!}
+                                {!! Form::text('etime', null ) !!}
                             </div>
                         </div>
 
                         <!-- Details -->
                         <div class="form-group">
-                            {!! Form::label('details', 'Details', ['class' => 'col-lg-2 control-label']) !!}
+                            {!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}
                             <div class="col-lg-10">
-                                {!! Form::textarea('textarea', $value = null, ['class' => 'form-control', 'rows' => 3]) !!}
+                                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                                 <span class="help-block">Anymore details you may want to add for the party.</span>
                             </div>
                         </div>
