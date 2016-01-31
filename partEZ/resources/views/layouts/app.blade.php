@@ -14,14 +14,14 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <style>
         body {
             font-family: 'Lato';
         }
 
         .fa-btn {
-            margin-right: 6px;
+            margin-right: 20px;
         }
     </style>
 </head>
@@ -44,7 +44,9 @@
                 @else
                 <a class="navbar-brand" href="{{ url('/') }}">
                 @endif
-                    partEz
+                <div id="logo">
+					<img src="{{ asset('img/partEz_logo.png') }}"/>
+                </div>
                 </a>
             </div>
 
