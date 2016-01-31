@@ -11,7 +11,7 @@ class Event extends Model
      *
      * @var string
      */
-    protected $table = 'Events';
+    protected $table = 'events';
 
     protected $primaryKey = 'eid';
 
@@ -21,15 +21,6 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'date', 'stime', 'etime', 'location', 'description',
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $guarded = [
-        'uid',
+        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description',
     ];
 }
