@@ -12,13 +12,16 @@ class CreatePollOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('poll_options', function (Blueprint $table) {
-            $table->integer('oid')->unsigned();
-            $table->integer('pid')->unsigned();
-            $table->primary('oid', 'pid');
-            $table->timestamps();
-            $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('poll_options'))
+        {
+            Schema::create('poll_options', function (Blueprint $table) {
+                $table->integer('oid')->unsigned();
+                $table->integer('pid')->unsigned();
+                $table->primary('oid', 'pid');
+                $table->timestamps();
+                $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
+            });
+        }
     }
 
     /**
@@ -28,6 +31,9 @@ class CreatePollOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('poll_options');
+        if (Schema::hasTable('poll_options'))
+        {
+            Schema::drop('poll_options');
+        }
     }
 }
