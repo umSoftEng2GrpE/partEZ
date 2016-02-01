@@ -12,13 +12,16 @@ class CreatePollsTable extends Migration
      */
     public function up()
     {
-        Schema::create('polls', function (Blueprint $table) {
-            $table->increments('pid')->unsigned();
-            $table->integer('eid')->unsigned();
-            $table->string('polltype');
-            $table->timestamps();
-            $table->foreign('eid')->references('eid')->on('events')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('polls'))
+        {
+            Schema::create('polls', function (Blueprint $table) {
+                $table->increments('pid')->unsigned();
+                $table->integer('eid')->unsigned();
+                $table->string('polltype');
+                $table->timestamps();
+                $table->foreign('eid')->references('eid')->on('events')->onDelete('cascade');
+            });
+        }
     }
 
     /**
@@ -28,6 +31,9 @@ class CreatePollsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('polls');
+        if (Schema::hasTable('polls'))
+        {
+            Schema::drop('polls');
+        }
     }
 }

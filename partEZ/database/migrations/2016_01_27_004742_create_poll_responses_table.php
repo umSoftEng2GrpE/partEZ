@@ -12,17 +12,19 @@ class CreatePollResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('poll_responses', function (Blueprint $table) {
-            $table->integer('uid')->unsigned();
-            $table->integer('pid')->unsigned();
-            $table->integer('oid')->unsigned();
-            $table->primary('uid', 'pid', 'oid');
-            $table->timestamps();
-
-            $table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
-            $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
-            $table->foreign('oid')->references('oid')->on('poll_options')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('poll_responses'))
+        {
+            Schema::create('poll_responses', function (Blueprint $table) {
+                $table->integer('uid')->unsigned();
+                $table->integer('pid')->unsigned();
+                $table->integer('oid')->unsigned();
+                $table->primary('uid', 'pid', 'oid');
+                $table->timestamps();
+                $table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
+                $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
+                $table->foreign('oid')->references('oid')->on('poll_options')->onDelete('cascade');
+            });
+        }
     }
 
     /**
@@ -32,6 +34,9 @@ class CreatePollResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('poll_responses');
+        if (Schema::hasTable('poll_responses'))
+        {
+            Schema::drop('poll_responses');
+        }
     }
 }
