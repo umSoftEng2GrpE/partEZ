@@ -6,6 +6,8 @@ use Auth;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use App\Event;
+use App\User;
+use DB;
 use Illuminate\Support\Facades\Request;
 
 class CreateEventController extends Controller
@@ -50,6 +52,11 @@ class CreateEventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
+        // foreach ($emails as $email) {
+        //     self::getUserByEmail($email);
+        // }  
+        self::getUserByEmail("newemail");
+
         try
         {
             $saveflag = $event->save();
@@ -66,6 +73,26 @@ class CreateEventController extends Controller
         {
             return view('events/success_event');
         }
+    }
+
+
+    public function getUserByEmail($email)
+    {
+        $user = DB::table('users')->where('email', $email)->first();
+
+        if (is_null($user))
+        {
+            $user = new User;
+
+            $user->firstname = 'dummy';
+            $user->lastname = 'test';
+            $user->email = $email;
+            $user->active = 1;
+
+            $user->save();
+        }
+            
+        return $user;
     }
 
 }
