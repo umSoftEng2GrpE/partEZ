@@ -52,11 +52,6 @@ class CreateEventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
-        // foreach ($emails as $email) {
-        //     self::getUserByEmail($email);
-        // }  
-        self::getUserByEmail("newemail");
-
         try
         {
             $saveflag = $event->save();
@@ -75,6 +70,17 @@ class CreateEventController extends Controller
         }
     }
 
+
+    public function inviteUsers()
+    {
+        $input = Request::all();
+
+        $emails = $input['emails'];
+
+        // foreach ($emails as $email) {
+        //     self::getUserByEmail($email);
+        // }  
+    }
 
     public function getUserByEmail($email)
     {
