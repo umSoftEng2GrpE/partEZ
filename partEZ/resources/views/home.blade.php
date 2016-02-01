@@ -11,7 +11,18 @@
                     You are logged in!
 
 
-                   <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
+
+                    @if (count($events))
+                        @foreach($events as $event)
+                            @include('events.event', $event)
+                        @endforeach
+                    @else
+                        <p>You have no events.</p>
+                    @endif
+
+
+
+                                <!-- <a href="{{ url('/success') }}" role="button">Send Email</a> -->
 
                     <br><br>
                     <button type="button" onclick="window.location='{{ url("/create_event") }}'">Create a new Event</button>
