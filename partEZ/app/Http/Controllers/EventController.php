@@ -10,7 +10,7 @@ use App\User;
 use DB;
 use Illuminate\Support\Facades\Request;
 
-class CreateEventController extends Controller
+class EventController extends Controller
 {
     /**
      * Create a new controller instance.
