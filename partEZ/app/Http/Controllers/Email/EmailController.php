@@ -23,7 +23,6 @@ class EmailController extends Controller
 
         });
 
-        return view('success');
     }
 
     public function sendTestEmail() 
