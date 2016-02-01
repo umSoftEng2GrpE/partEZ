@@ -75,14 +75,19 @@ class EventController extends Controller
     {
         $input = Request::all();
 
+        $eventID = $input['eid'];
         $emails = $input['emails'];
+        $users = []
 
-        // foreach ($emails as $email) {
-        //     self::getUserByEmail($email);
-        // }  
+        foreach ($emails as $email) {
+            array_push($users, self::getUserByEmail($email));
+        }
+
+
     }
 
-    public function getUserByEmail($email)
+
+    private function getUserByEmail($email)
     {
         $user = DB::table('users')->where('email', $email)->first();
 
@@ -90,15 +95,33 @@ class EventController extends Controller
         {
             $user = new User;
 
-            $user->firstname = 'dummy';
-            $user->lastname = 'test';
+            $user->firstname = '';
+            $user->lastname = '';
             $user->email = $email;
-            $user->active = 1;
+            $user->active = 0;
 
             $user->save();
+
+            $user = DB::table('users')->where('email', $email)->first();
         }
             
         return $user;
+    }
+
+
+    private function buildInviteList($eid, $users)
+    {
+        $invites = (array) DB::table('invites')->select('uid')->where('eid', $eid);
+
+        foreach ($users as $user)
+        {
+            if (!in_array($user['uid'], $invites)) 
+            {
+                // send invite
+                // create invite record
+            }
+        }
+
     }
 
 }
