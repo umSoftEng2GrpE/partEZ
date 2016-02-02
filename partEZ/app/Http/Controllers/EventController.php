@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
+use Mail;
 use Exception;
-use Illuminate\Support\Facades\Session;
 use App\Event;
 use App\User;
-use DB;
+use App\Invite;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -52,6 +54,8 @@ class EventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
+        self::inviteUsers();
+
         try
         {
             $saveflag = $event->save();
@@ -75,52 +79,63 @@ class EventController extends Controller
     {
         $input = Request::all();
 
+
         $eventID = $input['eid'];
         $emails = $input['emails'];
-        $users = []
+        $users = [];
 
-        foreach ($emails as $email) {
-            array_push($users, self::getUserByEmail($email));
-        }
-
-
-    }
-
-
-    private function getUserByEmail($email)
-    {
-        $user = DB::table('users')->where('email', $email)->first();
-
-        if (is_null($user))
+        foreach($emails as $email)
         {
-            $user = new User;
-
-            $user->firstname = '';
-            $user->lastname = '';
-            $user->email = $email;
-            $user->active = 0;
-
-            $user->save();
-
-            $user = DB::table('users')->where('email', $email)->first();
+            array_push($users, User::getByEmail($email));
         }
-            
-        return $user;
-    }
 
-
-    private function buildInviteList($eid, $users)
-    {
-        $invites = (array) DB::table('invites')->select('uid')->where('eid', $eid);
+        $invites = self::getInvites($eid);
 
         foreach ($users as $user)
         {
-            if (!in_array($user['uid'], $invites)) 
+
+            if (!in_array($user->uid, $invites))
             {
-                // send invite
-                // create invite record
+                Invite::createInviteLog($eid, $user->uid);
+                self::sendInvitation($eid, $user->email);
             }
+
         }
+
+        return view('success');
+    }
+
+    private function getInvites($eid)
+    {
+        $inviteDB = DB::table('invites')->select('uid')->where('eid', $eid)->get();
+        $invites = [];
+
+        foreach ($inviteDB as $entry)
+        {
+            array_push($invites, $entry->uid);
+        }
+
+        return $invites;
+    }
+
+
+    public function sendInvitation($eid, $email)
+    {
+        $event = Event::getById($eid);
+        $data = array(
+            'eventname' => $event->name,
+            'date' => $event->date,
+            'stime' => $event->stime,
+            'etime' => $event->etime,
+            'location' => $event->location,
+            'description' => $event->description,
+        );
+
+        Mail::send('emails.invitation', $data, function ($message) use ($email) {
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($email)->subject('Event Invitation');
+
+        });
 
     }
 
