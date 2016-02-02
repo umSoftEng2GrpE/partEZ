@@ -7,7 +7,18 @@
 <h2>It's a party!</h2>
 
 <div>
-    You've been invited to {!! $event !!}
+	<p>
+    You've been invited to {!! $eventname !!}!
+    </p>
+    <p>
+    On: {!! $date !!} from {!! $stime !!} to {!! $etime !!}
+    </p>
+    <p>
+    Location: {!! $location !!}
+    </p>
+    <p>
+    {!! $description !!}
+    </p>
 </div>
 
 </body>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -23,5 +24,10 @@ class Event extends Model
     protected $fillable = [
         'uid', 'name', 'date', 'stime', 'etime', 'location', 'description'
     ];
+
+    public static function  getByID($eid)
+    {
+        return DB::table('events')->where('eid', $eid)->first();
+    }
 
 }

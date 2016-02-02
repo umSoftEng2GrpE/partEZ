@@ -38,10 +38,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    Route::get('/success', 'Email\EmailController@sendInvitation');
-    Route::get('/sendtest', 'Email\EmailController@sendTestEmail');
-    Route::get('create_event', 'CreateEventController@index');
+    Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
+    Route::get('create_event', 'EventController@index');
 
-    Route::post('create_event', 'CreateEventController@store');
+    Route::post('create_event', 'EventController@store');
+    Route::post('send_invites', 'EventController@inviteUsers');
 });
 
