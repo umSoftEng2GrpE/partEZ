@@ -12,7 +12,7 @@
 
                     @if (count($events))
                         @foreach($events as $event)
-                            @include('events.event', $event)
+                            @include('events.event_basic', $event)
                         @endforeach
                     @else
                         <p>You have no events.</p>

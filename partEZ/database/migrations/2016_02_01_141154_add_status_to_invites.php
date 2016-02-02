@@ -27,9 +27,12 @@ class AddStatusToInvites extends Migration
      */
     public function down()
     {
-        Schema::table('invites', function($table)
+        if (Schema::hasColumn('invites', 'status'))
         {
-            $table->dropColumn('status');
-        });
+            Schema::table('invites', function($table)
+            {
+                $table->dropColumn('status');
+            });
+        }
     }
 }
