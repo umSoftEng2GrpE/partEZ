@@ -8,23 +8,6 @@ use Auth;
 
 class EmailController extends Controller
 {
-    /**
-     * Send an invitation
-     */
-    public function sendInvitation()
-    {
-        $data = array(
-            'event' => "a party!",
-        );
-
-        Mail::send('emails.invitation', $data, function ($message) {
-            $message->from(env('MAIL_USERNAME'), 'partEz');
-            $message->to(Auth::user()->email)->subject('Event Invitation');
-
-        });
-
-    }
-
     public function sendTestEmail() 
     {
 
