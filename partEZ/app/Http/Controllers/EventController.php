@@ -68,19 +68,41 @@ class EventController extends Controller
 
         if($saveflag)
         {
+            return view('events/invite_event');
+        }
+    }
+
+    public function validateEmails()
+    {
+        $input = Request::all();
+        $emailString = $input['emails'];
+
+        $emails = array_map('trim', explode(',', $emailString));
+        $emails = array_map('strtolower', $emails);
+
+        if((count(array_unique($emails))<count($emails)))
+        {
+            print '<script type="text/javascript">';
+            print 'alert("Contains duplicate emails!")';
+            print '</script>';
+            return view('events/invite_event');
+        }
+        else
+        {
+            self::inviteUsers($emails);
             return view('events/success_event');
         }
     }
 
-
-    public function inviteUsers()
+    public function inviteUsers($emails)
     {
-        $input = Request::all();
-
-
-        $eventID = $input['eid'];
-        $emails = $input['emails'];
+        $uid = Auth::user()['uid'];
         $users = [];
+        $eid = DB::table('events')
+                    ->select(DB::raw('max(eid) as max_eid'))
+                    ->where('uid', '=', $uid)
+                    ->pluck('max_eid');
+        $eid = $eid[0];
 
         foreach($emails as $email)
         {
@@ -99,8 +121,6 @@ class EventController extends Controller
             }
 
         }
-
-        return view('success');
     }
 
     private function getInvites($eid)

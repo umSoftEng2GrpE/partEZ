@@ -42,6 +42,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('create_event', 'EventController@index');
 
     Route::post('create_event', 'EventController@store');
-    Route::post('send_invites', 'EventController@inviteUsers');
+    Route::post('invite_event', 'EventController@validateEmails');
 });
 

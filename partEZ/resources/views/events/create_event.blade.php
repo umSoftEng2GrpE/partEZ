@@ -10,7 +10,7 @@
                     {{  Form::open(['url' => 'create_event']) }}
                     <fieldset>
 
-                        <legend>Create an event</legend>
+                        <legend>Create An Event</legend>
 
                         <!-- Name -->
                         <div class="form-group">
@@ -55,10 +55,11 @@
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
+                        <!-- Next Button -->
+                        <!-- Submits event info for event creation-->
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
-                                {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+                                {!! Form::submit('Next', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
                             </div>
                         </div>
 
