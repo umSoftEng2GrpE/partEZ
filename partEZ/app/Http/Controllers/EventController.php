@@ -54,8 +54,6 @@ class EventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
-        self::inviteUsers();
-
         try
         {
             $saveflag = $event->save();
