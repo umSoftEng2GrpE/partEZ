@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Invite extends Model
 {
@@ -32,4 +33,13 @@ class Invite extends Model
     protected $guarded = [
         'eid', 'uid',
     ];
+
+
+    public static function createInviteLog($eid, $uid)
+    {
+        DB::table('invites')->insert(array(
+            'eid' => $eid,
+            'uid' => $uid
+            ));
+    }
 }
