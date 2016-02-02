@@ -38,8 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    Route::get('/success', 'Email\EmailController@sendInvitation');
-    Route::get('/sendtest', 'Email\EmailController@sendTestEmail');
+    Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
     Route::get('create_event', 'EventController@index');
 
     Route::post('create_event', 'EventController@store');
