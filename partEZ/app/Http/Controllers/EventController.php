@@ -142,7 +142,7 @@ class EventController extends Controller
                         print 'alert( There have been issues adding options to your poll please
                         check home page for details)';
                         print '</script>';
-                        return view('errors.error_event');
+                        return view('events/invite_event');
                     }
 
                 }
