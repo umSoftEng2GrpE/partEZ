@@ -15,10 +15,10 @@ class CreatePollOptionsTable extends Migration
         if (!Schema::hasTable('poll_options'))
         {
             Schema::create('poll_options', function (Blueprint $table) {
-                $table->integer('oid')->unsigned();
+                $table->increments('oid')->unsigned();
                 $table->integer('pid')->unsigned();
                 $table->string('option');
-                $table->primary('oid', 'pid');
+                $table->primary(['oid', 'pid']);
                 $table->timestamps();
                 $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
             });
