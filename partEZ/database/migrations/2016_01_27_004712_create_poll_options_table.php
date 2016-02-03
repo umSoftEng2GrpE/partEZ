@@ -17,6 +17,7 @@ class CreatePollOptionsTable extends Migration
             Schema::create('poll_options', function (Blueprint $table) {
                 $table->integer('oid')->unsigned();
                 $table->integer('pid')->unsigned();
+                $table->string('option');
                 $table->primary('oid', 'pid');
                 $table->timestamps();
                 $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
