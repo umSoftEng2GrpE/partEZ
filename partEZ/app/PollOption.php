@@ -11,7 +11,7 @@ class PollOptions extends Model
      *
      * @var string
      */
-    protected $table = 'Poll_Options';
+    protected $table = 'poll_options';
 
     protected $primaryKey = 'pid';
 
