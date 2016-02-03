@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PollOptions;
 use DB;
 use Auth;
 use Mail;
@@ -10,6 +11,7 @@ use App\Event;
 use App\User;
 use App\Invite;
 use App\Poll;
+use App\PollOption;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -38,7 +40,6 @@ class EventController extends Controller
     {
         return view('events.create');
     }
-
 
     public function store()
     {
@@ -110,6 +111,7 @@ class EventController extends Controller
         if(!empty($input['date4']))
             array_push( $pollArray, $input['date4']);
 
+
         if(!empty($pollArray))
         {
             $eid = DB::table('events')
@@ -121,15 +123,39 @@ class EventController extends Controller
             $poll->eid = $eid;
             $poll->polltype = 'date poll';
             $saveflag = $poll->save();
-            dd($saveflag);
-//            if($saveflag)
-//            {
-//                foreach ($pollArray as $poll) {
-//
-//                }
-//            }
+
+            if($saveflag)
+            {
+                foreach ($pollArray as $poll_index)
+                {
+                    $poll_options = new PollOption();
+                    $poll_options->pid = $poll['pid'];
+                    $poll_options->option = $poll_index;
+
+                    try
+                    {
+                        $poll_options->save();
+                    }
+                    catch(Exception $e)
+                    {
+                        print '<script type="text/javascript">';
+                        print 'alert( There have been issues adding options to your poll please
+                        check home page for details)';
+                        print '</script>';
+                        return view('errors.error_event');
+                    }
+
+                }
+            }
+            else
+            {
+                print '<script type="text/javascript">';
+                print 'alert("Unable to save poll to database")';
+                print '</script>';
+                return view('events/create_poll');
+            }
         }
-        //return view('events/invite_event');
+        return view('events/invite_event');
 
     }
 
