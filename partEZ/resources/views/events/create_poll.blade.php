@@ -11,11 +11,9 @@
                     <fieldset>
 
                         <legend>Create A Poll</legend>
-
-                        <!-- Date -->
                         <div class="form-group">
+                        <!-- Date -->
                             {!! Form::label('date1', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
-
                             {!! Form::text('date1', null, ['class' => 'form-control'] ) !!}
                         <!-- Date -->
                             {!! Form::label('date2', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
