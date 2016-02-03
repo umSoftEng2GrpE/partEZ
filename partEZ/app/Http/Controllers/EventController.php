@@ -44,7 +44,25 @@ class EventController extends Controller
     public function details($eid)
     {
         $event = Event::find($eid);
-        return view('events/event_details')->with('event', $event);
+        $polls = array(Poll::find($event->eid));
+        $all_poll_options = [];
+//dd($polls);
+        foreach ($polls as $poll)
+        {
+            $options = PollOption::all()->where('pid', $poll->pid);
+            //$options = PollOption::find('pid', $poll->pid);
+            //dd($options);
+            array_push($all_poll_options, $options);
+        }
+
+        //dd($all_poll_options);
+
+        //dd($all_poll_options[0][0]);
+
+        return view('events/event_details')
+            ->with('event', $event)
+            ->with('polls', $polls)
+            ->with('all_options', $all_poll_options);
     }
 
     public function create()
@@ -230,7 +248,5 @@ class EventController extends Controller
             $message->to($email)->subject('Event Invitation');
 
         });
-
     }
-
 }
