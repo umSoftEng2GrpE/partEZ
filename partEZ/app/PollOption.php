@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PollOptions extends Model
+class PollOption extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Poll_Options';
+    protected $table = 'poll_options';
 
     protected $primaryKey = 'pid';
 
