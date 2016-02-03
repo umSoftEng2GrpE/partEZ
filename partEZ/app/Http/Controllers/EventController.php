@@ -9,7 +9,6 @@ use Exception;
 use App\Event;
 use App\User;
 use App\Invite;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -25,7 +24,7 @@ class EventController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the create event screen.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,11 +33,21 @@ class EventController extends Controller
         return view('events/create_event');
     }
 
+    /**
+     * Show the detail screen for an event.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function details($eid)
+    {
+        $event = Event::find($eid);
+        return view('events/event_details')->with('event', $event);
+    }
+
     public function create()
     {
         return view('events.create');
     }
-
 
     public function store()
     {

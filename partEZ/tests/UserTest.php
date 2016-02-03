@@ -21,11 +21,11 @@ class UserTest extends TestCase
 
     public function testUserName()
     {
-        User::create(array('firstname' => 'Simon'));
+        User::create(array('firstname' => 'Simon', 'email' => 'simon@gmail.com'));
         $this->seeInDatabase('users', ['firstname' => 'Simon']);
     }
 
-    public function testGetAll()
+    public function testUserGetAll()
     {
         $this->startup();
 
@@ -34,35 +34,35 @@ class UserTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testSave()
+    public function testUserSave()
     {
         $user = new User;
         $user->firstname = 'Mel';
+        $user->email = 'mail@test.com';
         $user->save();
 
         $this->seeInDatabase('users', ['firstname' => 'Mel']);
     }
 
-    public function testGetId()
+    public function testUserGetId()
     {
-        $user = User::create(array('Cap', 'Reynolds'));
+        $user = User::create(array('Cap', 'Reynolds', 'email' => 'mel@test.com'));
         $insertId = $user->uid;
 
         $this->assertTrue($insertId != null);
     }
 
-    public function testUpdate()
+    public function testUserUpdate()
     {
-        $user = User::create(['Jayne', 'Cobb']);
-        $user->email = 'jayne@notagirl.com';
+        $user = User::create(['Jayne', 'Cobb', 'email' => 'jayne@notagirl.com']);
         $user->save();
 
         $this->seeInDatabase('users', ['email' => 'jayne@notagirl.com']);
     }
 
-    public function testDelete()
+    public function testUserDelete()
     {
-        $user = User::create(array('Wash', 'Washburne'));
+        $user = User::create(array('Wash', 'Washburne', 'email' => 'wash@dinosaurs.com'));
         $user->delete();
 
         $this->notSeeInDatabase('users', ['firstname' => 'Wash']);
