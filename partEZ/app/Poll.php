@@ -11,7 +11,7 @@ class Poll extends Model
      *
      * @var string
      */
-    protected $table = 'Polls';
+    protected $table = 'polls';
 
     protected $primaryKey = 'pid';
 

@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PollOptions extends Model
+class PollOption extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Poll_Options';
+    protected $table = 'poll_options';
 
-    protected $primaryKey = 'pid';
+    protected $primaryKey = 'oid';
 
     /**
      * The attributes that are mass assignable.
@@ -21,15 +21,7 @@ class PollOptions extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'stime', 'etime', 'location', 'custom',
+        'option', 'pid'
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $guarded = [
-        'oid',
-    ];
 }
