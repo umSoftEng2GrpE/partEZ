@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PollOptions;
 use DB;
 use Auth;
 use Mail;
@@ -9,6 +10,7 @@ use Exception;
 use App\Event;
 use App\User;
 use App\Invite;
+use App\Poll;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -41,7 +43,18 @@ class EventController extends Controller
     public function details($eid)
     {
         $event = Event::find($eid);
-        return view('events/event_details')->with('event', $event);
+        $polls = array(Poll::find($event->eid));
+        $all_poll_options = null;
+
+        foreach ($polls as $poll)
+        {
+            $options = PollOptions::find($poll->pid);
+            array_push($all_poll_options, $options);
+        }
+
+        return view('events/event_details')
+            ->with('event', $event)
+            ->with('polls', $polls);
     }
 
     public function create()
@@ -163,7 +176,5 @@ class EventController extends Controller
             $message->to($email)->subject('Event Invitation');
 
         });
-
     }
-
 }
