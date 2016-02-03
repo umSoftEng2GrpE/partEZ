@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PollOptions extends Model
+class PollOption extends Model
 {
     /**
      * The table associated with the model.
@@ -21,7 +21,7 @@ class PollOptions extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'stime', 'etime', 'location', 'custom',
+        'option',
     ];
 
     /**
