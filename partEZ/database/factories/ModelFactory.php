@@ -20,3 +20,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Event::class, function (Faker\Generator $faker) {
+    return [
+        'uid' => '1',
+        'name' => $faker->name,
+        'location' => $faker->name,
+        'description' => $faker->name,
+        'date' => bcrypt(str_random(10)),
+        'stime' => str_random(10),
+        'etime' => str_random(10),
+    ];
+});

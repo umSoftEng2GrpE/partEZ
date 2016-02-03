@@ -27,13 +27,24 @@ class EventController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the create event screen.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view('events/create_event');
+    }
+
+    /**
+     * Show the detail screen for an event.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function details($eid)
+    {
+        $event = Event::find($eid);
+        return view('events/event_details')->with('event', $event);
     }
 
     public function create()
