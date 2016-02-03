@@ -55,7 +55,7 @@ class EventController extends Controller
             {
                 $options = PollOption::all()->where('pid', $poll->pid);
             }
-            
+
             array_push($all_poll_options, $options);
         }
 
