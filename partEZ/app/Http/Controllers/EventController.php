@@ -9,7 +9,7 @@ use Exception;
 use App\Event;
 use App\User;
 use App\Invite;
-use Illuminate\Support\Facades\Session;
+use App\Poll;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -68,7 +68,7 @@ class EventController extends Controller
 
         if($saveflag)
         {
-            return view('events/invite_event');
+            return view('events/create_poll');
         }
     }
 
@@ -92,6 +92,45 @@ class EventController extends Controller
             self::inviteUsers($emails);
             return view('events/success_event');
         }
+    }
+
+    public function validatePoll()
+    {
+        $input = Request::all();
+        $uid = Auth::user()['uid'];
+        $poll = new Poll;
+        $pollArray = [];
+
+        if(!empty($input['date1']))
+            array_push( $pollArray, $input['date1']);
+        if(!empty($input['date2']))
+            array_push( $pollArray, $input['date2']);
+        if(!empty($input['date3']))
+            array_push( $pollArray, $input['date3']);
+        if(!empty($input['date4']))
+            array_push( $pollArray, $input['date4']);
+
+        if(!empty($pollArray))
+        {
+            $eid = DB::table('events')
+                ->select(DB::raw('max(eid) as max_eid'))
+                ->where('uid', '=', $uid)
+                ->pluck('max_eid');
+            $eid = $eid[0];
+
+            $poll->eid = $eid;
+            $poll->polltype = 'date poll';
+            $saveflag = $poll->save();
+            dd($saveflag);
+//            if($saveflag)
+//            {
+//                foreach ($pollArray as $poll) {
+//
+//                }
+//            }
+        }
+        //return view('events/invite_event');
+
     }
 
     public function inviteUsers($emails)
