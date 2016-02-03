@@ -17,9 +17,9 @@
                             <li> Description: {{ $event['description'] }} </li>
                         </ul>
 
-                        @if (count($polls))
-                            @foreach($polls as $poll)
-                                @include('polls.poll_display', $poll)
+                        @if (count($all_options))
+                            @foreach($all_options as $options)
+                                @include('polls.poll_display', $options)
                             @endforeach
                         @else
                             <p>This event has no polls.</p>

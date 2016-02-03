@@ -13,7 +13,7 @@ class PollOption extends Model
      */
     protected $table = 'poll_options';
 
-    protected $primaryKey = 'pid';
+    protected $primaryKey = 'oid';
 
     /**
      * The attributes that are mass assignable.
@@ -21,15 +21,7 @@ class PollOption extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'stime', 'etime', 'location', 'custom',
+        'option', 'pid'
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $guarded = [
-        'oid',
-    ];
 }

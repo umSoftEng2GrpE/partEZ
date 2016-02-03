@@ -1,2 +1,1 @@
-
-<p> {{ $pid }} {{ $oid }} </p>
+<p> {{ $option['pid'] }} {{ $option['oid'] }} </p>

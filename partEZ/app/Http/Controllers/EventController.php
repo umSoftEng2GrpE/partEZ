@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PollOptions;
 use DB;
 use Auth;
 use Mail;
@@ -45,17 +46,23 @@ class EventController extends Controller
         $event = Event::find($eid);
         $polls = array(Poll::find($event->eid));
         $all_poll_options = [];
-
+//dd($polls);
         foreach ($polls as $poll)
         {
-            $options = PollOption::find($poll->pid);
+            $options = PollOption::all()->where('pid', $poll->pid);
+            //$options = PollOption::find('pid', $poll->pid);
+            //dd($options);
             array_push($all_poll_options, $options);
         }
-        
+
+        //dd($all_poll_options);
+
+        //dd($all_poll_options[0][0]);
+
         return view('events/event_details')
             ->with('event', $event)
             ->with('polls', $polls)
-            ->with('options', $all_poll_options);
+            ->with('all_options', $all_poll_options);
     }
 
     public function create()
@@ -91,7 +98,7 @@ class EventController extends Controller
 
         if($saveflag)
         {
-            return view('events/invite_event');
+            return view('events/create_poll');
         }
     }
 
@@ -115,6 +122,70 @@ class EventController extends Controller
             self::inviteUsers($emails);
             return view('events/success_event');
         }
+    }
+
+    public function validatePoll()
+    {
+        $input = Request::all();
+        $uid = Auth::user()['uid'];
+        $poll = new Poll;
+        $pollArray = [];
+
+        if(!empty($input['date1']))
+            array_push( $pollArray, $input['date1']);
+        if(!empty($input['date2']))
+            array_push( $pollArray, $input['date2']);
+        if(!empty($input['date3']))
+            array_push( $pollArray, $input['date3']);
+        if(!empty($input['date4']))
+            array_push( $pollArray, $input['date4']);
+
+
+        if(!empty($pollArray))
+        {
+            $eid = DB::table('events')
+                ->select(DB::raw('max(eid) as max_eid'))
+                ->where('uid', '=', $uid)
+                ->pluck('max_eid');
+            $eid = $eid[0];
+
+            $poll->eid = $eid;
+            $poll->polltype = 'date poll';
+            $saveflag = $poll->save();
+
+            if($saveflag)
+            {
+                foreach ($pollArray as $poll_index)
+                {
+                    $poll_options = new PollOption();
+                    $poll_options->pid = $poll['pid'];
+                    $poll_options->option = $poll_index;
+
+                    try
+                    {
+                        $poll_options->save();
+                    }
+                    catch(Exception $e)
+                    {
+                        print '<script type="text/javascript">';
+                        print 'alert( There have been issues adding options to your poll please
+                        check home page for details)';
+                        print '</script>';
+                        return view('events/invite_event');
+                    }
+
+                }
+            }
+            else
+            {
+                print '<script type="text/javascript">';
+                print 'alert("Unable to save poll to database")';
+                print '</script>';
+                return view('events/create_poll');
+            }
+        }
+        return view('events/invite_event');
+
     }
 
     public function inviteUsers($emails)
