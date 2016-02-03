@@ -51,9 +51,7 @@ class EventController extends Controller
             $options = PollOption::find($poll->pid);
             array_push($all_poll_options, $options);
         }
-
-        // dd($all_poll_options);
-
+        
         return view('events/event_details')
             ->with('event', $event)
             ->with('polls', $polls)
