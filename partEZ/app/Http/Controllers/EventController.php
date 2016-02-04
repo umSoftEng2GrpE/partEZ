@@ -74,6 +74,8 @@ class EventController extends Controller
     {
         $input = Request::all();
         $uid = Auth::user()['uid'];
+        array_shift($input);
+        $pid = array_shift($input);
 
 
         return view('events/success_event');
