@@ -11,7 +11,7 @@ class PollResponse extends Model
      *
      * @var string
      */
-    protected $table = 'Poll_Responses';
+    protected $table = 'poll_responses';
 
     /**
      * The attributes excluded from the model's JSON form.
