@@ -8,7 +8,9 @@
         <div class=":poll-options">
             <?php foreach($options as $index => $option): ?>
             <div class=":poll-option">
-
+                <input type="radio" name="{!! ($index) !!}" value="{!! $option->oid !!}"    >
+                <label >{!! $option->option !!}</label>
+                <br>
             </div>
             <?php endforeach;?>
         </div>
