@@ -38,4 +38,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
+    Route::get('accept_invite/{eid}/{uid}', ['as' => 'events.accept', 'uses' => 'EventController@inviteAccept']);
 });
