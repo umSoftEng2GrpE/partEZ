@@ -211,7 +211,7 @@ class EventController extends Controller
             if (!in_array($user->uid, $invites))
             {
                 Invite::createInviteLog($eid, $user->uid);
-                self::sendInvitation($eid, $user->email);
+                self::sendInvitation($eid, $user->email, $user->uid);
             }
 
         }
@@ -231,7 +231,7 @@ class EventController extends Controller
     }
 
 
-    public function sendInvitation($eid, $email)
+    public function sendInvitation($eid, $email, $uid)
     {
         $event = Event::getById($eid);
         $data = array(
@@ -241,6 +241,8 @@ class EventController extends Controller
             'etime' => $event->etime,
             'location' => $event->location,
             'description' => $event->description,
+            'eid' => $eid,
+            'uid' => $uid,
         );
 
         Mail::send('emails.invitation', $data, function ($message) use ($email) {
@@ -248,5 +250,15 @@ class EventController extends Controller
             $message->to($email)->subject('Event Invitation');
 
         });
+    }
+
+    public function inviteAccept($eid, $uid) 
+    {
+        Invite::changeStatus($eid, $uid, "accepted");
+    }
+
+    public function inviteDecline($eid, $uid)
+    {
+        Invite::changeStatus($eid, $uid, "declined");
     }
 }
