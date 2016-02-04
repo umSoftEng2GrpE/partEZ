@@ -254,10 +254,14 @@ class EventController extends Controller
     public function inviteAccept($eid, $uid) 
     {
         Invite::changeStatus($eid, $uid, "accepted");
+
+        return redirect('invite_response');
     }
 
     public function inviteDecline($eid, $uid)
     {
         Invite::changeStatus($eid, $uid, "declined");
+
+        return redirect('invite_response');
     }
 }
