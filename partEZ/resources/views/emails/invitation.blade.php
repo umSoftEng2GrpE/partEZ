@@ -19,6 +19,10 @@
     <p>
     {!! $description !!}
     </p>
+
+    <a href="{!! route('events.accept', ['eid'=>$eid, 'uid'=>$uid]) !!}">Accept</a>
+
+    <a href="">Decline</a>
 </div>
 
 </body>
