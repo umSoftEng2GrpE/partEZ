@@ -83,7 +83,17 @@ class EventController extends Controller
             $pollResponse->pid = $pid;
             $pollResponse->uid = $uid;
             $pollResponse->oid = $value;
-   
+            try
+            {
+            $pollResponse->save();
+            }
+            catch (Exception $e)
+            {
+                print '<script type="text/javascript">';
+                print 'alert("The system has encountered an error please try again later")';
+                print '</script>';
+                return view('errors.error_event');
+            }
         }
 
         return view('events/success_event');
