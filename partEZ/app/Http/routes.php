@@ -30,7 +30,7 @@ Route::get('profile', [
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
     Route::get('/home', 'HomeController@index');
-    Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
+    Route::get('/sendtest', 'Email\EmailController@sendTestEmail');
     Route::get('create_event', 'EventController@index');
     Route::post('create_event', 'EventController@store');
     Route::post('invite_event', 'EventController@validateEmails');
@@ -39,3 +39,4 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
 });
+

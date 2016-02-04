@@ -24,7 +24,6 @@
                         @else
                             <p>This event has no polls.</p>
                         @endif
-
                     </div>
                 </div>
             </div>
