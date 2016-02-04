@@ -32,11 +32,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
     Route::get('create_event', 'EventController@index');
+    Route::get('accept_invite/{eid}/{uid}', ['as' => 'accept_invite', 'uses' => 'EventController@inviteAccept']);
+    Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
+    
     Route::post('create_event', 'EventController@store');
     Route::post('invite_event', 'EventController@validateEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
-    Route::get('accept_invite/{eid}/{uid}', ['as' => 'events.accept', 'uses' => 'EventController@inviteAccept']);
 });
