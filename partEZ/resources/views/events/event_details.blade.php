@@ -19,7 +19,7 @@
 
                         @if (count($all_options))
                             @foreach($all_options as $options)
-                                @include('polls.poll_display', $options)
+                                @include('polls.poll_vote', $options )
                             @endforeach
                         @else
                             <p>This event has no polls.</p>
