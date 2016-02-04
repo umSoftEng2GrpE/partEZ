@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\PollOptions;
+use App\PollResponse;
 use DB;
 use Auth;
 use Mail;
@@ -67,6 +67,36 @@ class EventController extends Controller
     public function create()
     {
         return view('events.create');
+    }
+
+    public function submitPoll()
+    {
+        $input = Request::all();
+        $uid = Auth::user()['uid'];
+        array_shift($input);
+        $pid = array_shift($input);
+
+        foreach ($input as $key => $value)
+        {
+            $pollResponse = new PollResponse();
+            $pollResponse->pid = $pid;
+            $pollResponse->uid = $uid;
+            $pollResponse->oid = $value;
+            try
+            {
+            $pollResponse->save();
+            }
+            catch (Exception $e)
+            {
+                print '<script type="text/javascript">';
+                print 'alert("The system has encountered an error please try again later")';
+                print '</script>';
+                return view('errors.error_event');
+            }
+        }
+
+        return view('events/success_event');
+
     }
 
     public function store()
@@ -187,6 +217,14 @@ class EventController extends Controller
 
     }
 
+    public function getVotes($pid, $oid)
+    {
+        $count = DB::table('poll_options')
+                        ->select('COUNT(*)')
+            ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
+        return $count;
+    }
+
     public function inviteUsers($emails)
     {
         $uid = Auth::user()['uid'];
@@ -228,7 +266,6 @@ class EventController extends Controller
 
         return $invites;
     }
-
 
     public function sendInvitation($eid, $email, $uid)
     {
