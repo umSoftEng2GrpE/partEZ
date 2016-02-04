@@ -77,6 +77,14 @@ class EventController extends Controller
         array_shift($input);
         $pid = array_shift($input);
 
+        foreach ($input as $key => $value)
+        {
+            $pollResponse = new PollResponse();
+            $pollResponse->pid = $pid;
+            $pollResponse->uid = $uid;
+            $pollResponse->oid = $value;
+   
+        }
 
         return view('events/success_event');
 
