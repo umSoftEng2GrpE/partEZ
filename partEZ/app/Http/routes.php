@@ -12,6 +12,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('invite_response', function(){
+    return view('inviteresponse');
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -32,6 +36,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
     Route::get('create_event', 'EventController@index');
+    Route::get('accept_invite/{eid}/{uid}', ['as' => 'accept_invite', 'uses' => 'EventController@inviteAccept']);
+    Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
+
     Route::post('create_event', 'EventController@store');
     Route::post('invite_event', 'EventController@validateEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
