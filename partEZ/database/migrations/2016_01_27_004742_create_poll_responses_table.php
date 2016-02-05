@@ -18,7 +18,7 @@ class CreatePollResponsesTable extends Migration
                 $table->integer('uid')->unsigned();
                 $table->integer('pid')->unsigned();
                 $table->integer('oid')->unsigned();
-                $table->primary('uid', 'pid', 'oid');
+                $table->primary(['uid', 'pid', 'oid']);
                 $table->timestamps();
                 $table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
                 $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');

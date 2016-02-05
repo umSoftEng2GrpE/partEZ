@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToInvites extends Migration
+class AddStatusToInvitesAgain extends Migration
 {
     /**
      * Run the migrations.

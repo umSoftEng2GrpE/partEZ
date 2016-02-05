@@ -15,12 +15,15 @@ class CreatePollOptionsTable extends Migration
         if (!Schema::hasTable('poll_options'))
         {
             Schema::create('poll_options', function (Blueprint $table) {
-                $table->integer('oid')->unsigned();
+                $table->increments('oid');
                 $table->integer('pid')->unsigned();
-                $table->primary('oid', 'pid');
+                $table->string('option');
+                // $table->primary(array('oid', 'pid'));
                 $table->timestamps();
                 $table->foreign('pid')->references('pid')->on('polls')->onDelete('cascade');
             });
+
+            DB::unprepared("ALTER TABLE `poll_options` DROP PRIMARY KEY, ADD PRIMARY KEY (  `oid` ,  `pid` )");
         }
     }
 
@@ -31,9 +34,6 @@ class CreatePollOptionsTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable('poll_options'))
-        {
-            Schema::drop('poll_options');
-        }
+        Schema::dropIfExists('poll_options');
     }
 }

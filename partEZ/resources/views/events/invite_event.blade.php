@@ -11,6 +11,7 @@
 
                     <div class="panel-body">
                         {{  Form::open(['url' => 'invite_event']) }}
+                        {{ Form::hidden('eid', $eventID) }}
                         <fieldset>
 
                             <!-- Email Invitees -->
