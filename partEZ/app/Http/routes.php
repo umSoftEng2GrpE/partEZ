@@ -34,7 +34,7 @@ Route::get('profile', [
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
     Route::get('/home', 'HomeController@index');
-    Route::get('/sendtest', 'Email/EmailController@sendTestEmail');
+    Route::get('/sendtest', 'Email\EmailController@sendTestEmail');
     Route::get('create_event', 'EventController@index');
     Route::get('accept_invite/{eid}/{uid}', ['as' => 'accept_invite', 'uses' => 'EventController@inviteAccept']);
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
@@ -47,3 +47,4 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
 });
+

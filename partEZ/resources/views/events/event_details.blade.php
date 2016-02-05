@@ -17,7 +17,7 @@
                             <li> Description: {{ $event['description'] }} </li>
                         </ul>
 
-                        <h4>Polls</h4>
+						<h4>Polls</h4>
                         @if (count($all_options))
                             @foreach($all_options as $options)
                                 @include('polls.poll_vote', $options )
