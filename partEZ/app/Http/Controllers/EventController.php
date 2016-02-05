@@ -44,35 +44,8 @@ class EventController extends Controller
     public function details($eid)
     {
         $event = Event::find($eid);
-
-        //Retrieving Polls for Display
-        $polls = array(Poll::find($event->eid));
-        $all_poll_options = [];
-        $invites = [];
-
-        foreach ($polls as $poll)
-        {
-            $options = [];
-
-            if(null != $poll)
-            {
-                $options = PollOption::all()->where('pid', $poll->pid);
-            }
-
-            array_push($all_poll_options, $options);
-        }
-
-        //Retrieving Invitees for Display
-        $inviteDB = DB::table('users')
-            ->join('invites', 'invites.uid', '=', 'users.uid')
-            ->select('users.email')
-            ->where('invites.eid', '=', $eid)
-            ->get();   
-
-        foreach ($inviteDB as $entry)
-        {
-            array_push($invites, $entry->email);
-        }
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
 
         return view('events/event_details')
             ->with('event', $event)
@@ -80,15 +53,12 @@ class EventController extends Controller
             ->with('invites', $invites);
     }
 
-    public function inviteDetails($eid)
+    public function getPollOptionsFromEid($eid)
     {
         $event = Event::find($eid);
-
         //Retrieving Polls for Display
         $polls = array(Poll::find($event->eid));
         $all_poll_options = [];
-        $invites = [];
-
         foreach ($polls as $poll)
         {
             $options = [];
@@ -100,7 +70,12 @@ class EventController extends Controller
 
             array_push($all_poll_options, $options);
         }
+        return $all_poll_options;
+    }
 
+    public function getInvitesFromEid($eid)
+    {
+        $invites = [];
         //Retrieving Invitees for Display
         $inviteDB = DB::table('users')
             ->join('invites', 'invites.uid', '=', 'users.uid')
@@ -112,6 +87,15 @@ class EventController extends Controller
         {
             array_push($invites, $entry->email);
         }
+
+        return $invites;
+    }
+
+    public function inviteDetails($eid)
+    {
+        $event = Event::find($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
 
         return view('events/event_details_invite')
             ->with('event', $event)
