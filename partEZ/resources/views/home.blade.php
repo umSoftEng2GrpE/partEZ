@@ -19,7 +19,7 @@
                     @endif
 
                     <br><br>
-                    <button type="button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
+                    <button type="button" name="event_button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
 
                 </div>
             </div>

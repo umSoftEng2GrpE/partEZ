@@ -16,7 +16,7 @@
 
                             <!-- Email Invitees -->
                             <div class="form-group">
-                                {!! Form::label('emails', 'Email:', ['class' => 'col-lg-2 control-label']) !!}
+                                {!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}
                                 <div class="col-lg-10">
                                     {!! Form::text('emails', null, ['required'], ['class' => 'form-control']) !!}
                                 </div>
