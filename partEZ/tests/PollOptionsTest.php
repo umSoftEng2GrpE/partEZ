@@ -17,7 +17,8 @@ class PollOptionsTest extends TestCase
     {
         $this->startup();
 
-        $this->assertNotNull(PollOption::all());
+        $poll_options = PollOption::all();
+        $this->assertNotNull($poll_options);
     }
 
     public function testInsertPollOption()
