@@ -13,20 +13,22 @@
                         <legend>Create A Poll</legend>
                         <div class="form-group">
                         <!-- Date -->
-                            {!! Form::label('date1', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
+                            {!! Form::label('date1', 'Possible', ['class' => 'col-lg-5 control-label']) !!}
+                            {!! Form::select('type', array('time' => 'Time', 'date' => 'Date') ) !!}
                             {!! Form::text('date1', null, ['class' => 'form-control'] ) !!}
                         <!-- Date -->
-                            {!! Form::label('date2', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
+                            <br>
                             {!! Form::text('date2', null, ['class' => 'form-control'] ) !!}
                         <!-- Date -->
-                            {!! Form::label('date3', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
+                            <br>
                             {!! Form::text('date3', null, ['class' => 'form-control'] ) !!}
                         <!-- Date -->
-                            {!! Form::label('date4', 'Possible Date/Time:', ['class' => 'col-lg-2 control-label']) !!}
+                            <br>
                             {!! Form::text('date4', null, ['class' => 'form-control'] ) !!}
+
                                 <span class="help-block">Click next if you don't need help picking the date</span>
                         </div>
-
+                        {{ Form::hidden('eid', $eventID) }}
                         <!-- Next Button -->
                         <!-- Submits event info for event creation-->
                         <div class="form-group">
