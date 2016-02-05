@@ -1,18 +1,40 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Poll;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PollOptionsTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+
+    use DatabaseMigrations;
+
+    public function startup()
     {
-        $this->assertTrue(true);
+        $this->seed();
+    }
+
+    public function testFindPollOption()
+    {
+
+    }
+
+    public function testInsertPollOption()
+    {
+
+    }
+
+    public function testUpdatePollOption()
+    {
+
+    }
+
+    public function testSavePollOption()
+    {
+
+    }
+
+    public function testDeletePollOption()
+    {
+
     }
 }
