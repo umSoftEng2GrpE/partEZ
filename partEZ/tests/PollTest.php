@@ -23,13 +23,6 @@ class PollTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /*
-     * input
-     * retrieve
-     * update
-     * delete
-     */
-
     public function testInputPoll()
     {
         $this->startup();
