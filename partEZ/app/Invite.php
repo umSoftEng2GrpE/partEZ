@@ -12,7 +12,7 @@ class Invite extends Model
      *
      * @var string
      */
-    protected $table = 'Invites';
+    protected $table = 'invites';
 
     protected $primaryKey = 'eid';
 
