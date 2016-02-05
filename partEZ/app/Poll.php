@@ -21,7 +21,7 @@ class Poll extends Model
      * @var array
      */
     protected $fillable = [
-        'polltype',
+        'polltype', 'eid',
     ];
 
     /**
@@ -30,6 +30,6 @@ class Poll extends Model
      * @var array
      */
     protected $guarded = [
-        'pid', 'eid',
+        'pid',
     ];
 }
