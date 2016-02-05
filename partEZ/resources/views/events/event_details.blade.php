@@ -17,6 +17,7 @@
                             <li> Description: {{ $event['description'] }} </li>
                         </ul>
 
+                        <h4>Polls</h4>
                         @if (count($all_options))
                             @foreach($all_options as $options)
                                 @include('polls.poll_vote', $options )
@@ -24,6 +25,19 @@
                         @else
                             <p>This event has no polls.</p>
                         @endif
+
+                        <h4>Invited</h4>
+                        <div>
+	                        @if (count($invites))
+	                        	<ul>
+		                            @foreach($invites as $person)
+		                                <li>{{print_r($person, true)}}</li>
+		                            @endforeach
+	                            </ul>
+	                        @else
+	                            <p>This event has no invitees.</p>
+	                        @endif
+                        </div>
 
                     </div>
                 </div>
