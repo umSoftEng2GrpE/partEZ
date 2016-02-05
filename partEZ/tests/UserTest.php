@@ -41,9 +41,9 @@ class UserTest extends TestCase
         $user = new User;
         $user->firstname = 'Mel';
         $user->email = 'mail@test.com';
-        //$user->save();
+        $user->save();
 
-        //$this->seeInDatabase('users', ['firstname' => 'Mel']);
+        $this->seeInDatabase('users', ['firstname' => 'Mel']);
     }
 
     public function testUserGetId()
