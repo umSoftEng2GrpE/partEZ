@@ -32,6 +32,7 @@ class PollTest extends TestCase
 
     public function testInputPoll()
     {
+        $this->startup();
         // make sure the seeds work
         $all_polls = Poll::all();
         $this->assertNotNull($all_polls);
@@ -48,7 +49,6 @@ class PollTest extends TestCase
 
         $poll->save();
 
-
         $this->seeInDatabase('polls', array('polltype'=>'test_type'));
     }
 
@@ -59,6 +59,7 @@ class PollTest extends TestCase
         $poll = Poll::create(array('eid'=>'1', 'polltype'=>'test_type'));
 
         $poll->polltype = 'some_other_type';
+        $poll->save();
 
         $this->seeInDatabase('polls', array('polltype'=>'some_other_type'));
     }
@@ -66,7 +67,7 @@ class PollTest extends TestCase
     public function testDeletePoll()
     {
         $this->startup();
-        
+
         $poll = Poll::create(array('eid'=>'1', 'polltype'=>'delete_me'));
 
         $poll->delete();
