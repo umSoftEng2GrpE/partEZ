@@ -30,4 +30,10 @@ class Event extends Model
         return DB::table('events')->where('eid', $eid)->first();
     }
 
+    public static function getByUID($uid)
+    {
+        return DB::table('events')->where('uid', '=', $uid)->first();
+    }
+
+
 }
