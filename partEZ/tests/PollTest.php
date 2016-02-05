@@ -13,16 +13,6 @@ class PollTest extends TestCase
         $this->seed();
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testInputPoll()
     {
         $this->startup();
