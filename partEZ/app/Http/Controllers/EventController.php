@@ -187,7 +187,6 @@ class EventController extends Controller
         if(!empty($input['date4']))
             array_push( $pollArray, $input['date4']);
 
-
         if(!empty($pollArray))
         {
 

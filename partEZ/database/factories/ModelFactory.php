@@ -39,3 +39,19 @@ $factory->define(App\Poll::class, function (Faker\Generator $faker) {
         'polltype' => 'date',
     ];
 });
+
+
+$factory->define(App\PollOption::class, function (Faker\Generator $faker) {
+    return [
+        'pid' => '1',
+        'option' => $faker->text,
+    ];
+});
+
+$factory->define(App\PollResponse::class, function (Faker\Generator $faker) {
+    return [
+        'uid' => $faker->unique()->randomDigit,
+        'oid' => $faker->unique()->randomDigit,
+        'pid' => $faker->unique()->randomDigit
+    ];
+});
