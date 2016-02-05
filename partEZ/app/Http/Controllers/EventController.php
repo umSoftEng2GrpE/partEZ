@@ -80,6 +80,45 @@ class EventController extends Controller
             ->with('invites', $invites);
     }
 
+    public function inviteDetails($eid)
+    {
+        $event = Event::find($eid);
+
+        //Retrieving Polls for Display
+        $polls = array(Poll::find($event->eid));
+        $all_poll_options = [];
+        $invites = [];
+
+        foreach ($polls as $poll)
+        {
+            $options = [];
+
+            if(null != $poll)
+            {
+                $options = PollOption::all()->where('pid', $poll->pid);
+            }
+
+            array_push($all_poll_options, $options);
+        }
+
+        //Retrieving Invitees for Display
+        $inviteDB = DB::table('users')
+            ->join('invites', 'invites.uid', '=', 'users.uid')
+            ->select('users.email')
+            ->where('invites.eid', '=', $eid)
+            ->get();
+
+        foreach ($inviteDB as $entry)
+        {
+            array_push($invites, $entry->email);
+        }
+
+        return view('events/event_details_invite')
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('invites', $invites);
+    }
+
     public function create()
     {
         return view('events.create');
