@@ -8,7 +8,7 @@ class PollOptionsTest extends TestCase
 
     use DatabaseMigrations;
 
-    public function teststartup()
+    public function startup()
     {
         $this->seed();
     }
