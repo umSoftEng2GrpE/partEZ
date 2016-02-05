@@ -127,7 +127,8 @@ class EventController extends Controller
 
         if($saveflag)
         {
-            return view('events/create_poll');
+            return view('events/create_poll')
+                ->with('eventID', $event->eid);
         }
     }
 
@@ -159,6 +160,7 @@ class EventController extends Controller
         $uid = Auth::user()['uid'];
         $poll = new Poll;
         $pollArray = [];
+        $eid = $input["eid"];
 
         if(!empty($input['date1']))
             array_push( $pollArray, $input['date1']);
@@ -172,14 +174,10 @@ class EventController extends Controller
 
         if(!empty($pollArray))
         {
-            $eid = DB::table('events')
-                ->select(DB::raw('max(eid) as max_eid'))
-                ->where('uid', '=', $uid)
-                ->pluck('max_eid');
-            $eid = $eid[0];
+
 
             $poll->eid = $eid;
-            $poll->polltype = 'date poll';
+            $poll->polltype = $input['type'];
             $saveflag = $poll->save();
 
             if($saveflag)
@@ -213,7 +211,8 @@ class EventController extends Controller
                 return view('events/create_poll');
             }
         }
-        return view('events/invite_event');
+        return view('events/invite_event')
+            ->with('eventID', $eid);
 
     }
 
