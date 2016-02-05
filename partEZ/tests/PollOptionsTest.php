@@ -8,7 +8,7 @@ class PollOptionsTest extends TestCase
 
     use DatabaseMigrations;
 
-    public function startup()
+    public function teststartup()
     {
         $this->seed();
     }
@@ -17,7 +17,8 @@ class PollOptionsTest extends TestCase
     {
         $this->startup();
 
-        $this->assertNotNull(PollOption::all());
+        $poll_options = PollOption::all();
+        $this->assertNotNull($poll_options);
     }
 
     public function testInsertPollOption()

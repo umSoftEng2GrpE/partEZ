@@ -153,14 +153,4 @@ class IntegrationTest extends TestCase
         $this->press('Submit Vote')
             ->seePageIs('/submit_poll');
     }
-
-    public function tearDown()
-    {
-        DB::table('users')
-            ->where('email', '=', $this->email)
-            ->orwhere('email', '=', $this->partEzEmail)
-            ->delete();
-    }
-
-
 }
