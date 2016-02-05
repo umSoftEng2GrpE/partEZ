@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PollOptionsTableSeeder extends Seeder
+class PollResponsesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PollOptionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\PollOption::class, 10)->create();
+        factory(App\PollResponse::class, 10)->create();
     }
 }
