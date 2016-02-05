@@ -11,6 +11,6 @@ class PollResponsesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\PollResponse::class, 10)->create();
+        factory(App\PollResponse::class, 1)->create();
     }
 }
