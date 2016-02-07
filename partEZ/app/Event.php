@@ -30,10 +30,14 @@ class Event extends Model
         return DB::table('events')->where('eid', $eid)->first();
     }
 
-    public static function getByUID($uid)
+    public static function getUserEvents($uid)
     {
-        return DB::table('events')->where('uid', '=', $uid)->first();
+        return Event::where('uid', '=', $uid)->get();
     }
 
+    public static function saveEvent( $event )
+    {
+        return $event->save();
+    }
 
 }
