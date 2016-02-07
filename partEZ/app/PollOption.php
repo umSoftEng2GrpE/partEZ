@@ -29,4 +29,9 @@ class PollOption extends Model
         return PollOption::all()->where('pid', '=', $pid);
     }
 
+    public static function savePollOption( $pollOption )
+    {
+        return $pollOption->save();
+    }
+
 }

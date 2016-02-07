@@ -201,7 +201,7 @@ class EventController extends Controller
 
                     try
                     {
-                        $poll_options->save();
+                        PollOption::savePollOption($poll_options);
                     }
                     catch(Exception $e)
                     {
@@ -228,7 +228,7 @@ class EventController extends Controller
     }
 
     public function getVotes($pid, $oid)
-    {
+    {//TODO: what is this counting? Not the votes, but the options?
         $count = DB::table('poll_options')
                         ->select('COUNT(*)')
             ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
@@ -236,7 +236,7 @@ class EventController extends Controller
     }
 
     public function inviteUsers($emails)
-    {
+    {//TODO: Can we not also just pass in the eid?
         $uid = Auth::user()['uid'];
         $users = [];
         $eid = DB::table('events')
@@ -266,7 +266,7 @@ class EventController extends Controller
 
     private function getInvites($eid)
     {
-        $inviteDB = DB::table('invites')->select('uid')->where('eid', $eid)->get();
+        $inviteDB = Invite::getInvites($eid);
         $invites = [];
 
         foreach ($inviteDB as $entry)

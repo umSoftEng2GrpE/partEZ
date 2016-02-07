@@ -44,6 +44,10 @@ class Invite extends Model
         return $invites;
     }
 
+    public static function getInvites($eid)
+    {
+        return DB::table('invites')->select('uid')->where('eid', $eid)->get();
+    }
 
     public static function createInviteLog($eid, $uid)
     {
