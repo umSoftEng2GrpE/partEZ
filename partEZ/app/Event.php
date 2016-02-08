@@ -35,6 +35,11 @@ class Event extends Model
         return Event::where('uid', '=', $uid)->get();
     }
 
+    public static function getEvent( $eid )
+    {
+        return Event::find($eid);
+    }
+
     public static function saveEvent( $event )
     {
         return $event->save();

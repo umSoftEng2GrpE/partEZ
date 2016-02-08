@@ -43,7 +43,7 @@ class EventController extends Controller
      */
     public function details($eid)
     {
-        $event = Event::find($eid);
+        $event = Event::getEvent($eid);
 
         //Retrieving Polls for Display
         $polls = Poll::getEventPolls($eid);
@@ -139,7 +139,7 @@ class EventController extends Controller
 
         if($saveflag)
         {
-            return view('events/create_poll')
+            return view('events/create_event_list')
                 ->with('eventID', $event->eid);
         }
     }
