@@ -43,10 +43,10 @@ class EventController extends Controller
      */
     public function details($eid)
     {
-        $event = Event::find($eid);
+        $event = Event::getEvent($eid);
 
         //Retrieving Polls for Display
-        $polls = array(Poll::find($event->eid));
+        $polls = Poll::getEventPolls($eid);
         $all_poll_options = [];
         $invites = [];
 
@@ -56,18 +56,14 @@ class EventController extends Controller
 
             if(null != $poll)
             {
-                $options = PollOption::all()->where('pid', $poll->pid);
+                $options = PollOption::getPollOptions($poll->pid);
             }
 
             array_push($all_poll_options, $options);
         }
 
         //Retrieving Invitees for Display
-        $inviteDB = DB::table('users')
-            ->join('invites', 'invites.uid', '=', 'users.uid')
-            ->select('users.email')
-            ->where('invites.eid', '=', $eid)
-            ->get();   
+        $inviteDB = Invite::getInvitees($eid);
 
         foreach ($inviteDB as $entry)
         {
@@ -131,7 +127,7 @@ class EventController extends Controller
 
         try
         {
-            $saveflag = $event->save();
+            $saveflag = Event::saveEvent($event);
         }
         catch(Exception $e)
         {
@@ -143,7 +139,7 @@ class EventController extends Controller
 
         if($saveflag)
         {
-            return view('events/create_poll')
+            return view('events/create_event_list')
                 ->with('eventID', $event->eid);
         }
     }
@@ -205,7 +201,7 @@ class EventController extends Controller
 
                     try
                     {
-                        $poll_options->save();
+                        PollOption::savePollOption($poll_options);
                     }
                     catch(Exception $e)
                     {
@@ -232,7 +228,7 @@ class EventController extends Controller
     }
 
     public function getVotes($pid, $oid)
-    {
+    {//TODO: what is this counting? Not the votes, but the options?
         $count = DB::table('poll_options')
                         ->select('COUNT(*)')
             ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
@@ -240,7 +236,7 @@ class EventController extends Controller
     }
 
     public function inviteUsers($emails)
-    {
+    {//TODO: Can we not also just pass in the eid?
         $uid = Auth::user()['uid'];
         $users = [];
         $eid = DB::table('events')
@@ -270,7 +266,7 @@ class EventController extends Controller
 
     private function getInvites($eid)
     {
-        $inviteDB = DB::table('invites')->select('uid')->where('eid', $eid)->get();
+        $inviteDB = Invite::getInvites($eid);
         $invites = [];
 
         foreach ($inviteDB as $entry)

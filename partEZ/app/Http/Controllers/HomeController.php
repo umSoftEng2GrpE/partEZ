@@ -34,9 +34,9 @@ class HomeController extends Controller
     {
 
         $user = Auth::user();
-        $events = Event::where('uid', '=', $user->uid)->get();
+        //$events = Event::where('uid', '=', $user->uid)->get();
         //$event = new Event();
-        //$events = $event->getByUID($user->uid);
+        $events = Event::getUserEvents($user->uid);
 
         return $events;
     }
