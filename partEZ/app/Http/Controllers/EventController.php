@@ -114,6 +114,7 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
+        var_dump($input);
 
         $event = new Event;
 
@@ -137,10 +138,13 @@ class EventController extends Controller
             return view('errors.error_event');
         }
 
+        $this->validatePoll( $event->eid );
+        $this->validateEmails();
+
         if($saveflag)
         {
-            return view('events/create_event_list')
-                ->with('eventID', $event->eid);
+            return view('events/success_event');
+                //->with('eventID', $event->eid);
         }
     }
 
@@ -166,13 +170,13 @@ class EventController extends Controller
         }
     }
 
-    public function validatePoll()
+    public function validatePoll( $eid )
     {
         $input = Request::all();
         $uid = Auth::user()['uid'];
         $poll = new Poll;
         $pollArray = [];
-        $eid = $input["eid"];
+        //$eid = $input["eid"];
 
         if(!empty($input['date1']))
             array_push( $pollArray, $input['date1']);

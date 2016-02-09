@@ -13,18 +13,15 @@
                     <li  ><a href="#tab1" data-toggle="tab">Create Event</a></li>
                     <li><a href="#tab2" data-toggle="tab">Poll</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
-                    <li><a href="#tab4" data-toggle="tab">Forth</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
                     <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
                     <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
                     <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
                 </ul>
-
+                {{  Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
                         <div class="well">
-
-                            {{  Form::open(['url' => 'create_event']) }}
-
 
                             <fieldset>
 
@@ -72,25 +69,14 @@
                                         <span class="help-block">Anymore details you may want to add for the party.</span>
                                     </div>
                                 </div>
-
-                                <!-- Next Button -->
-                                <!-- Submits event info for event creation-->
-                                <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        {!! Form::submit('Next', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
-                                    </div>
-                                </div>
-
                             </fieldset>
 
-                            {!! Form::close()  !!}
 
                         </div>
                     </div>
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
-                            {{  Form::open(['url' => 'create_poll']) }}
                             <fieldset>
 
                                 <legend>Create A Poll</legend>
@@ -111,17 +97,8 @@
 
                                     <span class="help-block">Click next if you don't need help picking the date</span>
                                 </div>
-                                <!-- Next Button -->
-                                <!-- Submits event info for event creation-->
-                                <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        {!! Form::submit('Next', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
-                                    </div>
-                                </div>
-
                             </fieldset>
 
-                            {!! Form::close()  !!}
 
                         </div>
                     </div>
@@ -139,8 +116,7 @@
                                         var li = "<li>";
                                         $("ul#itemlist").append( (li.concat( arr[i] )).concat("</li>") )
                                     }
-
-                                    //$("ul#itemlist").empty().html(arr.join(""));
+                                    document.getElementById('returnlist').value = arr;
                                 }
 
                                 function addItem()
@@ -150,12 +126,12 @@
                                 }
 
                             </script>
-                            {{Form::open(['url' => 'create_event_list']) }}
                             <fieldset>
                                 <legend>Create an Event Item List</legend>
                                 <div class="form-group">
                                     {!! Form::label('addItem', 'Add an item', ['class' => 'col-lg-5 control-label']) !!}
                                     {!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}
+                                    <input type="hidden" name="returnlist" id="returnlist" value="">
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10 col-lg-offset-2">
@@ -167,11 +143,29 @@
                                     </ul>
                                 </div>
                             </fieldset>
-                            {!! Form::close() !!}
+
                         </div>
                     </div>
                     <div class="tab-pane" id="tab4">
-                        4
+                        <div class="panel-heading">Invite Guests</div>
+
+                        <div class="panel-body">
+                            <fieldset>
+                                <!-- Email Invitees -->
+                                <div class="form-group">
+                                    {!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {!! Form::text('emails', null, ['required'], ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <span class="help-block">Separate each guest's email with a comma.</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </div>
                     </div>
                     <div class="tab-pane" id="tab5">
                         5
@@ -183,6 +177,12 @@
                         7
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+                    </div>
+                </div>
+                {!! Form::close() !!}
 
             </div>
         </div>
