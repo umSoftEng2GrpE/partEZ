@@ -38,6 +38,7 @@ class HomeController extends Controller
         $events = Event::where('uid', '=', $user->uid)->get();
 
         return $events;
+
     }
 
     public function getUserInvitedEvents()
