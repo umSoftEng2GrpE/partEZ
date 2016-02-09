@@ -36,6 +36,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $events = Event::where('uid', '=', $user->uid)->get();
+
         return $events;
     }
 
@@ -52,6 +53,7 @@ class HomeController extends Controller
                 array_push($events,$single_event);
             }
         }
+
         return $events;
     }
 }
