@@ -42,7 +42,7 @@
                 @if (Auth::check())
                     <a class="navbar-brand" href="{{ url('/home') }}">
                 @else
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                 @endif
                 <div id="logo">
 					<img src="{{ asset('img/partEz_logo.png') }}"/>
