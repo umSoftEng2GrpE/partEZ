@@ -55,4 +55,16 @@ class Message extends Model
     	return DB::table('message')->where('eid', $eid)->where('mid', '>', $mid);
     }
 
+    public static function createMessage($eid, $message)
+    {
+        $uid = Auth::user()->uid
+
+        DB::table('messages')->insert([
+            'eid' => $eid, 
+            'uid' => $uid, 
+            'message' => $message,
+            'created' => date('Y-m-d h:i:s')
+            ]);
+    }
+
 }
