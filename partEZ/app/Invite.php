@@ -12,7 +12,7 @@ class Invite extends Model
      *
      * @var string
      */
-    protected $table = 'Invites';
+    protected $table = 'invites';
 
     protected $primaryKey = 'eid';
 
@@ -46,7 +46,11 @@ class Invite extends Model
 
     public static function getInvites($eid)
     {
-        return DB::table('invites')->select('uid')->where('eid', $eid)->get();
+        return DB::table('users')
+            ->join('invites', 'invites.uid', '=', 'users.uid')
+            ->select('users.email')
+            ->where('invites.eid', '=', $eid)
+            ->get();
     }
 
     public static function createInviteLog($eid, $uid)
