@@ -34,6 +34,24 @@ class Invite extends Model
         'eid', 'uid',
     ];
 
+    public static function getInvitees( $eid )
+    {
+        $invites = DB::table('users')
+            ->join('invites', 'invites.uid', '=', 'users.uid')
+            ->select('users.email')
+            ->where('invites.eid', '=', $eid)
+            ->get();
+        return $invites;
+    }
+
+    public static function getInvites($eid)
+    {
+        return DB::table('users')
+            ->join('invites', 'invites.uid', '=', 'users.uid')
+            ->select('users.email')
+            ->where('invites.eid', '=', $eid)
+            ->get();
+    }
 
     public static function createInviteLog($eid, $uid)
     {

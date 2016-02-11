@@ -12,7 +12,7 @@ class HomeControllerTest extends TestCase
 {
     private $mock;
     private $controller;
-
+/*
     public function __construct()
     {
         $this->mock = Mockery::mock('\App\Event');
@@ -31,5 +31,5 @@ class HomeControllerTest extends TestCase
         $response = $this->controller->getUsersEvents();
         $this->assertEquals(1, $response->eid);
 
-    }
+    }*/
 }
