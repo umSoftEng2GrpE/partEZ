@@ -18,8 +18,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
+        putenv('DB_DEFAULT=sqlite_testing');
+
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    public function startup()
+    {
+        $this->seed();
     }
 }

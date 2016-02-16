@@ -129,4 +129,16 @@ Sprint Backlog
 	event (handle response)
 	polls
 	invitee
-
+---------------------------------------------------------------------------------
+Jan 29, 2016
+Discussion with Max and Brianna of how the inviting portion of the event creation page will work.
+Max to create the back end functions that perform the data retrieval, dummy account creation, and 
+email sending configurations. Brianna to create the view for sending invites, including checks for 
+duplicate emails. This will be a separate page from Greg's create event page, as a "next" page in the 
+process. Nick to create seeds and more tests for migrations. Overall discussion of any other user stories 
+that need to get done. 
+---------------------------------------------------------------------------------
+Feb 3, 2016
+Delroy and Brianna discussing the TODO list of what needs to get done before the iteration deadline. 
+Couple of last miniute detailed user story functions, as well as some testing and the major documentation 
+that needs to be included. Updated the group soon after of what had been fleshed out and still needs to be done.

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Invite;
+use Auth;
+use DB;
 use Mail;
+use App\Event;
+use App\Http\Requests;
 
 class HomeController extends Controller
 {
@@ -22,6 +26,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $events = $this->getUsersEvents();
+        $invites = $this->getUserInvitedEvents();
+
+        return view('home')->with('events', $events)->with('invites', $invites);
+    }
+
+    public function getUsersEvents()
+    {
+        $user = Auth::user();
+
+        $events = Event::where('uid', '=', $user->uid)->get();
+        $events = Event::getUserEvents($user->uid);
+
+        return $events;
+
+    }
+
+    public function getUserInvitedEvents()
+    {
+        $user = Auth::user();
+        $invites = Invite::where('uid', '=', $user->uid)->get();
+        $events = [];
+        foreach($invites as $invite)
+        {
+            $event_array= (Event::where('eid', '=', $invite->eid)->get() );
+            foreach($event_array as $single_event)
+            {
+                array_push($events,$single_event);
+            }
+        }
+
+        return $events;
     }
 }

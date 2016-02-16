@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -11,8 +12,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $primaryKey = 'uid';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'email', 'password',
     ];
 
     /**
@@ -23,4 +26,34 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    private static function createDummyAccount($email){
+        return DB::table('users')->insertGetId(array(
+            'firstname' => '',
+            'lastname' => '',
+            'email' => $email,
+            'active' => 0
+            ));
+
+    }
+
+
+    public static function getById($uid)
+    {
+        return DB::table('users')->where('uid', $uid)->first();
+    }
+
+
+    public static function getByEmail($email)
+    {
+        $user = DB::table('users')->where('email', $email)->first();
+
+        if (is_null($user))
+        {
+            $user = self::getById(self::createDummyAccount($email));   
+        }
+            
+        return $user;
+    }
 }
