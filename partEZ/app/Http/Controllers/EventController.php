@@ -142,6 +142,7 @@ class EventController extends Controller
         $event = new Event;
 
         $event->name = $input['name'];
+        $event->public = $input['public'];
         $event->location = $input['location'];
         $event->description = $input['description'];
         $event->date = $input['date'];
