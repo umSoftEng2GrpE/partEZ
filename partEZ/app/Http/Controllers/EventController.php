@@ -162,7 +162,7 @@ class EventController extends Controller
         }
 
         $this->validatePoll( $event->eid );
-        $this->validateEmails();
+        $this->validateEmails( $event->eid );
 
         if($saveflag)
         {
@@ -170,7 +170,7 @@ class EventController extends Controller
         }
     }
 
-    public function validateEmails()
+    public function validateEmails($eid)
     {
         $input = Request::all();
         $emailString = $input['emails'];
@@ -187,7 +187,7 @@ class EventController extends Controller
         }
         else
         {
-            self::inviteUsers($emails);
+            self::inviteUsers($emails, $eid);
             return view('events/success_event');
         }
     }
@@ -260,15 +260,10 @@ class EventController extends Controller
         return $count;
     }
 
-    public function inviteUsers($emails)
+    public function inviteUsers($emails, $eid)
     {
         $uid = Auth::user()['uid'];
         $users = [];
-        $eid = DB::table('events')
-                    ->select(DB::raw('max(eid) as max_eid'))
-                    ->where('uid', '=', $uid)
-                    ->pluck('max_eid');
-        $eid = $eid[0];
 
         foreach($emails as $email)
         {
