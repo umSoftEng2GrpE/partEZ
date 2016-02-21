@@ -17,13 +17,6 @@ class EventControllerTest extends TestCase
         $this->eventController = new \App\Http\Controllers\EventController();
     }
 
-    public function testGetVotes()
-    {
-        $this->mock->shouldReceive('getVotes')->once()->andReturn(2);
-        $this->app->instance('\App\PollOption', $this->mock);
-        $this->assertEquals( 2, $this->eventController->getVotes(1,2) );
-    }
-
     public function testGetInvites()
     {
         $data['eid'] = 1;
