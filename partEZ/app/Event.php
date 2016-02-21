@@ -27,10 +27,12 @@ class Event extends Model
 
     public static function getByID($eid)
     {
+        // Returns a single event object to the caller.
         return DB::table('events')->where('eid', $eid)->first();
     }
 
     public static function getByInviteEID($eid) {
+        // Returns an array containing an event object to the caller.
         return self::where('eid', '=', $eid)->get();
     }
 
