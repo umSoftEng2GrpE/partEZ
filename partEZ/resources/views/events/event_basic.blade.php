@@ -1,6 +1,6 @@
 <div class="container">
     <br>
-    <h3> Event Name: {{ $event['name'] }} </h3>
+    <h3> {{ $event['name'] }} </h3>
     <br>
     <ul>
         <li> Date:{{ $event['date'] }} </li>

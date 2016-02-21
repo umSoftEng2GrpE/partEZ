@@ -13,22 +13,46 @@
                     <button type="button" name="event_button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
                     <br><br>
 
-                    @if (count($events))
-                        @foreach($events as $event)
-                            @include('events.event_basic', $event)
-                        @endforeach
-                    @else
-                        <p>You have no events.</p>
-                    @endif
+                    <div id="user-event-header">
+                        <h2>
+                            My Events
+                        </h2>
+                    </div>
+                    <div id="user-events">
+                        @if (count($events))
+                            
+                            @foreach($events as $event)
+                                @include('events.event_basic', $event)
+                            @endforeach
+                        @else
+                            <p>You have no events.</p>
+                        @endif
+                    </div>
 
-                    @if (count($invites))
-                        @foreach($invites as $invite)
-                            @include('events.event_basic_invite', $invite)
-                        @endforeach
-                    @else
-                        <p>You have no invites.</p>
-                    @endif
+                    <div id="invited-event-header">
+                        <h2>
+                            Invited Events
+                        </h2>
+                    </div>
+                    <div id="invited-events">
+                        @if (count($invites))
+                            
+                            @foreach($invites as $invite)
+                                @include('events.event_basic_invite', $invite)
+                            @endforeach
+                        @else
+                            <p>You have no invites.</p>
+                        @endif
+                    </div>
 
+                    <div id="Public Events">
+                        <h2>
+                            Public Events
+                        </h2>
+                    </div>
+                    <div>
+                        <p>No public events.</p>
+                    </div>
 
                 </div>
             </div>
