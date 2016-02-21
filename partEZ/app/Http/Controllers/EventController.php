@@ -167,7 +167,6 @@ class EventController extends Controller
         if($saveflag)
         {
             return view('events/success_event');
-                //->with('eventID', $event->eid);
         }
     }
 
@@ -199,7 +198,6 @@ class EventController extends Controller
         $uid = Auth::user()['uid'];
         $poll = new Poll;
         $pollArray = [];
-        //$eid = $input["eid"];
 
         if(!empty($input['date1']))
             array_push( $pollArray, $input['date1']);
