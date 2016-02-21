@@ -32,4 +32,9 @@ class Poll extends Model
     protected $guarded = [
         'pid',
     ];
+
+    public static function getEventPolls($eid)
+    {
+        return array(Poll::find($eid));
+    }
 }

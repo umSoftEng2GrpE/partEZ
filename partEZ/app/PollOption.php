@@ -24,4 +24,14 @@ class PollOption extends Model
         'option', 'pid'
     ];
 
+    public static function getPollOptions($pid)
+    {
+        return PollOption::all()->where('pid', '=', $pid);
+    }
+
+    public static function savePollOption( $pollOption )
+    {
+        return $pollOption->save();
+    }
+
 }

@@ -9,6 +9,9 @@
 
                 <div class="panel-body">
                     You are logged in!
+                    <br><br>
+                    <button type="button" name="event_button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
+                    <br><br>
 
                     @if (count($events))
                         @foreach($events as $event)
@@ -18,8 +21,14 @@
                         <p>You have no events.</p>
                     @endif
 
-                    <br><br>
-                    <button type="button" name="event_button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
+                    @if (count($invites))
+                        @foreach($invites as $invite)
+                            @include('events.event_basic_invite', $invite)
+                        @endforeach
+                    @else
+                        <p>You have no invites.</p>
+                    @endif
+
 
                 </div>
             </div>

@@ -43,38 +43,57 @@ class EventController extends Controller
      */
     public function details($eid)
     {
+        $event = Event::getEvent($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+
+        return view('events/event_details')
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('invites', $invites);
+    }
+
+    public function getPollOptionsFromEid($eid)
+    {
         $event = Event::find($eid);
-
         //Retrieving Polls for Display
-        $polls = array(Poll::find($event->eid));
+        $polls = Poll::getEventPolls($eid);
         $all_poll_options = [];
-        $invites = [];
-
         foreach ($polls as $poll)
         {
             $options = [];
 
             if(null != $poll)
             {
-                $options = PollOption::all()->where('pid', $poll->pid);
+                $options = PollOption::getPollOptions($poll->pid);
             }
 
             array_push($all_poll_options, $options);
         }
+        return $all_poll_options;
+    }
 
+    public function getInvitesFromEid($eid)
+    {
+        $invites = [];
         //Retrieving Invitees for Display
-        $inviteDB = DB::table('users')
-            ->join('invites', 'invites.uid', '=', 'users.uid')
-            ->select('users.email')
-            ->where('invites.eid', '=', $eid)
-            ->get();   
+        $inviteDB = Invite::getInvitees($eid);
 
         foreach ($inviteDB as $entry)
         {
             array_push($invites, $entry->email);
         }
 
-        return view('events/event_details')
+        return $invites;
+    }
+
+    public function inviteDetails($eid)
+    {
+        $event = Event::find($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+
+        return view('events/event_details_invite')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
             ->with('invites', $invites);
@@ -118,6 +137,7 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
+        var_dump($input);
 
         $event = new Event;
 
@@ -131,7 +151,7 @@ class EventController extends Controller
 
         try
         {
-            $saveflag = $event->save();
+            $saveflag = Event::saveEvent($event);
         }
         catch(Exception $e)
         {
@@ -141,10 +161,13 @@ class EventController extends Controller
             return view('errors.error_event');
         }
 
+        $this->validatePoll( $event->eid );
+        $this->validateEmails();
+
         if($saveflag)
         {
-            return view('events/create_poll')
-                ->with('eventID', $event->eid);
+            return view('events/success_event');
+                //->with('eventID', $event->eid);
         }
     }
 
@@ -170,13 +193,13 @@ class EventController extends Controller
         }
     }
 
-    public function validatePoll()
+    public function validatePoll( $eid )
     {
         $input = Request::all();
         $uid = Auth::user()['uid'];
         $poll = new Poll;
         $pollArray = [];
-        $eid = $input["eid"];
+        //$eid = $input["eid"];
 
         if(!empty($input['date1']))
             array_push( $pollArray, $input['date1']);
@@ -205,7 +228,7 @@ class EventController extends Controller
 
                     try
                     {
-                        $poll_options->save();
+                        PollOption::savePollOption($poll_options);
                     }
                     catch(Exception $e)
                     {
@@ -232,7 +255,7 @@ class EventController extends Controller
     }
 
     public function getVotes($pid, $oid)
-    {
+    {//TODO: what is this counting? Not the votes, but the options?
         $count = DB::table('poll_options')
                         ->select('COUNT(*)')
             ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
@@ -240,7 +263,7 @@ class EventController extends Controller
     }
 
     public function inviteUsers($emails)
-    {
+    {//TODO: Can we not also just pass in the eid?
         $uid = Auth::user()['uid'];
         $users = [];
         $eid = DB::table('events')
@@ -270,7 +293,7 @@ class EventController extends Controller
 
     private function getInvites($eid)
     {
-        $inviteDB = DB::table('invites')->select('uid')->where('eid', $eid)->get();
+        $inviteDB = Invite::getInvites($eid);
         $invites = [];
 
         foreach ($inviteDB as $entry)
