@@ -44,8 +44,7 @@ class HomeController extends Controller
 
     public function getUserInvitedEvents()
     {
-        $user = Auth::user();
-        $invites = Invite::where('uid', '=', $user->uid)->get();
+        $invites = Invite::getActiveUserInvites();
         $events = [];
         foreach($invites as $invite)
         {
