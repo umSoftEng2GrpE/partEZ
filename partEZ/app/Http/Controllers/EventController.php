@@ -252,14 +252,6 @@ class EventController extends Controller
 
     }
 
-    public function getVotes($pid, $oid)
-    {
-        $count = DB::table('poll_options')
-                        ->select('COUNT(*)')
-            ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
-        return $count;
-    }
-
     public function inviteUsers($emails, $eid)
     {
         $uid = Auth::user()['uid'];
