@@ -255,7 +255,7 @@ class EventController extends Controller
     }
 
     public function getVotes($pid, $oid)
-    {//TODO: what is this counting? Not the votes, but the options?
+    {
         $count = DB::table('poll_options')
                         ->select('COUNT(*)')
             ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
@@ -263,7 +263,7 @@ class EventController extends Controller
     }
 
     public function inviteUsers($emails)
-    {//TODO: Can we not also just pass in the eid?
+    {
         $uid = Auth::user()['uid'];
         $users = [];
         $eid = DB::table('events')
