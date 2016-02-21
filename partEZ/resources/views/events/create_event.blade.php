@@ -27,11 +27,15 @@
 
                                 <legend>Create An Event</legend>
 
-                                <!-- Name -->
                                 <div class="form-group">
+                                    <!-- Name -->
                                     {!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
                                         {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
+
+                                        Public:
+                                        {!! Form::checkbox('public') !!}
+
                                     </div>
                                 </div>
 
