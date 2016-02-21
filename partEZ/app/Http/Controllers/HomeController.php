@@ -49,10 +49,10 @@ class HomeController extends Controller
         $events = [];
         foreach($invites as $invite)
         {
-            $event_array= Event::getByID($invite->eid);
+            $event_array= Event::getByInviteEID($invite->eid);
             foreach($event_array as $single_event)
             {
-                array_push($events,$single_event);
+                array_push($events, $single_event);
             }
         }
 
