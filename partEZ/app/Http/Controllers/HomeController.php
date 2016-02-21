@@ -44,11 +44,12 @@ class HomeController extends Controller
 
     public function getUserInvitedEvents()
     {
+        $user = Auth::user();
         $invites = Invite::getActiveUserInvites();
         $events = [];
         foreach($invites as $invite)
         {
-            $event_array= (Event::where('eid', '=', $invite->eid)->get() );
+            $event_array= Event::getByID($invite->eid);
             foreach($event_array as $single_event)
             {
                 array_push($events,$single_event);
