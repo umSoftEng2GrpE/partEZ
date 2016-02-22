@@ -106,7 +106,7 @@
         $(function() {
             $( "#datepicker" ).datepicker();
             $( "#timepicker").timepicker( { 'scrollDefault': 'now' });
-            
+            $( "#timepicker1").timepicker( { 'scrollDefault': 'now' });
         });
     </script>
 
