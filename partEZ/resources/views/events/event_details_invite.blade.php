@@ -39,6 +39,23 @@
 							@endif
 						</div>
 
+					<h4>Chat</h4>
+					{{var_dump($chat_messages)}};
+					<div style="border : solid 2px #ffffff; background : #000000; color : #ffffff; padding : 4px; width : 100%; height : 500px; overflow : auto; " onload="/chat_log">
+						@if (count($chat_messages))
+							@foreach($chat_messages as $message)
+							<p>{{print_r($message['msg'], true)}}</p>
+							@endforeach
+						@endif
+
+					</div>
+					<div class="form-group">
+						<div class="col-xs-10">
+						    {!! Form::text('message', null, ['class' => 'form-control'] ) !!}
+						</div>
+						<h4>Event Id {{print_r($event['eid'], true)}}</h4>
+						<button type="button" name="submit_button" onclick="/chat_log">Submit</button>
+					</div>
 					</div>
 				</div>
 			</div>

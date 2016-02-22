@@ -13,6 +13,7 @@ use App\Invite;
 use App\Poll;
 use App\PollOption;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\MessageController;
 
 class EventController extends Controller
 {
@@ -47,11 +48,13 @@ class EventController extends Controller
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
-        
+        $chat_messages = MessageController::getMessagesFromEid($eid);
+
         return view('events/event_details')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
-            ->with('invites', $invites);
+            ->with('invites', $invites)
+            ->with('chat_messages', $chat_messages);
     }
 
     public function getPollOptionsFromEid($eid)
@@ -93,11 +96,13 @@ class EventController extends Controller
         $event = Event::find($eid);
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $chat_messages = MessageController::getMessagesFromEid($eid);
 
         return view('events/event_details_invite')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
-            ->with('invites', $invites);
+            ->with('invites', $invites)
+            ->with('chat_messages', $chat_messages);
     }
 
     public function create()

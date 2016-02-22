@@ -49,4 +49,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
+    Route::post('chat_log/{eid}','MessageController@getMessagesFromEid');
 });
