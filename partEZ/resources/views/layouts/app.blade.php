@@ -24,6 +24,9 @@
             margin-right: 20px;
         }
     </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -84,8 +87,37 @@
     @yield('content')
 
     <!-- JavaScripts -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.9/jquery.timepicker.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.9/jquery.timepicker.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.9/jquery.timepicker.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.9/jquery.timepicker.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+            $( "#timepicker").timepicker( { 'scrollDefault': 'now' });
+            $( "#timepicker1").timepicker( { 'scrollDefault': 'now' });
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $(".header-content").on('click', function(){
+            $(this).next().slideToggle();
+            $(this).find('.header-icon').toggleClass('fa-chevron-right fa-chevron-down');
+        });
+
+    </script>
 </body>
 </html>
