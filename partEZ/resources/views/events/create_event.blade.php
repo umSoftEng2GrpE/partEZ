@@ -28,11 +28,15 @@
 
                                 <legend>Create An Event</legend>
 
-                                <!-- Name -->
                                 <div class="form-group">
+                                    <!-- Name -->
                                     {!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
                                         {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
+
+                                        Public:
+                                        {!! Form::checkbox('public') !!}
+
                                     </div>
                                 </div>
 
@@ -157,6 +161,7 @@
                                 if(validEmail(email)) 
                                 {
                                     document.getElementById('email-error').style.display = "none";
+                                    document.getElementById('emails').value = "";
                                     inviteeArray.push(email);
                                     displayInviteeList();
                                 } 
@@ -213,7 +218,7 @@
                                 <div class="form-group">
                                     {!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        {!! Form::text('emails', null, ['required'], ['class' => 'form-control', 'id' => 'emails']) !!}
+                                        {!! Form::text('emails', null, ['class' => 'form-control', 'id' => 'emails']) !!}
                                         {!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}
                                         <input type="hidden" name="email-list" id="email-list" value="">
                                         <span id="email-error" style="color:red; display:none;"></span>
