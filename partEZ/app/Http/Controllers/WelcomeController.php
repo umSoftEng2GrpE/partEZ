@@ -16,7 +16,7 @@ class WelcomeController extends Controller
     public function index()
     {
         $public_events = Event::getPublicEvents();
-        
+
         return view('welcome')->with('public_events', $public_events);
     }
 }
