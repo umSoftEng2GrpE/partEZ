@@ -10,3 +10,12 @@
 #app-navbar-collapse {
 	margin-top: 8px;
 }
+
+.header-content {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.header-icon {
+    float: right;
+}
