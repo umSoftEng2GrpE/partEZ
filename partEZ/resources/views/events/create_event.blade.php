@@ -56,7 +56,11 @@
                                 <!-- Time -->
                                 <div class="form-group">
                                     {!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
-          
+                                    <div class="col-lg-10">
+                                        {{ Form::text('stime', null, array('id' => 'timepicker') ) }}
+                                        To:
+                                        
+                                    </div>
                                 </div>
 
                                 <!-- Details -->
