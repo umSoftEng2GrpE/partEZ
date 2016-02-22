@@ -2,6 +2,7 @@
 
 @section('content')
     <div id="rootwizard" class="container">
+
         <script>
             $(document).ready(function() {
                 $('#rootwizard').bootstrapWizard();
@@ -10,7 +11,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
-                    <li  ><a href="#tab1" data-toggle="tab">Create Event</a></li>
+                    <li  ><a href="#tab1" data-toggle="tab">Event Details</a></li>
                     <li><a href="#tab2" data-toggle="tab">Poll</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
                     <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
@@ -48,10 +49,11 @@
                                 </div>
 
                                 <!-- Date -->
+
                                 <div class="form-group">
                                     {!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        {!! Form::text('date', null, ['class' => 'form-control'] ) !!}
+                                        {{ Form::text('date', null, array('id' => 'datepicker') ) }}
                                     </div>
                                 </div>
 
@@ -59,9 +61,9 @@
                                 <div class="form-group">
                                     {!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        {!! Form::text('stime', null ) !!}
+                                        {{ Form::text('stime', null, array('id' => 'timepicker') ) }}
                                         To:
-                                        {!! Form::text('etime', null ) !!}
+                                        {{ Form::text('etime', null, array('id' => 'timepicker1') ) }}
                                     </div>
                                 </div>
 
@@ -143,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <ul class="EventItemList" id="itemlist">
+                                    <ul class="EventItemList" id="itemlist" style="list-style: none;">
                                     </ul>
                                 </div>
                             </fieldset>
@@ -183,7 +185,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+                        {!! Form::submit('Create Event!', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -191,4 +193,5 @@
             </div>
         </div>
     </div>
+
 @endsection
