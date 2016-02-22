@@ -2,6 +2,7 @@
 
 @section('content')
     <div id="rootwizard" class="container">
+
         <script>
             $(document).ready(function() {
                 $('#rootwizard').bootstrapWizard();
@@ -44,10 +45,11 @@
                                 </div>
 
                                 <!-- Date -->
+
                                 <div class="form-group">
                                     {!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        {!! Form::text('date', null, ['class' => 'form-control'] ) !!}
+                                        {{ Form::text('date', null, array('id' => 'datepicker') ) }}
                                     </div>
                                 </div>
 
@@ -55,9 +57,9 @@
                                 <div class="form-group">
                                     {!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
                                     <div class="col-lg-10">
-                                        {!! Form::text('stime', null ) !!}
+                                        {{ Form::text('stime', null, array('id' => 'timepicker') ) }}
                                         To:
-                                        {!! Form::text('etime', null ) !!}
+                                        {{ Form::text('etime', null, array('id' => 'timepicker1') ) }}
                                     </div>
                                 </div>
 
@@ -187,4 +189,5 @@
             </div>
         </div>
     </div>
+
 @endsection
