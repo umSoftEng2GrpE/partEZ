@@ -24,6 +24,9 @@
             margin-right: 20px;
         }
     </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -84,8 +87,21 @@
     @yield('content')
 
     <!-- JavaScripts -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+
+        });
+    </script>
+
 </body>
 </html>
