@@ -40,7 +40,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
 
     Route::post('create_event', 'EventController@store');
-    Route::post('invite_event', 'EventController@validateEmails');
+    Route::post('invite_event', 'EventController@splitEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
