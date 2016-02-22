@@ -9,9 +9,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'WelcomeController@index');
+
 
 Route::get('invite_response', function(){
     return view('inviteresponse');
