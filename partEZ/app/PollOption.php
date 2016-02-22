@@ -29,6 +29,13 @@ class PollOption extends Model
         return PollOption::all()->where('pid', '=', $pid);
     }
 
+    public function getVotes($pid, $oid)
+    {
+        return DB::table('poll_options')
+            ->select('COUNT(*)')
+            ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
+    }
+
     public static function savePollOption( $pollOption )
     {
         return $pollOption->save();
