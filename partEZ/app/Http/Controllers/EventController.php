@@ -33,7 +33,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events/create_event');
+        return view('events/create_event')
+            ->with('user_email', Auth::user()['email']);
     }
 
     /**
@@ -163,7 +164,7 @@ class EventController extends Controller
         }
 
         $this->validatePoll( $event->eid );
-        $this->validateEmails( $event->eid );
+        $this->splitEmails( $event->eid );
 
         if($saveflag)
         {
@@ -171,26 +172,14 @@ class EventController extends Controller
         }
     }
 
-    public function validateEmails($eid)
+    public function splitEmails($eid)
     {
         $input = Request::all();
-        $emailString = $input['emails'];
+        $emails = $input['email-list'];
 
-        $emails = array_map('trim', explode(',', $emailString));
-        $emails = array_map('strtolower', $emails);
-
-        if((count(array_unique($emails))<count($emails)))
-        {
-            print '<script type="text/javascript">';
-            print 'alert("Contains duplicate emails!")';
-            print '</script>';
-            return view('events/invite_event');
-        }
-        else
-        {
-            self::inviteUsers($emails, $eid);
-            return view('events/success_event');
-        }
+        $emails = array_map('trim', explode(',', $emails));
+        self::inviteUsers($emails, $eid);
+        return view('events/success_event');
     }
 
     public function validatePoll( $eid )

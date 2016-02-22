@@ -43,7 +43,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('create_event', 'EventController@store');
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
-    Route::post('invite_event', 'EventController@validateEmails');
+    Route::post('invite_event', 'EventController@splitEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
     Route::post('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
