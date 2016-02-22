@@ -11,6 +11,16 @@
 
                     Welcome to partEz!
 
+                    Public Events:
+
+                    @if (count($public_events))
+                        @foreach($public_events as $event)
+                            @include('events.event_basic', $event)
+                        @endforeach
+                    @else
+                        <p>You have no events.</p>
+                    @endif
+
                 </div>
             </div>
         </div>

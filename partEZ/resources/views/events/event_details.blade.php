@@ -8,9 +8,14 @@
 				<div class="panel-heading">Dashboard</div>
 
 				<div class="panel-body">
+
+                    {{  $is_public_message =
+                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
+
 					<h3> Event Name: {{ $event['name'] }} </h3>
 					<br>
 					<ul>
+						<li> {{ $is_public_message }} </li>
 						<li> Date:{{ $event['date'] }} </li>
 						<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
 						<li> Location: {{ $event['location'] }} </li>
@@ -19,9 +24,9 @@
 
 					<h4>Polls</h4>
 					@if (count($all_options))
-					@foreach($all_options as $options)
-					@include('polls.poll_display', $options )
-					@endforeach
+                        @foreach($all_options as $options)
+                        @include('polls.poll_display', $options )
+                        @endforeach
 					@else
 					<p>This event has no polls.</p>
 					@endif

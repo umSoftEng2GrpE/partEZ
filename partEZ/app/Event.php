@@ -41,7 +41,12 @@ class Event extends Model
         return Event::where('uid', '=', $uid)->get();
     }
 
-    public static function getEvent( $eid )
+    public static function getPublicEvents()
+    {
+        return Event::where('public', '=', 1)->get();
+    }
+
+    public static function getEvent($eid)
     {
         return Event::find($eid);
     }
