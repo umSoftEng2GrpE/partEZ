@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Auth;
 
 class Invite extends Model
 {
@@ -64,5 +65,10 @@ class Invite extends Model
     public static function changeStatus($eid, $uid, $status)
     {
         DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
+    }
+
+    public static function getActiveUserInvites() 
+    {
+        return DB::table('invites')->where('uid', Auth::user()->uid)->get();
     }
 }
