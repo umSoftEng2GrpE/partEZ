@@ -59,7 +59,7 @@
                                     <div class="col-lg-10">
                                         {{ Form::text('stime', null, array('id' => 'timepicker') ) }}
                                         To:
-                                        
+                                        {{ Form::text('etime', null, array('id' => 'timepicker1') ) }}
                                     </div>
                                 </div>
 
