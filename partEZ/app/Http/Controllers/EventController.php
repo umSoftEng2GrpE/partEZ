@@ -33,7 +33,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events/create_event');
+        return view('events/create_event')
+            ->with('user_email', Auth::user()['email']);
     }
 
     /**
@@ -142,6 +143,7 @@ class EventController extends Controller
         $event = new Event;
 
         $event->name = $input['name'];
+        $event->public = $input['public'];
         $event->location = $input['location'];
         $event->description = $input['description'];
         $event->date = $input['date'];
@@ -162,35 +164,22 @@ class EventController extends Controller
         }
 
         $this->validatePoll( $event->eid );
-        $this->validateEmails();
+        $this->splitEmails( $event->eid );
 
         if($saveflag)
         {
             return view('events/success_event');
-                //->with('eventID', $event->eid);
         }
     }
 
-    public function validateEmails()
+    public function splitEmails($eid)
     {
         $input = Request::all();
-        $emailString = $input['emails'];
+        $emails = $input['email-list'];
 
-        $emails = array_map('trim', explode(',', $emailString));
-        $emails = array_map('strtolower', $emails);
-
-        if((count(array_unique($emails))<count($emails)))
-        {
-            print '<script type="text/javascript">';
-            print 'alert("Contains duplicate emails!")';
-            print '</script>';
-            return view('events/invite_event');
-        }
-        else
-        {
-            self::inviteUsers($emails);
-            return view('events/success_event');
-        }
+        $emails = array_map('trim', explode(',', $emails));
+        self::inviteUsers($emails, $eid);
+        return view('events/success_event');
     }
 
     public function validatePoll( $eid )
@@ -199,7 +188,6 @@ class EventController extends Controller
         $uid = Auth::user()['uid'];
         $poll = new Poll;
         $pollArray = [];
-        //$eid = $input["eid"];
 
         if(!empty($input['date1']))
             array_push( $pollArray, $input['date1']);
@@ -254,23 +242,10 @@ class EventController extends Controller
 
     }
 
-    public function getVotes($pid, $oid)
-    {//TODO: what is this counting? Not the votes, but the options?
-        $count = DB::table('poll_options')
-                        ->select('COUNT(*)')
-            ->where('pid', '=', $pid, 'AND', 'oid', '=', $oid);
-        return $count;
-    }
-
-    public function inviteUsers($emails)
-    {//TODO: Can we not also just pass in the eid?
+    public function inviteUsers($emails, $eid)
+    {
         $uid = Auth::user()['uid'];
         $users = [];
-        $eid = DB::table('events')
-                    ->select(DB::raw('max(eid) as max_eid'))
-                    ->where('uid', '=', $uid)
-                    ->pluck('max_eid');
-        $eid = $eid[0];
 
         foreach($emails as $email)
         {
