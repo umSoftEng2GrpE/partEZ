@@ -12,6 +12,7 @@ use App\User;
 use App\Invite;
 use App\Poll;
 use App\PollOption;
+use App\Http\Controllers\EventItemController;
 use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
@@ -165,6 +166,7 @@ class EventController extends Controller
 
         $this->validatePoll( $event->eid );
         $this->splitEmails( $event->eid );
+        EventItemController::submitItems($event->eid);
 
         if($saveflag)
         {

@@ -19,7 +19,7 @@ class CreateEventListItemsTable extends Migration
             $table->string('description');
             $table->timestamps();
 
-            $table->primary(array('eid', 'iid'));
+            $table->primary('iid');
             //$table->foreign('eid')->references('eid')->on('events')->onDelete('cascade');
             //$table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
         });
