@@ -49,4 +49,56 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
+
+
 });
+Route::get('/', function () {
+    return view('index');
+});
+
+Route::group(['prefix' => 'api'], function()
+{
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+});
+
+/*Route::get('create_event_restful', 'EventController@indexRestful');
+Route::post('/register_restful', function () {
+    $credentials = Input::only('email', 'password');
+
+    try {
+        $user = User::create($credentials);
+    } catch (Exception $e) {
+        return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+    }
+
+    $token = JWTAuth::fromUser($user);
+
+    return Response::json(compact('token'));
+});
+Route::post('/login_restful', function () {
+    $credentials = Input::only('email', 'password');
+
+    if ( ! $token = JWTAuth::attempt($credentials)) {
+        return Response::json(false, HttpResponse::HTTP_UNAUTHORIZED);
+    }
+
+    return Response::json(compact('token'));
+});
+//Example of verification
+Route::get('/restricted', [
+    'before' => 'jwt-auth',
+    function () {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+
+        return Response::json([
+            'data' => [
+                'email' => $user->email,
+                'registered_at' => $user->created_at->toDateTimeString()
+            ]
+        ]);
+    }
+]);*/
+
+
