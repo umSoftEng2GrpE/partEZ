@@ -47,7 +47,7 @@ class EventController extends Controller
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
-
+        
         return view('events/event_details')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
