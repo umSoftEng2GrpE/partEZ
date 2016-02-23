@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Auth;
 
 class Message extends Model
 {
@@ -57,14 +58,14 @@ class Message extends Model
 
     public static function createMessage($eid, $message)
     {
-        // $uid = Auth::user()->uid
+        $uid = Auth::user()->uid;
 
-        // DB::table('messages')->insert([
-        //     'eid' => $eid, 
-        //     'uid' => $uid, 
-        //     'message' => $message,
-        //     'created' => date('Y-m-d h:i:s')
-        //     ]);
+        return DB::table('messages')->insert([
+            'eid' => $eid, 
+            'uid' => $uid, 
+            'message' => $message,
+            'created' =>  date('Y-m-d h:i:s')
+            ]);
     }
 
 }

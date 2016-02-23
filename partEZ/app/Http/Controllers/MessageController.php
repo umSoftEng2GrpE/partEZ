@@ -8,6 +8,8 @@ use Auth;
 use Mail;
 use Exception;
 use App\Message;
+use App\User;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Request;
 
 class MessageController extends Controller
@@ -25,14 +27,40 @@ class MessageController extends Controller
     public static function getMessagesFromEid($eid)
     {
         $chat_messages = [];
-
+       // $uid = Auth::user()['uid'];
         //Retrieving Polls for Display
         $chat_logDB = Message::getAllMessagesByEid($eid);
 
         foreach($chat_logDB as $message){
-            $temp_msg=array("msg" => $message->message, "uid" => $message->uid, "created" => $message->created);
+            $user = User::getById($message->uid);
+            $temp_msg=array("msg" => $message->message, "firstname" => $user->firstname, "lastname" => $user->lastname, "created" => $message->created);
             array_push($chat_messages, $temp_msg);
         } 
         return $chat_messages;
+    }
+
+    public static function saveNewMessageDetails()
+    {
+        $input = Request::all();
+        var_dump($input);
+        $msgCreated=Message::createMessage($input['eid'], $input['message']);
+        if($msgCreated){
+
+            return redirect()->route('events.event_details', array($input['eid']));
+           // return redirect()->back();
+           //return Redirect::back()->with('message','Operation Successful !');
+        }
+
+    }
+    public static function saveNewMessageInvite()
+    {
+        $input = Request::all();
+        var_dump($input);
+        $msgCreated=Message::createMessage($input['eid'], $input['message']);
+        if($msgCreated){
+
+            return redirect()->route('events.event_details_invite', array($input['eid']));
+        }
+
     }
 }

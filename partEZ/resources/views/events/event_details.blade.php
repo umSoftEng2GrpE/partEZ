@@ -45,25 +45,25 @@
 					</div>
 
 					<h4>Chat</h4>
-					<div style="border : solid 2px #ffffff; background : #000000; color : #ffffff; padding : 4px; width : 100%; height : 500px; overflow : auto; " onload="/chat_log">
-						@if (count($chat_messages))
-							@foreach($chat_messages as $message)
-							<p>{{print_r($message['msg'], true)}}</p>
-							@endforeach
-						@endif
-					</div>
+					
+						@include('partials.chat_box',array('chat_message' => $chat_messages))
 					<div class="form-group">
-						<div class="col-xs-10">
-						    {!! Form::text('message', null, ['class' => 'form-control'] ) !!}
+						<div class="col-lg-10">
+
+						    {{  Form::open(['url' => 'details_chat']) }}
+						    <div class="col-lg-10" style="display:inline-block;">
+                				{!! Form::text('message', null, ['class' => 'form-control'] ) !!}
+                				</div>
+                				<div style="display:inline-block;">
+						    		{!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+						    	</div>
+						    	{{ Form::hidden('eid', $event->eid) }}
+                			{!! Form::close() !!}
+						    <!-- <button type="button" name="submit_button" onclick="/chat_log{event['eid'],newmessage">Submit</button> -->
 						</div>
-						<h4>Event Id {{print_r($event['eid'], true)}}</h4>
-						<button type="button" name="submit_button" onclick="/chat_log">Submit</button>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 @endsection
