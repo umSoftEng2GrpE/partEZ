@@ -26,7 +26,7 @@ class PollOption extends Model
 
     public static function getPollOptions($pid)
     {
-        return PollOption::all()->where('pid', '=', $pid);
+        return PollOption::all()->where('pid', $pid);
     }
 
     public function getVotes($pid, $oid)
