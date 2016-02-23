@@ -25,13 +25,6 @@ class AuthenticateController extends Controller
         return $users;
     }
 
-    public function createUser()
-    {
-        $user = new User();
-        $user->email = 'delroy.hiebert@gmail.com';
-        $user->password = '123456';
-    }
-
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
