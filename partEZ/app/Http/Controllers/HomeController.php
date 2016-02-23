@@ -35,25 +35,27 @@ class HomeController extends Controller
     public function getUsersEvents()
     {
         $user = Auth::user();
-        //$events = Event::where('uid', '=', $user->uid)->get();
-        //$event = new Event();
+
         $events = Event::getUserEvents($user->uid);
+
         return $events;
+
     }
 
     public function getUserInvitedEvents()
     {
         $user = Auth::user();
-        $invites = Invite::where('uid', '=', $user->uid)->get();
+        $invites = Invite::getActiveUserInvites();
         $events = [];
         foreach($invites as $invite)
         {
-            $event_array= (Event::where('eid', '=', $invite->eid)->get() );
+            $event_array= Event::getByInviteEID($invite->eid);
             foreach($event_array as $single_event)
             {
-                array_push($events,$single_event);
+                array_push($events, $single_event);
             }
         }
+
         return $events;
     }
 }

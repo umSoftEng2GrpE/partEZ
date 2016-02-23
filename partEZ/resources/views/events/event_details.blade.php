@@ -7,6 +7,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>
 
+                    {{  $is_public_message =
+                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
+
 				<ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Description</a></li>
                     <li><a href="#tab2" data-toggle="tab">Event Poll</a></li>
@@ -22,6 +25,7 @@
                 		
 						<br>
 						<ul>
+							<li> {{ $is_public_message }} </li>
 							<li> Date:{{ $event['date'] }} </li>
 							<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
 							<li> Location: {{ $event['location'] }} </li>
@@ -31,9 +35,9 @@
                 	<div class="tab-pane" id="tab2">
                 		<h4>Polls</h4>
 						@if (count($all_options))
-						@foreach($all_options as $options)
-						@include('polls.poll_display', $options )
-						@endforeach
+							@foreach($all_options as $options)
+							@include('polls.poll_display', $options )
+							@endforeach
 						@else
 						<p>This event has no polls.</p>
 						@endif

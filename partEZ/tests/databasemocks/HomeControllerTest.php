@@ -26,10 +26,10 @@ class HomeControllerTest extends TestCase
     public function testGetUsersEvents()
     {
 
-        $this->mock->shouldReceive('getByUID')->once()->andReturn(1);
-        $this->app->instance('\App\Event', $this->mock);
-        $response = $this->controller->getUsersEvents();
-        $this->assertEquals(1, $response->eid);
+        // $this->mock->shouldReceive('getByUID')->once()->andReturn(1);
+        // $this->app->instance('\App\Event', $this->mock);
+        // $response = $this->controller->getUsersEvents();
+        // $this->assertEquals(1, $response->eid);
 
     }*/
 }
