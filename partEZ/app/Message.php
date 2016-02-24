@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Auth;
 
 class Message extends Model
 {
@@ -22,7 +23,7 @@ class Message extends Model
      * @var array
      */
     protected $fillable = [
-        'message', 'eid', 'uid',
+        'messages', 'eid', 'uid',
     ];
 
     /**
@@ -36,34 +37,34 @@ class Message extends Model
 
 
     // Gets all messages for the specified event.
-    public static function getByAllByEid($eid) 
+    public static function getAllMessagesByEid($eid) 
     {
-    	return DB::table('message')->where('eid', $eid);
+    	return DB::table('messages')->where('eid', $eid)->get();
     }
 
 
     // Gets all messages for the specified user.
-    public static function getAllByUid($uid)
+    public static function getAllMessagesByUid($uid)
     {
-    	return DB::table('message')->where('uid', $uid);
+    	return DB::table('messages')->where('uid', $uid);
     }
 
 
     // Gets all messages for the specified event after the specified message.
-    public static function getAllRecent($eid, $mid)
+    public static function getAllRecentMessages($eid, $mid)
     {
-    	return DB::table('message')->where('eid', $eid)->where('mid', '>', $mid);
+    	return DB::table('messages')->where('eid', $eid)->where('mid', '>', $mid);
     }
 
     public static function createMessage($eid, $message)
     {
-        $uid = Auth::user()->uid
+        $uid = Auth::user()->uid;
 
-        DB::table('messages')->insert([
+        return DB::table('messages')->insert([
             'eid' => $eid, 
             'uid' => $uid, 
             'message' => $message,
-            'created' => date('Y-m-d h:i:s')
+            'created' =>  date('Y-m-d h:i:s')
             ]);
     }
 
