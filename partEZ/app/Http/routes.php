@@ -51,6 +51,18 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
+
     Route::post('details_chat','MessageController@saveNewMessageDetails');
     Route::post('invite_chat','MessageController@saveNewMessageInvite');
+
+
+});
+
+Route::group(['prefix' => 'api'], function()
+{
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+
+    Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController', ['only' => ['index']]);
+    Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
 });

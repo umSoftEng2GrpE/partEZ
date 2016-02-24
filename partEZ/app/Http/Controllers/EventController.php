@@ -12,6 +12,7 @@ use App\User;
 use App\Invite;
 use App\Poll;
 use App\PollOption;
+use App\Http\Controllers\EventItemController;
 use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\MessageController;
 
@@ -48,11 +49,19 @@ class EventController extends Controller
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
         $chat_messages = MessageController::getMessagesFromEid($eid);
 
         return view('events/event_details')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
             ->with('invites', $invites)
             ->with('chat_messages', $chat_messages);
     }
@@ -148,7 +157,15 @@ class EventController extends Controller
         $event = new Event;
 
         $event->name = $input['name'];
-        $event->public = $input['public'];
+        if (array_key_exists('public', $input)) {
+            $event->public = $input['public'];
+        }
+        else
+        {
+            $event->public = '';
+        }
+
+
         $event->location = $input['location'];
         $event->description = $input['description'];
         $event->date = $input['date'];
@@ -170,6 +187,7 @@ class EventController extends Controller
 
         $this->validatePoll( $event->eid );
         $this->splitEmails( $event->eid );
+        EventItemController::submitItems($event->eid);
 
         if($saveflag)
         {
