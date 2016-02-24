@@ -13,13 +13,12 @@ class CreateEventListItemsTable extends Migration
     public function up()
     {
         Schema::create('event_list_items', function (Blueprint $table) {
+            $table->increments('iid');
             $table->integer('eid');
-            $table->integer('iid');
             $table->integer('uid');
             $table->string('description');
             $table->timestamps();
 
-            $table->primary('iid');
             //$table->foreign('eid')->references('eid')->on('events')->onDelete('cascade');
             //$table->foreign('uid')->references('uid')->on('users')->onDelete('cascade');
         });

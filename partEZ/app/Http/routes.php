@@ -52,15 +52,13 @@ Route::group(['middleware' => 'web'], function () {
 
 
 });
-Route::get('/', function () {
-    return view('index');
-});
 
 Route::group(['prefix' => 'api'], function()
 {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
 
+    Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController', ['only' => ['index']]);
     Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
 });
 

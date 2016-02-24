@@ -35,6 +35,7 @@ class ApiHomeController extends Controller
         return response()->json(compact('array'));
     }
 
+        //TODO: perhaps just call these functions from the regular home controller instead of having duplicates here
     public function getUsersEvents()
     {
         $user = Auth::user();
