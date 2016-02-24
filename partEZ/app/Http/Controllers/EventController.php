@@ -96,10 +96,18 @@ class EventController extends Controller
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
 
         return view('events/event_details')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
             ->with('invites', $invites);
     }
 

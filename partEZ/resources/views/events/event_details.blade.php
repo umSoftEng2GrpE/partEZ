@@ -44,6 +44,13 @@
                 	</div>
                 	<div class="tab-pane" id="tab3">
                 		<h4>Items list</h4>
+						@if( count($items_list))
+							@foreach($items_list as $item)
+								<p> {{ $item->description }} </p>
+							@endforeach
+						@else
+							<p>This event has no items.</p>
+						@endif
                 	</div>
                 	<div class="tab-pane" id="tab4">
                 		<h4>Invited</h4>

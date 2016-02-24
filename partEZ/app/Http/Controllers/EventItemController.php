@@ -44,4 +44,9 @@ class EventItemController extends Controller
             $newItem->save();
         }
     }
+
+    public function getEventItems( $eid )
+    {
+        return Event::getEventItems( $eid );
+    }
 }
