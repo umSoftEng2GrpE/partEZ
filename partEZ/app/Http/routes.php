@@ -60,6 +60,8 @@ Route::group(['prefix' => 'api'], function()
 {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
+
+    Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
 });
 
 /*Route::get('create_event_restful', 'EventController@indexRestful');
