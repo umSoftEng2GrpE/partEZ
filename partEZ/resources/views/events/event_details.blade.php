@@ -44,9 +44,26 @@
 						@endif
 					</div>
 
+					<h4>Chat</h4>
+					
+						@include('partials.chat_box',array('chat_message' => $chat_messages))
+					<div class="form-group">
+						<div class="col-lg-10">
+
+						    {{  Form::open(['url' => 'details_chat']) }}
+						    <div class="col-lg-10" style="display:inline-block;">
+                				{!! Form::text('message', null, ['class' => 'form-control'] ) !!}
+                				</div>
+                				<div style="display:inline-block;">
+						    		{!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+						    	</div>
+						    	{{ Form::hidden('eid', $event->eid) }}
+                			{!! Form::close() !!}
+						    <!-- <button type="button" name="submit_button" onclick="/chat_log{event['eid'],newmessage">Submit</button> -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 @endsection
