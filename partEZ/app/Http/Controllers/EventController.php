@@ -39,54 +39,6 @@ class EventController extends Controller
             ->with('user_email', Auth::user()['email']);
     }
 
-    public function indexRestful()
-    {
-        try
-        {
-            $statusCode = 200;
-            $response = [
-                'create_event' => []
-            ];
-            $email = Auth::user()['email'];
-            $response['create_event'][] = ['user_email'=>$email,];
-        }
-        catch( Exception $e )
-        {
-            $statusCode = 400;
-        }
-        finally
-        {
-            return response()->json( $response, $statusCode );
-        }
-    }
-
-    public static function getAllEvents()
-    {
-        try{
-            $statusCode = 200;
-            $response = [
-                'events' => []
-            ];
-            $events = Event::getPublicEvents();
-
-            foreach( $events as $event )
-            {
-                $response['events'][] = [
-                    'eid' => $event->eid,
-                    'uid' => $event->uid,
-                    'name' => $event->name,
-                ];
-            }
-        }
-        catch( Exception $e )
-        {
-            $statusCode = 400;
-        }
-        finally{
-            return response()->json( $response, $statusCode);
-        }
-    }
-
     /**
      * Show the detail screen for an event.
      *
