@@ -152,8 +152,6 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
-        var_dump($input);
-
         $event = new Event;
 
         $event->name = $input['name'];
@@ -208,58 +206,10 @@ class EventController extends Controller
     public function validatePoll( $eid )
     {
         $input = Request::all();
-        $uid = Auth::user()['uid'];
-        $poll = new Poll;
-        $pollArray = [];
+        $dateList= $input['returndatepolls'];
+        $pollArray = array_map( 'trim', explode(',', $dateList));
 
-        if(!empty($input['date1']))
-            array_push( $pollArray, $input['date1']);
-        if(!empty($input['date2']))
-            array_push( $pollArray, $input['date2']);
-        if(!empty($input['date3']))
-            array_push( $pollArray, $input['date3']);
-        if(!empty($input['date4']))
-            array_push( $pollArray, $input['date4']);
-
-        if(!empty($pollArray))
-        {
-
-
-            $poll->eid = $eid;
-            $poll->polltype = $input['type'];
-            $saveflag = $poll->save();
-
-            if($saveflag)
-            {
-                foreach ($pollArray as $poll_index)
-                {
-                    $poll_options = new PollOption();
-                    $poll_options->pid = $poll['pid'];
-                    $poll_options->option = $poll_index;
-
-                    try
-                    {
-                        PollOption::savePollOption($poll_options);
-                    }
-                    catch(Exception $e)
-                    {
-                        print '<script type="text/javascript">';
-                        print 'alert( There have been issues adding options to your poll please
-                        check home page for details)';
-                        print '</script>';
-                        return view('events/invite_event');
-                    }
-
-                }
-            }
-            else
-            {
-                print '<script type="text/javascript">';
-                print 'alert("Unable to save poll to database")';
-                print '</script>';
-                return view('events/create_poll');
-            }
-        }
+       
         return view('events/invite_event')
             ->with('eventID', $eid);
 
