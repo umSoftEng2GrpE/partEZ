@@ -105,7 +105,10 @@
                                 }
 
                             </script>
-                            
+                            <fieldset>
+                                <legend>Date Proposals</legend>
+                                
+                            </fieldset>
 
                         </div>
                     </div>
