@@ -152,7 +152,6 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
-        var_dump($input);
 
         $event = new Event;
 
