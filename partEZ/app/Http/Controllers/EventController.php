@@ -216,7 +216,36 @@ class EventController extends Controller
             $poll->polltype = $input['date'];
             $saveflag = $poll->save();
 
-            
+            if($saveflag)
+            {
+                foreach ($pollArray as $poll_index)
+                {
+                    $poll_options = new PollOption();
+                    $poll_options->pid = $poll['pid'];
+                    $poll_options->option = $poll_index;
+
+                    try
+                    {
+                        PollOption::savePollOption($poll_options);
+                    }
+                    catch(Exception $e)
+                    {
+                        print '<script type="text/javascript">';
+                        print 'alert( There have been issues adding options to your poll please
+                        check home page for details)';
+                        print '</script>';
+                        return view('events/invite_event');
+                    }
+
+                }
+            }
+            else
+            {
+                print '<script type="text/javascript">';
+                print 'alert("Unable to save poll to database")';
+                print '</script>';
+                return view('events/create_poll');
+            }
         }
         return view('events/invite_event')
             ->with('eventID', $eid);
