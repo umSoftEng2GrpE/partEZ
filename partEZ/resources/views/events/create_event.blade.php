@@ -35,7 +35,7 @@
                                         {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
 
                                         Public:
-                                        {!! Form::checkbox('public') !!}
+                                        {!! Form::checkbox('public', null, null) !!}
 
                                     </div>
                                 </div>
