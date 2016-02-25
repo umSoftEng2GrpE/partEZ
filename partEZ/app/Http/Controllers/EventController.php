@@ -152,8 +152,6 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
-        var_dump($input);
-
         $event = new Event;
 
         $event->name = $input['name'];
@@ -208,25 +206,14 @@ class EventController extends Controller
     public function validatePoll( $eid )
     {
         $input = Request::all();
-        $uid = Auth::user()['uid'];
-        $poll = new Poll;
-        $pollArray = [];
-
-        if(!empty($input['date1']))
-            array_push( $pollArray, $input['date1']);
-        if(!empty($input['date2']))
-            array_push( $pollArray, $input['date2']);
-        if(!empty($input['date3']))
-            array_push( $pollArray, $input['date3']);
-        if(!empty($input['date4']))
-            array_push( $pollArray, $input['date4']);
+        $dateList= $input['returndatepolls'];
+        $pollArray = array_map( 'trim', explode(',', $dateList));
 
         if(!empty($pollArray))
         {
-
-
+            $poll = new Poll;
             $poll->eid = $eid;
-            $poll->polltype = $input['type'];
+            $poll->polltype = $input['date'];
             $saveflag = $poll->save();
 
             if($saveflag)
