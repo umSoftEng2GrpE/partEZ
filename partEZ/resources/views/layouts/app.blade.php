@@ -108,6 +108,13 @@
             $( "#datepicker" ).datepicker();
             $( "#timepicker").timepicker( { 'scrollDefault': 'now' });
             $( "#timepicker1").timepicker( { 'scrollDefault': 'now' });
+            $('#dateCalendar').datepicker({
+                inline: true,
+            });
+            $('#dateCalendar').change(function(){
+                var selected = $(this).val();
+                addDatePoll(selected);
+            });
         });
     </script>
 
