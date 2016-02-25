@@ -154,16 +154,12 @@ class EventController extends Controller
         $input = Request::all();
         var_dump($input);
 
-        if(!array_key_exists('public', $input))
-        {
-            $input['public'] = false;
-        }
-
         $event = new Event;
 
         $event->name = $input['name'];
+
         if (array_key_exists('public', $input)) {
-            $event->public = $input['public'];
+            $event->public = true;
         }
         else
         {

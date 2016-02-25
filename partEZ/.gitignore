@@ -1,3 +1,4 @@
+config/jwt.php
 /vendor
 /.idea
 /node_modules
