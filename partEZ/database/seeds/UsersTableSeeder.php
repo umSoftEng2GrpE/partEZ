@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->addTestUser();
+        $this->addTestUsers();
         // create some random users
         factory(App\User::class, 10)->create();
     }
@@ -19,12 +19,19 @@ class UsersTableSeeder extends Seeder
     /*
      * Add a user for the Selenium Tests
      */
-    private function addTestUser()
+    private function addTestUsers()
     {
         DB::table('users')->insert([
             'firstname' => 'test',
             'lastname' => 'user',
             'email' => 'partEZSelenium'.'@gmail.com',
+            'password' => bcrypt('secret'),
+        ]);
+
+        DB::table('users')->insert([
+            'firstname' => 'test',
+            'lastname' => 'user2',
+            'email' => 'partEZSelenium2'.'@gmail.com',
             'password' => bcrypt('secret'),
         ]);
     }
