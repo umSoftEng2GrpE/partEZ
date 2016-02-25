@@ -107,7 +107,17 @@
                             </script>
                             <fieldset>
                                 <legend>Date Proposals</legend>
-                                
+                                <p>Select Multiple Dates</p>
+                                <div class="form-group">
+
+           
+                                    <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
+                                    </ul>
+                                </div>
                             </fieldset>
 
                         </div>
