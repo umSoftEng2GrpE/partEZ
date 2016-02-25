@@ -83,7 +83,25 @@
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
-                            
+                            <script>
+                                var arr = new Array();
+
+                                function displayDatePoll() {
+
+                                    //var arr = ["list", "items", "here"];
+                                    //$("displayList").append("<ul></ul>");
+                                    $("ul#datepolllist").empty();
+                                    for (var i in arr) {
+                                        var li = "<li>";
+                                        $("ul#datepolllist").append( (li.concat( arr[i] )).concat("</li>") )
+                                    }
+                                    document.getElementById('returndatepolls').value = arr;
+                                }
+
+
+
+                            </script>
+
 
                         </div>
                     </div>
