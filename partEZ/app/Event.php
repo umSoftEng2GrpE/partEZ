@@ -56,4 +56,9 @@ class Event extends Model
         return $event->save();
     }
 
+    public static function getEventItems( $eid )
+    {
+        return DB::table('event_list_items')->where('eid', $eid)->get();
+    }
+
 }
