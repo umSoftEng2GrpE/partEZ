@@ -110,7 +110,11 @@
                                 <p>Select Multiple Dates</p>
                                 <div class="form-group">
 
-           
+                                    <!-- Date -->
+                                    {!! Form::label('addDatePoll', 'Possible Dates', ['class' => 'col-lg-5 control-label']) !!}
+                                    <div id="dateCalendar"></div>
+                                    <!-- Date -->
+
                                     <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
                                 </div>
 
