@@ -12,7 +12,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Poll</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Time Proposals</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
                     <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
                     <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
@@ -83,25 +83,7 @@
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
-                            <fieldset>
-                                <legend>Create A Poll</legend>
-                                <div class="form-group">
-                                    <!-- Date -->
-                                    {!! Form::label('date1', 'Possible', ['class' => 'col-lg-5 control-label']) !!}
-                                    {!! Form::select('type', array('time' => 'Time', 'date' => 'Date') ) !!}
-                                    {!! Form::text('date1', null, ['class' => 'form-control'] ) !!}
-                                    <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date2', null, ['class' => 'form-control'] ) !!}
-                                    <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date3', null, ['class' => 'form-control'] ) !!}
-                                    <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date4', null, ['class' => 'form-control'] ) !!}
-                                    <span class="help-block">Click next if you don't need help picking the date</span>
-                                </div>
-                            </fieldset>
+                            
 
                         </div>
                     </div>
