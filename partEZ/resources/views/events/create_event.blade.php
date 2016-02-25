@@ -98,10 +98,14 @@
                                     document.getElementById('returndatepolls').value = arr;
                                 }
 
-
+                                function addDatePoll(selected)
+                                {
+                                    arr.push(selected);
+                                    displayDatePoll(selected);
+                                }
 
                             </script>
-
+                            
 
                         </div>
                     </div>
