@@ -209,7 +209,15 @@ class EventController extends Controller
         $dateList= $input['returndatepolls'];
         $pollArray = array_map( 'trim', explode(',', $dateList));
 
-       
+        if(!empty($pollArray))
+        {
+            $poll = new Poll;
+            $poll->eid = $eid;
+            $poll->polltype = $input['date'];
+            $saveflag = $poll->save();
+
+            
+        }
         return view('events/invite_event')
             ->with('eventID', $eid);
 
