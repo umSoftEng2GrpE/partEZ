@@ -11,7 +11,6 @@
 	                    {{  $is_public_message =
 	                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
                     </div>
-
 				<ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Description</a></li>
                     <li><a href="#tab2" data-toggle="tab">Event Poll</a></li>
@@ -60,38 +59,36 @@
                 		<div class="event-details">
                 		<h4>Invited</h4>
 							@if (count($invites))
-							<ul>
-								@foreach($invites as $person)
-								<li>{{print_r($person, true)}}</li>
-								@endforeach
-							</ul>
-							@else
-							<p>This event has no invitees.</p>
-							@endif
-						</div>
-                	</div>
-               	</div>
-			</div>
-
-			<h4>Chat</h4>
-
-			@include('partials.chat_box',array('chat_message' => $chat_messages))
-			<div class="form-group">
-				<div class="col-lg-10">
-
-					{{  Form::open(['url' => 'details_chat']) }}
-					<div class="col-lg-10" style="display:inline-block;">
-						{!! Form::text('message', null, ['class' => 'form-control'] ) !!}
-					</div>
-					<div style="display:inline-block;">
-						{!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
-					</div>
-					{{ Form::hidden('eid', $event->eid) }}
-					{!! Form::close() !!}
-							<!-- <button type="button" name="submit_button" onclick="/chat_log{event['eid'],newmessage">Submit</button> -->
+								<ul>
+									@foreach($invites as $person)
+									<li>{{print_r($person, true)}}</li>
+									@endforeach
+								</ul>
+								@else
+								<p>This event has no invitees.</p>
+								@endif
+							</div>
+	                	</div>
+	               	</div>
 				</div>
-			</div>
-		</div>
+
+				<h4>Messages</h4>
+
+				@include('partials.chat_box',array('chat_message' => $chat_messages))
+				<div class="form-group" >
+					<div class="col-lg-10">
+
+						{{  Form::open(['url' => 'details_chat']) }}
+						<div class="col-lg-10" style="display:inline-block;">
+							{!! Form::text('message', null, ['class' => 'form-control'] ) !!}
+						</div>
+						<div style="display:inline-block;">
+							{!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+						</div>
+						{{ Form::hidden('eid', $event->eid) }}
+						{!! Form::close() !!}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

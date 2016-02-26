@@ -9,8 +9,8 @@
         <li> Description: {{ $invite['description'] }} </li>
 
         <!-- Details Button -->
-        {{ Form::open(array('route' => array('events.event_details_invite', $eid))) }}
-            <button type="submit" href="{{ URL::route('events.event_details_invite', array($eid))     }}"
+        {{ Form::open(array('route' => array('events.event_details', $eid))) }}
+            <button type="submit" href="{{ URL::route('events.event_details', array($eid))     }}"
                     class="btn btn-mini">Details</button>
         {{ Form::close() }}
     </ul>
