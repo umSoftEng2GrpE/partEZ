@@ -80,22 +80,20 @@ class IntegrationTest extends TestCase
             ->type('5:00pm', 'stime')
             ->type('12:00am', 'etime')
             ->type('This is a fun party!', 'description')
-            ->press('Next');
+            ->click('time-proposals');;
 
         //Date/time Flexibility
-        $this->see('Create A Poll')
-            ->type('3:00pm', 'date1')
-            ->type('4:00pm', 'date2')
-            ->type('5:00pm', 'date3')
-            ->type('6:00pm', 'date4')
-            ->press('Next');
+        $this->click('item-list');
 
-        //Invite People
-        $this->see("Invite Guests")
-            ->type($this->partEzEmail, 'emails')
-            ->press('Submit')
-            ->seePageIs('/invite_event');
+        //Event Items List
+        $this->type('Chips', 'addItemText')
+            ->press('addIte')
+            ->press('Create Event!');
 
+/*        //Invite People
+        $this->type($this->partEzEmail, 'emails')
+            ->press('addInv');
+*/
         //Event Invitations
         $user = DB::table('users')
             ->join('invites', 'invites.uid', '=', 'users.uid')
@@ -105,8 +103,7 @@ class IntegrationTest extends TestCase
         $retrievedInvite = $user[0];
         $this->assertEquals($this->partEzEmail, $retrievedInvite);
             
-        $this->visit('/home')
-            ->see('Party Hardy');
+        $this->visit('/home');
     }
 
     public function testInviteResponse()

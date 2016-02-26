@@ -83,7 +83,6 @@ class EventController extends Controller
         {
             array_push($items, $item);
         }
-        $chat_messages = MessageController::getMessagesFromEid($eid);
 
         return view('events/event_details_edit')
             ->with('event', $event)
@@ -271,9 +270,12 @@ class EventController extends Controller
             return view('errors.error_event');
         }
 
-        $this->validatePoll( $event->eid );
-        $this->splitEmails( $event->eid );
-        EventItemController::submitItems($event->eid);
+        if($input['returnlist'])
+            EventItemController::submitItems($event->eid);
+        if($input['email-list'])
+            $this->splitEmails( $event->eid );
+        if($input['returndatepolls'])
+            $this->validatePoll( $event->eid );
 
         if($saveflag)
         {

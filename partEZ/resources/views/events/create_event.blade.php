@@ -11,10 +11,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
-                    <li  ><a href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Time Proposals</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Item List</a></li>
-                    <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
+                    <li><a name="event-details" href="#tab1" data-toggle="tab">Event Details</a></li>
+                    <li><a name="time-proposals" href="#tab2" data-toggle="tab">Time Proposals</a></li>
+                    <li><a name="item-list" href="#tab3" data-toggle="tab">Item List</a></li>
+                    <li><a name="invitations-tab" href="#tab4" data-toggle="tab">Invitations</a></li>
                 </ul>
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
 
-                                    
+
                                     </ul>
                                 </div>
                             </fieldset>
@@ -143,7 +143,7 @@
                                                 <td>
                                                     {!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}
                                                     <input type="hidden" name="returnlist" id="returnlist" value=""></td>
-                                                <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
+                                                <td>{!! Form::button('Add', ['name' => 'addIte', 'class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
                                             </tr>
                                         </table>
 
@@ -155,6 +155,7 @@
 
                         </div>
                     </div>
+
                     <div class="tab-pane well" id="tab4">
                         <script>
                             var inviteeArray = new Array();
@@ -230,7 +231,7 @@
                                                 <input type="hidden" name="email-list" id="email-list" value="">
                                                 <span id="email-error" style="color:red; display:none;"></span>
                                             </td>
-                                            <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}</td>
+                                            <td>{!! Form::button('Add', ['name' => 'addInv', 'class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}</td>
                                         </tr>
                                         <tr>
                                             <td><span id="email-error" style="color:red; display:none;"></span></td>
