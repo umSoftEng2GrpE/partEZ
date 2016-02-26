@@ -64,11 +64,26 @@ class Invite extends Model
 
     public static function changeStatus($eid, $uid, $status)
     {
-        DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
+        $result = DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
+
+        if(!$result){
+            DB::table('invites')->insert(array(
+            'eid' => $eid,
+            'uid' => $uid,
+            'status' => $status
+            ));
+        }
+
     }
 
     public static function getActiveUserInvites() 
     {
         return DB::table('invites')->where('uid', Auth::user()->uid)->get();
+    }
+
+    public static function getUserRSVP($eid)
+    {
+        $record = DB::table('invites')->where('uid', Auth::user()->uid)->where('eid', $eid)->first();   
+        return is_null($record) ? "pending" : $record->status;
     }
 }
