@@ -142,3 +142,25 @@ Feb 3, 2016
 Delroy and Brianna discussing the TODO list of what needs to get done before the iteration deadline. 
 Couple of last miniute detailed user story functions, as well as some testing and the major documentation 
 that needs to be included. Updated the group soon after of what had been fleshed out and still needs to be done.
+---------------------------------------------------------------------------------
+Feb 8, 2016
+Discussed breakdown of tasks for iteration 2. Max and Jen to work on Chat/Message board functionality, Brianna to work on
+editing events, Nick will work on Selenium testing, Greg will work on date poll functionality improvements, Delroy to clean
+up UI and to deal with any comments from marker
+---------------------------------------------------------------------------------
+Feb 10, 2016
+Everyone reported how far they had gotten on their assigned tasks. 
+---------------------------------------------------------------------------------
+Feb 12, 2016
+Brief meeting: Confirmed everyone knew what to do over reading week. 
+---------------------------------------------------------------------------------
+Feb 21, 2016
+Met to group program. Helped each other with problems that had arose over reading week. Discussed feedback from Iteration 1.
+Decided to meet with Dr. Hamati to discuss marks and comments. 
+---------------------------------------------------------------------------------
+Feb 23, 2016
+Met after class to discuss RESTFUL. Delroy will be working on implementing this. Discussed feedback from Dr. Hamati and 
+TA and decided to focus on improving the clarity of documentation. Max and Jen will work on documentation.
+---------------------------------------------------------------------------------
+Feb 24, 2016
+Confirmed that everything is on track for submission. Nick asked that UI changes be done asap so he can do selenium tests.
