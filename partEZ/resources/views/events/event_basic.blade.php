@@ -1,31 +1,29 @@
-<div class="container">
-    <br>
-    <h3> {{ $event['name'] }} </h3>
-    <br>
-    <ul>
-        <li> Date:{{ $event['date'] }} </li>
-        <li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
-        <li> Location: {{ $event['location'] }} </li>
-        <li> Description: {{ $event['description'] }} </li>
+<div class="event-row container">
+    <div class="event-title">
+        <h5> {{ $event['name'] }} - 
 
-        <table> 
-            <tr>
-                <td>  
-                    {{ Form::open(array('route' => array('events.event_details', $eid))) }}
-                        <!-- Details Button -->
-                        <button type="submit" name="details-button" href="{{ URL::route('events.event_details', array($eid))     }}"
-                                class="btn btn-mini">Details</button>
-                    {{ Form::close() }} 
-                </td>
-                <td>
-                    {{ Form::open(array('route' => array('events.event_details_edit', $eid))) }}
-                        <!-- Edit Button -->
-                        <button type="submit" name="edit-button" href="{{ URL::route('events.event_details_edit', array($eid))     }}"
-                                class="btn btn-mini" style="display:inline-block;">Edit</button>
-                    {{ Form::close() }} 
-                </td>
-            </tr>
-        </table>
-    </ul>
-    <br>
+            @if ($event['public'])
+                <i title="This event is public" class="fa fa-unlock event-access-ico"></i>
+            @else
+                <i title="This event is private" class="fa fa-lock event-access-ico"></i>
+            @endif
+        </h5>
+    </div>
+        
+    <div class="event-btn-container">
+        <div class="event-btn">
+            <!-- Details Button -->
+            <a title="Details" href="{{ URL::route('events.event_details', array($eid)) }}" class="btn-link">
+                <i class="fa fa-info-circle"></i>
+            </a>
+        </div>
+
+        <div class="event-btn">
+            <!-- Edit Button -->
+            <a title="Edit" href="{{ URL::route('events.event_details_edit', array($eid)) }}" class="btn-link">
+                <i class="fa fa-pencil-square"></i>
+            </a>
+        </div>
+
+    </div>
 </div>
