@@ -112,7 +112,17 @@ class EventController extends Controller
         $event = Event::getEvent($input['eid'] );
         $event->date = $input['value'];
 
-
+        try
+        {
+            Event::saveEvent($event);
+        }
+        catch (Exception $e)
+        {
+            print '<script type="text/javascript">';
+            print 'alert("The system has encountered an error please try again later")';
+            print '</script>';
+            return view('errors.error_event');
+        }
         return view('events/success_date')
             ->with('date', $input['value']);
     }
