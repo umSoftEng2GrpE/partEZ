@@ -69,10 +69,10 @@ class EventController extends Controller
     public function getPollOptionsFromEid($eid)
     {
         $event = Event::find($eid);
+
         //Retrieving Polls for Display
         $polls = Poll::getEventPolls($eid);
 
-        var_dump($eid);
         $all_poll_options = [];
         foreach ($polls as $poll)
         {
@@ -81,13 +81,10 @@ class EventController extends Controller
             if(null != $poll)
             {
                 $options = PollOption::getPollOptions($poll->pid);
-                //dd($options);
             }
-//dd($polls);
             array_push($all_poll_options, $options);
         }
 
-        // dd($all_poll_options);
         return $all_poll_options;
     }
 
