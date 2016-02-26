@@ -50,6 +50,7 @@ class EventController extends Controller
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
+        $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
 
         foreach ($itemslist as $item)
@@ -63,7 +64,8 @@ class EventController extends Controller
             ->with('all_options', $all_poll_options)
             ->with('items_list', $items )
             ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages);
+            ->with('chat_messages', $chat_messages)
+            ->with('rsvp_status', $userRSVP);
     }
 
         /**
