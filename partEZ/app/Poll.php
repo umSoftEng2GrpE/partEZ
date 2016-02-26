@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Poll extends Model
 {
@@ -35,6 +36,6 @@ class Poll extends Model
 
     public static function getEventPolls($eid)
     {
-        return array(Poll::find($eid));
+        return DB::table('polls')->where('eid', $eid)->get();
     }
 }
