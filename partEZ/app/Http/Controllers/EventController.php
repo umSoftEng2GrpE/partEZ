@@ -213,7 +213,7 @@ class EventController extends Controller
         {
             $poll = new Poll;
             $poll->eid = $eid;
-            $poll->polltype = $input['date'];
+            $poll->polltype = 'date';
             $saveflag = $poll->save();
 
             if($saveflag)
