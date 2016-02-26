@@ -35,6 +35,7 @@ class PollOption extends Model
         return DB::table('poll_options')
             ->leftjoin('poll_responses','poll_options.oid','=','poll_responses.oid')
             ->where('poll_options.pid', '=', $pid)
+            ->select('poll_options.option', 'poll_options.oid', DB::raw('count(poll_responses.oid) as votes'))
             ->get();
     }
 
