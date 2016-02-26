@@ -30,6 +30,17 @@
 								<li> Description: {{ $event['description'] }} </li>
 							</ul>
 						</div>
+
+						@if ($event['uid'] != Auth::user()->uid)
+							<div>
+								<h4> RSVP: </h4>
+								Your current status: {{ $rsvp_status }}
+								<br>
+								<a href="{!! route('accept_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Accept</a>
+    							<a href="{!! route('decline_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Decline</a>
+							</div>
+						@endif
+						
                 	</div>
                 	<div class="tab-pane" id="tab2">
                 		<div class="event-details">
