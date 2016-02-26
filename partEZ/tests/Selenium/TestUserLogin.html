@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://ec2-54-84-176-22.compute-1.amazonaws.com/" />
+<link rel="selenium.base" href="http://localhost:8000/" />
 <title>TestUserLogin</title>
 </head>
 <body>
@@ -13,25 +13,39 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/login</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=email</td>
-	<td>tester@example.com</td>
+	<td>partEZSelenium@gmail.com</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=password</td>
-	<td>testing</td>
+	<td>secret</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>click</td>
+	<td>link=test user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

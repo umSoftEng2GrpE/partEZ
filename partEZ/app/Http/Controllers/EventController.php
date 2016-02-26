@@ -66,6 +66,7 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
+<<<<<<< HEAD
     /**
      * Show the detail screen for an event.
      *
@@ -148,10 +149,15 @@ class EventController extends Controller
     }
 
     public function getPollOptionsFromEid($eid)
+=======
+    public static function getPollOptionsFromEid($eid)
+>>>>>>> 9cd3ba38011c1ca7ff0c5f333db279f1f55ccc22
     {
         $event = Event::find($eid);
+
         //Retrieving Polls for Display
         $polls = Poll::getEventPolls($eid);
+
         $all_poll_options = [];
         foreach ($polls as $poll)
         {
@@ -161,13 +167,13 @@ class EventController extends Controller
             {
                 $options = PollOption::getPollOptions($poll->pid);
             }
-
             array_push($all_poll_options, $options);
         }
+
         return $all_poll_options;
     }
 
-    public function getInvitesFromEid($eid)
+    public static function getInvitesFromEid($eid)
     {
         $invites = [];
         //Retrieving Invitees for Display
@@ -233,19 +239,17 @@ class EventController extends Controller
     public function store()
     {
         $input = Request::all();
-        var_dump($input);
-
         $event = new Event;
 
         $event->name = $input['name'];
+
         if (array_key_exists('public', $input)) {
-            $event->public = $input['public'];
+            $event->public = true;
         }
         else
         {
             $event->public = '';
         }
-
 
         $event->location = $input['location'];
         $event->description = $input['description'];
@@ -293,25 +297,14 @@ class EventController extends Controller
     public function validatePoll( $eid )
     {
         $input = Request::all();
-        $uid = Auth::user()['uid'];
-        $poll = new Poll;
-        $pollArray = [];
-
-        if(!empty($input['date1']))
-            array_push( $pollArray, $input['date1']);
-        if(!empty($input['date2']))
-            array_push( $pollArray, $input['date2']);
-        if(!empty($input['date3']))
-            array_push( $pollArray, $input['date3']);
-        if(!empty($input['date4']))
-            array_push( $pollArray, $input['date4']);
+        $dateList= $input['returndatepolls'];
+        $pollArray = array_map( 'trim', explode(',', $dateList));
 
         if(!empty($pollArray))
         {
-
-
+            $poll = new Poll;
             $poll->eid = $eid;
-            $poll->polltype = $input['type'];
+            $poll->polltype = 'date';
             $saveflag = $poll->save();
 
             if($saveflag)

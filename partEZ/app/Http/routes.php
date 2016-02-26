@@ -62,9 +62,15 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::group(['prefix' => 'api'], function()
 {
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-    Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::resource('authenticate', 'ApiControllers\Auth\AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'ApiControllers\Auth\AuthenticateController@authenticate');
+    Route::post('register', 'ApiControllers\Auth\AuthenticateController@register');
 
     Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController', ['only' => ['index']]);
     Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
+
+    Route::resource('api_get_event_items', 'ApiControllers\Events\ApiEventItemController@getEventItems');
+    Route::resource('api_submit_items', 'ApiControllers\Events\ApiEventItemController@submitItems');
+
+    Route::resource('api_event_details', 'ApiControllers\Events\ApiEventDetailsController@details');
 });
