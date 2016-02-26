@@ -7,54 +7,58 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>
 
-                    {{  $is_public_message =
-                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
+					<div class="event-details">
+	                    {{  $is_public_message =
+	                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
+                    </div>
 
 				<ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Description</a></li>
                     <li><a href="#tab2" data-toggle="tab">Event Poll</a></li>
                     <li><a href="#tab3" data-toggle="tab">Items List</a></li>
                     <li><a href="#tab4" data-toggle="tab">People</a></li>
-                    <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-                    <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-                    <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
                 </ul>
 
                 <div class="tab-content">
                 	<div class="tab-pane" id="tab1">
-                		
-						<br>
-						<ul>
-							<li> {{ $is_public_message }} </li>
-							<li> Date:{{ $event['date'] }} </li>
-							<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
-							<li> Location: {{ $event['location'] }} </li>
-							<li> Description: {{ $event['description'] }} </li>
-						</ul>
+                		<div class="event-details">
+                		<h4>Details</h4>
+							<ul>
+								<li> {{ $is_public_message }} </li>
+								<li> Date:{{ $event['date'] }} </li>
+								<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
+								<li> Location: {{ $event['location'] }} </li>
+								<li> Description: {{ $event['description'] }} </li>
+							</ul>
+						</div>
                 	</div>
                 	<div class="tab-pane" id="tab2">
-                		<h4>Polls</h4>
-						@if (count($all_options))
-							@foreach($all_options as $options)
-							@include('polls.poll_display', $options )
-							@endforeach
-						@else
-						<p>This event has no polls.</p>
-						@endif
+                		<div class="event-details">
+                		<h4>Dates</h4>
+							@if (count($all_options))
+								@foreach($all_options as $options)
+								@include('polls.poll_display', $options )
+								@endforeach
+							@else
+							<p>This event has no polls.</p>
+							@endif
+						</div>
                 	</div>
                 	<div class="tab-pane" id="tab3">
-                		<h4>Items list</h4>
-						@if( count($items_list))
-							@foreach($items_list as $item)
-								<p> {{ $item->description }} </p>
-							@endforeach
-						@else
-							<p>This event has no items.</p>
-						@endif
+                		<div class="event-details">
+                		<h4>Items</h4>
+							@if( count($items_list))
+								@foreach($items_list as $item)
+									<p> {{ $item->description }} </p>
+								@endforeach
+							@else
+								<p>This event has no items.</p>
+							@endif
+						</div>
                 	</div>
                 	<div class="tab-pane" id="tab4">
+                		<div class="event-details">
                 		<h4>Invited</h4>
-						<div>
 							@if (count($invites))
 							<ul>
 								@foreach($invites as $person)

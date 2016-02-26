@@ -66,6 +66,91 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
+        /**
+     * Show the detail screen for an event.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detailsEdit($eid)
+    {
+        $event = Event::getEvent($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
+
+        return view('events/event_details_edit')
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
+            ->with('invites', $invites)
+            ->with('user_email', Auth::user()['email']);
+    }
+
+    public function saveEventEdit($eid)
+    {
+        $input = Request::all();
+        $event = Event::find($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        if (array_key_exists('public', $input)) {
+            $event->public = $input['public'];
+        }
+        else
+        {
+            $event->public = '';
+        }
+
+        $event->name = $input['name'];
+        $event->location = $input['location'];
+        $event->description = $input['description'];
+        $event->date = $input['date'];
+        $event->stime = $input['stime'];
+        $event->etime = $input['etime'];
+        $event->uid = Auth::user()['uid'];
+
+        if($input['returnlist'])
+            EventItemController::submitItems($event->eid);
+        if($input['email-list'])
+            $this->splitEmails( $event->eid );
+        if($input['returndatepolls'])
+            $this->validatePoll( $event->eid );
+
+        try
+        {
+            $saveflag = Event::saveEvent($event);
+        }
+        catch(Exception $e)
+        {
+            print '<script type="text/javascript">';
+            print 'alert("The system has encountered an error please try again later")';
+            print '</script>';
+            return view('errors.error_event');
+        }
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
+
+        $chat_messages = MessageController::getMessagesFromEid($eid);
+
+        return redirect("/event/".$eid."")
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
+            ->with('invites', $invites)
+            ->with('chat_messages', $chat_messages);
+    }
+
     public static function getPollOptionsFromEid($eid)
     {
         $event = Event::find($eid);
@@ -185,9 +270,12 @@ class EventController extends Controller
             return view('errors.error_event');
         }
 
-        $this->validatePoll( $event->eid );
-        $this->splitEmails( $event->eid );
-        EventItemController::submitItems($event->eid);
+        if($input['returnlist'])
+            EventItemController::submitItems($event->eid);
+        if($input['email-list'])
+            $this->splitEmails( $event->eid );
+        if($input['returndatepolls'])
+            $this->validatePoll( $event->eid );
 
         if($saveflag)
         {
@@ -285,7 +373,8 @@ class EventController extends Controller
 
         foreach ($inviteDB as $entry)
         {
-            array_push($invites, $entry->uid);
+            if(isset($entry->uid))
+                array_push($invites, $entry->uid);
         }
 
         return $invites;

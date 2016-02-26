@@ -42,7 +42,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
     Route::get('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::get('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
-    
+
+    Route::post('event/edit/{id}', ['as' => 'events.event_details_edit', 'uses' => 'EventController@detailsEdit']);
+    Route::post('event_details_edit/{id}', ['as' => 'event_details_edit', 'uses' => 'EventController@saveEventEdit']);
     Route::post('create_event', 'EventController@store');
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('invite_event', 'EventController@splitEmails');
