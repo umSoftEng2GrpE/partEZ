@@ -208,9 +208,11 @@ class EventController extends Controller
     public function validatePoll( $eid )
     {
         $input = Request::all();
+        var_dump(($input));
         $dateList= $input['returndatepolls'];
+        var_dump(($dateList));
         $pollArray = array_map( 'trim', explode(',', $dateList));
-
+        var_dump($pollArray);
         if(!empty($pollArray))
         {
             $poll = new Poll;
@@ -254,7 +256,7 @@ class EventController extends Controller
 
     }
 
-    public function inviteUsers($emails, $eid)
+    public static function inviteUsers($emails, $eid)
     {
         $uid = Auth::user()['uid'];
         $users = [];
@@ -278,7 +280,7 @@ class EventController extends Controller
         }
     }
 
-    private function getInvites($eid)
+    private static function getInvites($eid)
     {
         $inviteDB = Invite::getInvites($eid);
         $invites = [];
@@ -291,7 +293,7 @@ class EventController extends Controller
         return $invites;
     }
 
-    public function sendInvitation($eid, $email, $uid)
+    public static function sendInvitation($eid, $email, $uid)
     {
         $event = Event::getById($eid);
         $data = array(
