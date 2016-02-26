@@ -66,7 +66,7 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
-    public function getPollOptionsFromEid($eid)
+    public static function getPollOptionsFromEid($eid)
     {
         $event = Event::find($eid);
         //Retrieving Polls for Display
@@ -86,7 +86,7 @@ class EventController extends Controller
         return $all_poll_options;
     }
 
-    public function getInvitesFromEid($eid)
+    public static function getInvitesFromEid($eid)
     {
         $invites = [];
         //Retrieving Invitees for Display

@@ -69,4 +69,6 @@ Route::group(['prefix' => 'api'], function()
 
     Route::resource('api_get_event_items', 'ApiControllers\Events\ApiEventItemController@getEventItems');
     Route::resource('api_submit_items', 'ApiControllers\Events\ApiEventItemController@submitItems');
+
+    Route::resource('api_event_details', 'ApiControllers\Events\ApiEventDetailsController@details');
 });
