@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class PollOption extends Model
 {
@@ -29,7 +30,14 @@ class PollOption extends Model
         return PollOption::all()->where('pid', $pid);
     }
 
-    public function getVotes($pid, $oid)
+    public static function getPollOptionsWithVotes($pid)
+    {
+        return DB::table('poll_options')
+            ->where('poll_options.pid', '=', $pid)
+            ->get();
+    }
+
+    public static function getVotes($pid, $oid)
     {
         return DB::table('poll_options')
             ->select('COUNT(*)')
