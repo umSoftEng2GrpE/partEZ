@@ -160,8 +160,6 @@ class EventController extends Controller
         return view('events.create');
     }
 
-
-
     public function submitPoll()
     {
         $input = Request::all();
@@ -187,9 +185,7 @@ class EventController extends Controller
                 return view('errors.error_event');
             }
         }
-
         return view('events/success_event');
-
     }
 
     public function store()
@@ -292,7 +288,6 @@ class EventController extends Controller
         }
         return view('events/invite_event')
             ->with('eventID', $eid);
-
     }
 
     public function inviteUsers($emails, $eid)
