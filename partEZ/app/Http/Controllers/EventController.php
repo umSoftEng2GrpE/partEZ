@@ -48,7 +48,7 @@ class EventController extends Controller
     {
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
 
@@ -57,7 +57,6 @@ class EventController extends Controller
             array_push($items, $item);
         }
         $chat_messages = MessageController::getMessagesFromEid($eid);
-
         return view('events/event_details')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
@@ -84,6 +83,16 @@ class EventController extends Controller
             }
             array_push($all_poll_options, $options);
         }
+
+        return $all_poll_options;
+    }
+
+    public function getPollOptionsWithVotesFromEid($eid)
+    {
+        //Retrieving Polls for Display
+        $polls = Poll::getEventPolls($eid);
+
+        $all_poll_options = [];
 
         return $all_poll_options;
     }
@@ -120,6 +129,8 @@ class EventController extends Controller
     {
         return view('events.create');
     }
+
+
 
     public function submitPoll()
     {
