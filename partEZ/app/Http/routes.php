@@ -66,4 +66,7 @@ Route::group(['prefix' => 'api'], function()
 
     Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController', ['only' => ['index']]);
     Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
+
+    Route::resource('api_get_event_items', 'ApiControllers\Events\ApiEventItemController@getEventItems');
+    Route::resource('api_submit_items', 'ApiControllers\Events\ApiEventItemController@submitItems');
 });
