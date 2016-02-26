@@ -88,7 +88,7 @@
                             </script>
                             <fieldset>
                                 <legend>Date Proposals</legend>
-                                <p>Select Multiple Dates</p>
+                                <p>Choose multiple dates</p>
                                 <div class="form-group">
 
                                     <!-- Date -->
@@ -97,11 +97,9 @@
                                     <!-- Date -->
 
                                     <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
-                                </div>
-
-                                <div class="form-group">
+ 
+                                    <h4>Selected Dates:</h4>
                                     <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
-
 
                                     </ul>
                                 </div>
@@ -148,6 +146,7 @@
                                         </table>
 
                                         <br>
+                                        <h4>Selected Items:</h4>
                                         <ul class="EventItemList" id="itemlist"></ul>
                                     </div>
                                 </div>
@@ -240,6 +239,7 @@
                                     
                                     <br>
 
+                                    <h4>Selected Emails:</h4>
                                     <ul class="InviteeList" id="invitee-list"></ul>                            
                                 </div>
                             </div>
@@ -249,7 +249,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        {!! Form::submit('Create Event!', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+                        {!! Form::submit('Create Event!', ['name' => 'creEvent', 'class' => 'btn btn-lg btn-info pull-right'] ) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}

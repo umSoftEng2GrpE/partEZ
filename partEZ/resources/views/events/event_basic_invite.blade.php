@@ -10,7 +10,7 @@
 
         <!-- Details Button -->
         {{ Form::open(array('route' => array('events.event_details', $eid))) }}
-            <button type="submit" href="{{ URL::route('events.event_details', array($eid))     }}"
+            <button type="submit" name="details-button" href="{{ URL::route('events.event_details', array($eid))     }}"
                     class="btn btn-mini">Details</button>
         {{ Form::close() }}
     </ul>
