@@ -187,20 +187,6 @@ class EventController extends Controller
         return $invites;
     }
 
-    public function inviteDetails($eid)
-    {
-        $event = Event::find($eid);
-        $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsFromEid($eid);
-        $chat_messages = MessageController::getMessagesFromEid($eid);
-
-        return view('events/event_details_invite')
-            ->with('event', $event)
-            ->with('all_options', $all_poll_options)
-            ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages);
-    }
-
     public function create()
     {
         return view('events.create');

@@ -41,7 +41,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('accept_invite/{eid}/{uid}', ['as' => 'accept_invite', 'uses' => 'EventController@inviteAccept']);
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
     Route::get('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
-    Route::get('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
 
     Route::post('event/edit/{id}', ['as' => 'events.event_details_edit', 'uses' => 'EventController@detailsEdit']);
     Route::post('event_details_edit/{id}', ['as' => 'event_details_edit', 'uses' => 'EventController@saveEventEdit']);
@@ -49,13 +48,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('invite_event', 'EventController@splitEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
-    Route::post('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
 
     Route::post('details_chat','MessageController@saveNewMessageDetails');
-    Route::post('invite_chat','MessageController@saveNewMessageInvite');
 
 
 });
