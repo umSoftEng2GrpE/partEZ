@@ -64,7 +64,16 @@ class Invite extends Model
 
     public static function changeStatus($eid, $uid, $status)
     {
-        DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
+        $result = DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
+
+        if(!$result){
+            DB::table('invites')->insert(array(
+            'eid' => $eid,
+            'uid' => $uid,
+            'status' => $status
+            ));
+        }
+
     }
 
     public static function getActiveUserInvites() 
