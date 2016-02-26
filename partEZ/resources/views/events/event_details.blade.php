@@ -19,23 +19,23 @@
                 		<div class="event-details">
                 		<h4>Details</h4>
 							<ul>
-								<li> {{ $is_public_message }} </li>
+								<li> {{ $event['public'] == 1 ? "This is a public event" : "This is a private event" }} </li>
 								<li> Date:{{ $event['date'] }} </li>
 								<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
 								<li> Location: {{ $event['location'] }} </li>
 								<li> Description: {{ $event['description'] }} </li>
 							</ul>
-						</div>
 
-						@if ($event['uid'] != Auth::user()->uid)
-							<div>
+							@if ($event['uid'] != Auth::user()->uid)			
 								<h4> RSVP: </h4>
 								Your current status: {{ $rsvp_status }}
 								<br>
-								<a href="{!! route('accept_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Accept</a>
-    							<a href="{!! route('decline_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Decline</a>
-							</div>
-						@endif
+								<a class='btn btn-lg btn-info' href="{!! route('accept_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Accept</a>
+								<a class='btn btn-lg btn-info' href="{!! route('decline_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Decline</a>			
+							@endif
+						</div>
+						
+			
 						
                 	</div>
                 	<div class="tab-pane" id="tab2">
