@@ -25,7 +25,6 @@ class ApiEventDetailsController extends Controller
         $all_poll_options = EventController::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
-        var_dump($itemslist);
 
         foreach ($itemslist as $item)
         {
