@@ -71,4 +71,10 @@ class Invite extends Model
     {
         return DB::table('invites')->where('uid', Auth::user()->uid)->get();
     }
+
+    public static function getUserRSVP($eid)
+    {
+        $status = DB::table('invites')->where('uid', Auth::user()->uid)->where('eid', $eid)->first();   
+        return is_null($status) ? "pending" : $status;
+    }
 }
