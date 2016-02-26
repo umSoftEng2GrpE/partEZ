@@ -165,7 +165,7 @@ class EventController extends Controller
         {
             $event->public = '';
         }
-        
+
         $event->location = $input['location'];
         $event->description = $input['description'];
         $event->date = $input['date'];
