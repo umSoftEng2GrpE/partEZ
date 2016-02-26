@@ -19,7 +19,6 @@ class ApiEventItemController extends Controller
     public static function submitItems( Request $request, $eid )
     {
         $itemlist = json_decode($request->getContent());
-        var_dump($itemlist);
         foreach( $itemlist->items as $item )
         {
             $newItem = new EventListItem();
