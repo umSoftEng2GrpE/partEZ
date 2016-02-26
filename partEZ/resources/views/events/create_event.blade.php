@@ -12,7 +12,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Poll</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Time Proposals</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
                     <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
                     <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
@@ -35,7 +35,7 @@
                                         {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
 
                                         Public:
-                                        {!! Form::checkbox('public') !!}
+                                        {!! Form::checkbox('public', null, null) !!}
 
                                     </div>
                                 </div>
@@ -83,23 +83,44 @@
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
+                            <script>
+                                var arr = new Array();
+
+                                function displayDatePoll() {
+
+                                    //var arr = ["list", "items", "here"];
+                                    //$("displayList").append("<ul></ul>");
+                                    $("ul#datepolllist").empty();
+                                    for (var i in arr) {
+                                        var li = "<li>";
+                                        $("ul#datepolllist").append( (li.concat( arr[i] )).concat("</li>") )
+                                    }
+                                    document.getElementById('returndatepolls').value = arr;
+                                }
+
+                                function addDatePoll(selected)
+                                {
+                                    arr.push(selected);
+                                    displayDatePoll(selected);
+                                }
+
+                            </script>
                             <fieldset>
-                                <legend>Create A Poll</legend>
+                                <legend>Date Proposals</legend>
+                                <p>Select Multiple Dates</p>
                                 <div class="form-group">
+
                                     <!-- Date -->
-                                    {!! Form::label('date1', 'Possible', ['class' => 'col-lg-5 control-label']) !!}
-                                    {!! Form::select('type', array('time' => 'Time', 'date' => 'Date') ) !!}
-                                    {!! Form::text('date1', null, ['class' => 'form-control'] ) !!}
+                                    {!! Form::label('addDatePoll', 'Possible Dates', ['class' => 'col-lg-5 control-label']) !!}
+                                    <div id="dateCalendar"></div>
                                     <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date2', null, ['class' => 'form-control'] ) !!}
-                                    <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date3', null, ['class' => 'form-control'] ) !!}
-                                    <!-- Date -->
-                                    <br>
-                                    {!! Form::text('date4', null, ['class' => 'form-control'] ) !!}
-                                    <span class="help-block">Click next if you don't need help picking the date</span>
+
+                                    <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
+                                    </ul>
                                 </div>
                             </fieldset>
 
