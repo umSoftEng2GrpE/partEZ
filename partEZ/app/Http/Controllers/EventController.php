@@ -106,6 +106,17 @@ class EventController extends Controller
         return $all_poll_options;
     }
 
+    public function declarePollWinner()
+    {
+        $input = Request::all();
+        $event = Event::getEvent($input['eid'] );
+        $event->date = $input['value'];
+
+
+        return view('events/success_date')
+            ->with('date', $input['value']);
+    }
+
     public function getInvitesFromEid($eid)
     {
         $invites = [];
