@@ -98,7 +98,7 @@
                             </script>
                             <fieldset>
                                 <legend>Date Proposals</legend>
-                                <p>Select Multiple Dates</p>
+                                <p>Choose multiple dates</p>
                                 <div class="form-group">
 
                                     <!-- Date -->
@@ -110,6 +110,7 @@
 
                                     <br>
 
+                                    <h4>Selected Dates:</h4>
                                     <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
                             			@foreach($all_options as $options)
 											<li class="poll-op">@include('polls.poll_display', $options )</li>
@@ -172,6 +173,7 @@
 
                                    	<br>
 
+                                    <h4>Selected Items:</h4>
                                     <ul class="EventItemList" id="itemlist">
 										@foreach($items_list as $item)
 											<li class="item"> {{ $item->description }} </li>
@@ -279,6 +281,7 @@
 
                                 <br>
 
+                                <h4>Selected Emails:</h4>
                                 <ul class="InviteeList" id="invitee-list">
 									@foreach($invites as $person)
 										<li class="person">{{print_r($person, true)}}</li>

@@ -13,14 +13,14 @@
                 <td>  
                     {{ Form::open(array('route' => array('events.event_details', $eid))) }}
                         <!-- Details Button -->
-                        <button type="submit" href="{{ URL::route('events.event_details', array($eid))     }}"
+                        <button type="submit" name="details-button" href="{{ URL::route('events.event_details', array($eid))     }}"
                                 class="btn btn-mini">Details</button>
                     {{ Form::close() }} 
                 </td>
                 <td>
                     {{ Form::open(array('route' => array('events.event_details_edit', $eid))) }}
                         <!-- Edit Button -->
-                        <button type="submit" href="{{ URL::route('events.event_details_edit', array($eid))     }}"
+                        <button type="submit" name="edit-button" href="{{ URL::route('events.event_details_edit', array($eid))     }}"
                                 class="btn btn-mini" style="display:inline-block;">Edit</button>
                     {{ Form::close() }} 
                 </td>
