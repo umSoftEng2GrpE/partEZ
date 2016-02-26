@@ -11,50 +11,69 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
-                    <li><a name="event-details" href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a name="time-proposals" href="#tab2" data-toggle="tab">Time Proposals</a></li>
-                    <li><a name="item-list" href="#tab3" data-toggle="tab">Item List</a></li>
-                    <li><a name="invitations-tab" href="#tab4" data-toggle="tab">Invitations</a></li>
+                    <li  ><a href="#tab1" data-toggle="tab">Event Details</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Time Proposals</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Item List</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
+                    <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
+                    <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
+                    <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
                 </ul>
-                {{Form::open(['url' => 'create_event']) }}
+                {{  Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
                         <div class="well">
-                            <legend>Create An Event</legend>
-                            <fieldset>
-                                <div class="form-group">
-                                    <table>
-                                        <tr>
-                                            <td>{!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control']) !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{{ Form::text('date', null, array('id' => 'datepicker') ) }}</td>
-                                        </tr>
 
-                                        <tr>
-                                            <td>{!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{{ Form::text('stime', null, array('id' => 'timepicker') ) }}
-                                            <b>To</b>
-                                            {{ Form::text('etime', null, array('id' => 'timepicker1') ) }}</td>
-                                        <tr>
-                                        <tr>
-                                            <td>{!! Form::label('publicText', 'Public:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{!! Form::checkbox('public') !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>
-                                                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
-                                                <span class="help-block">Anymore details you may want to add for the party.</span>
-                                            </td>
-                                        </tr>
-                                    </table>
+                            <fieldset>
+
+                                <legend>Create An Event</legend>
+
+                                <div class="form-group">
+                                    <!-- Name -->
+                                    {!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {!! Form::text('name', null, ['required'], ['class' => 'form-control']) !!}
+
+                                        Public:
+                                        {!! Form::checkbox('public', null, null) !!}
+
+                                    </div>
+                                </div>
+
+                                <!-- Where -->
+                                <div class="form-group">
+                                    {!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {!! Form::text('location', null, ['required'], ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+
+                                <!-- Date -->
+
+                                <div class="form-group">
+                                    {!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {{ Form::text('date', null, array('id' => 'datepicker') ) }}
+                                    </div>
+                                </div>
+
+                                <!-- Time -->
+                                <div class="form-group">
+                                    {!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {{ Form::text('stime', null, array('id' => 'timepicker') ) }}
+                                        To:
+                                        {{ Form::text('etime', null, array('id' => 'timepicker1') ) }}
+                                    </div>
+                                </div>
+
+                                <!-- Details -->
+                                <div class="form-group">
+                                    {!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+                                        <span class="help-block">Anymore details you may want to add for the party.</span>
+                                    </div>
                                 </div>
                             </fieldset>
 
@@ -65,23 +84,23 @@
                         <div class="well">
 
                             <script>
-                                var datePollOps = new Array();
+                                var arr = new Array();
 
                                 function displayDatePoll() {
 
                                     //var arr = ["list", "items", "here"];
                                     //$("displayList").append("<ul></ul>");
                                     $("ul#datepolllist").empty();
-                                    for (var i in datePollOps) {
+                                    for (var i in arr) {
                                         var li = "<li>";
-                                        $("ul#datepolllist").append( (li.concat( datePollOps[i] )).concat("</li>") )
+                                        $("ul#datepolllist").append( (li.concat( arr[i] )).concat("</li>") )
                                     }
-                                    document.getElementById('returndatepolls').value = datePollOps;
+                                    document.getElementById('returndatepolls').value = arr;
                                 }
 
                                 function addDatePoll(selected)
                                 {
-                                    datePollOps.push(selected);
+                                    arr.push(selected);
                                     displayDatePoll(selected);
                                 }
 
@@ -101,8 +120,6 @@
 
                                 <div class="form-group">
                                     <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
-
-
                                     </ul>
                                 </div>
                             </fieldset>
@@ -133,29 +150,26 @@
                                 }
 
                             </script>
-                            <legend>Create An Event Item List</legend>
                             <fieldset>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <table>
-                                            <tr>
-                                                <td>{!! Form::label('addItem', 'Item:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                                <td>
-                                                    {!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}
-                                                    <input type="hidden" name="returnlist" id="returnlist" value=""></td>
-                                                <td>{!! Form::button('Add', ['name' => 'addIte', 'class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
-                                            </tr>
-                                        </table>
-
-                                        <br>
-                                        <ul class="EventItemList" id="itemlist"></ul>
+                                <legend>Create an Event Item List</legend>
+                                <div class="form-group">
+                                    {!! Form::label('addItem', 'Add an item', ['class' => 'col-lg-5 control-label']) !!}
+                                    {!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}
+                                    <input type="hidden" name="returnlist" id="returnlist" value="">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        {!! Form::button('Add item', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <ul class="EventItemList" id="itemlist" style="list-style: none;">
+                                    </ul>
                                 </div>
                             </fieldset>
 
                         </div>
                     </div>
-
                     <div class="tab-pane well" id="tab4">
                         <script>
                             var inviteeArray = new Array();
@@ -203,7 +217,7 @@
                                     errorMessage = "Invalid email syntax!";
                                 }
 
-                                document.getElementById("email-error").innerHTML = errorMessage;
+                                document.getElementById('email-error').innerHTML = errorMessage;
                                 return isValid;
                             }
 
@@ -214,7 +228,7 @@
                                     var li = "<li>";
                                     $("ul#invitee-list").append( (li.concat( inviteeArray[i] )).concat("</li>") )
                                 }
-                                document.getElementById("email-list").value = inviteeArray;
+                                document.getElementById('email-list').value = inviteeArray;
                             }
 
                         </script>
@@ -223,29 +237,31 @@
                             <div class="panel-body">
                                 <!-- Email Invitees -->
                                 <div class="form-group">
-                                    <table>
-                                        <tr>
-                                            <td>{!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>
-                                                {!! Form::text('emails', null, ['class' => 'form-control', 'id' => 'emails']) !!}
-                                                <input type="hidden" name="email-list" id="email-list" value="">
-                                                <span id="email-error" style="color:red; display:none;"></span>
-                                            </td>
-                                            <td>{!! Form::button('Add', ['name' => 'addInv', 'class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><span id="email-error" style="color:red; display:none;"></span></td>
-                                        </tr>
-                                    </table>
-                                    
-                                    <br>
-
-                                    <ul class="InviteeList" id="invitee-list"></ul>                            
+                                    {!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}
+                                    <div class="col-lg-10">
+                                        {!! Form::text('emails', null, ['class' => 'form-control', 'id' => 'emails']) !!}
+                                        {!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}
+                                        <input type="hidden" name="email-list" id="email-list" value="">
+                                        <span id="email-error" style="color:red; display:none;"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <ul class="InviteeList" id="invitee-list">
+                                    </ul>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
 
+                    <div class="tab-pane" id="tab5">
+                        5
+                    </div>
+                    <div class="tab-pane" id="tab6">
+                        6
+                    </div>
+                    <div class="tab-pane" id="tab7">
+                        7
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
