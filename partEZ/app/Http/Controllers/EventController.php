@@ -93,7 +93,16 @@ class EventController extends Controller
         $polls = Poll::getEventPolls($eid);
 
         $all_poll_options = [];
+        foreach ($polls as $poll)
+        {
+            $options = [];
 
+            if(null != $poll)
+            {
+                $options = PollOption::getPollOptionsWithVotes($poll->pid);
+            }
+            array_push($all_poll_options, $options);
+        }
         return $all_poll_options;
     }
 
