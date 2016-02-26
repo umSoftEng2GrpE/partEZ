@@ -50,6 +50,7 @@ class EventController extends Controller
         $invites = Self::getInvitesFromEid($eid);
         $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
+        $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
 
         foreach ($itemslist as $item)
@@ -63,7 +64,8 @@ class EventController extends Controller
             ->with('all_options', $all_poll_options)
             ->with('items_list', $items )
             ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages);
+            ->with('chat_messages', $chat_messages)
+            ->with('rsvp_status', $userRSVP);
     }
 
         /**
@@ -284,7 +286,6 @@ class EventController extends Controller
         $input = Request::all();
         $dateList= $input['returndatepolls'];
         $pollArray = array_map( 'trim', explode(',', $dateList));
-
         if(!empty($pollArray))
         {
             $poll = new Poll;
@@ -328,7 +329,7 @@ class EventController extends Controller
 
     }
 
-    public function inviteUsers($emails, $eid)
+    public static function inviteUsers($emails, $eid)
     {
         $uid = Auth::user()['uid'];
         $users = [];
@@ -352,7 +353,7 @@ class EventController extends Controller
         }
     }
 
-    private function getInvites($eid)
+    private static function getInvites($eid)
     {
         $inviteDB = Invite::getInvites($eid);
         $invites = [];
@@ -366,7 +367,7 @@ class EventController extends Controller
         return $invites;
     }
 
-    public function sendInvitation($eid, $email, $uid)
+    public static function sendInvitation($eid, $email, $uid)
     {
         $event = Event::getById($eid);
         $data = array(

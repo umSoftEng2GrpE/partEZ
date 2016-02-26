@@ -7,10 +7,6 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>
 
-					<div class="event-details">
-	                    {{  $is_public_message =
-	                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
-                    </div>
 				<ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Description</a></li>
                     <li><a href="#tab2" data-toggle="tab">Event Poll</a></li>
@@ -23,13 +19,24 @@
                 		<div class="event-details">
                 		<h4>Details</h4>
 							<ul>
-								<li> {{ $is_public_message }} </li>
+								<li> {{ $event['public'] == 1 ? "This is a public event" : "This is a private event" }} </li>
 								<li> Date:{{ $event['date'] }} </li>
 								<li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
 								<li> Location: {{ $event['location'] }} </li>
 								<li> Description: {{ $event['description'] }} </li>
 							</ul>
+
+							@if ($event['uid'] != Auth::user()->uid)			
+								<h4> RSVP: </h4>
+								Your current status: {{ $rsvp_status }}
+								<br>
+								<a class='btn btn-lg btn-info' href="{!! route('accept_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Accept</a>
+								<a class='btn btn-lg btn-info' href="{!! route('decline_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Decline</a>			
+							@endif
 						</div>
+						
+			
+						
                 	</div>
                 	<div class="tab-pane" id="tab2">
                 		<div class="event-details">
