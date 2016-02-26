@@ -33,6 +33,7 @@ class PollOption extends Model
     public static function getPollOptionsWithVotes($pid)
     {
         return DB::table('poll_options')
+            ->leftjoin('poll_responses','poll_options.oid','=','poll_responses.oid')
             ->where('poll_options.pid', '=', $pid)
             ->get();
     }
