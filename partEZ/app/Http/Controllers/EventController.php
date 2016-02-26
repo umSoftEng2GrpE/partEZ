@@ -208,11 +208,8 @@ class EventController extends Controller
     public function validatePoll( $eid )
     {
         $input = Request::all();
-        var_dump(($input));
         $dateList= $input['returndatepolls'];
-        var_dump(($dateList));
         $pollArray = array_map( 'trim', explode(',', $dateList));
-        var_dump($pollArray);
         if(!empty($pollArray))
         {
             $poll = new Poll;
