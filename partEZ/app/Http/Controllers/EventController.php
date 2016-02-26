@@ -66,8 +66,7 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
-<<<<<<< HEAD
-    /**
+        /**
      * Show the detail screen for an event.
      *
      * @return \Illuminate\Http\Response
@@ -98,7 +97,10 @@ class EventController extends Controller
     {
         $input = Request::all();
         $event = Event::find($eid);
-        $string = "/event".$eid."";
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
 
         if (array_key_exists('public', $input)) {
             $event->public = $input['public'];
@@ -108,12 +110,20 @@ class EventController extends Controller
             $event->public = '';
         }
 
-
+        $event->name = $input['name'];
         $event->location = $input['location'];
         $event->description = $input['description'];
         $event->date = $input['date'];
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
+        $event->uid = Auth::user()['uid'];
+
+        if($input['returnlist'])
+            EventItemController::submitItems($event->eid);
+        if($input['email-list'])
+            $this->splitEmails( $event->eid );
+        if($input['returndatepolls'])
+            $this->validatePoll( $event->eid );
 
         try
         {
@@ -127,18 +137,12 @@ class EventController extends Controller
             return view('errors.error_event');
         }
 
-        $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsFromEid($eid);
-        $itemslist = Event::getEventItems($eid);
-        $items = [];
-
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
         }
+
         $chat_messages = MessageController::getMessagesFromEid($eid);
-
-
 
         return redirect("/event/".$eid."")
             ->with('event', $event)
@@ -148,10 +152,7 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
-    public function getPollOptionsFromEid($eid)
-=======
     public static function getPollOptionsFromEid($eid)
->>>>>>> 9cd3ba38011c1ca7ff0c5f333db279f1f55ccc22
     {
         $event = Event::find($eid);
 
@@ -285,12 +286,8 @@ class EventController extends Controller
         $input = Request::all();
         $emails = $input['email-list'];
 
-        if($emails) 
-        {
-            $emails = array_map('trim', explode(',', $emails));
-            self::inviteUsers($emails, $eid);
-        }
-
+        $emails = array_map('trim', explode(',', $emails));
+        self::inviteUsers($emails, $eid);
         return view('events/success_event');
     }
 
@@ -374,7 +371,8 @@ class EventController extends Controller
 
         foreach ($inviteDB as $entry)
         {
-            array_push($invites, $entry->uid);
+            if(isset($entry->uid))
+                array_push($invites, $entry->uid);
         }
 
         return $invites;

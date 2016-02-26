@@ -12,14 +12,14 @@
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
                     <li><a href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Item List</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Invitations</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Poll Options</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Item List</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
                 </ul>
                 {{  Form::open(array('route' => array('event_details_edit', $event->eid))) }}
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
                         <div class="well">
-
                         	<legend>Edit An Event</legend>
                             <fieldset>
                                 <div class="form-group">
@@ -57,16 +57,76 @@
                                     </table>
                                 </div>
                             </fieldset>
-
-
                         </div>
                     </div>
 
                     <div class="tab-pane" id="tab2">
                         <div class="well">
+
+                            <script>
+                                var datePollOps = new Array();
+                                var currPollOps = document.getElementsByClassName('poll-op');
+                                var newPollOps = [];
+
+                                function addCurrPollOps()
+                                {
+                                	for(var i = 0; i < currPollOps.length; i++)
+                                		datePollOps.push(currPollOps[i].innerHTML);
+                                }
+
+                                function displayDatePoll() 
+                                {
+                                    $("ul#datepolllist").empty();
+                                    for (var i in datePollOps) 
+                                    {
+                                        var li = "<li>";
+                                        $("ul#datepolllist").append( (li.concat( datePollOps[i] )).concat("</li>") )
+                                    }
+                                    document.getElementById('returndatepolls').value = newPollOps;
+                                }
+
+                                function addDatePoll(selected)
+                                {
+                                	if(currItems.length > 0 && datePollOps.length == 0) 
+                                		addCurrPollOps();
+
+                                    datePollOps.push(selected);
+                                    newPollOps.push(selected);
+                                    displayDatePoll(selected);
+                                }
+
+                            </script>
+                            <fieldset>
+                                <legend>Date Proposals</legend>
+                                <p>Select Multiple Dates</p>
+                                <div class="form-group">
+
+                                    <!-- Date -->
+                                    {!! Form::label('addDatePoll', 'Possible Dates', ['class' => 'col-lg-5 control-label']) !!}
+                                    <div id="dateCalendar"></div>
+                                    <!-- Date -->
+
+                                    <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
+
+                                    <br>
+
+                                    <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
+                            			@foreach($all_options as $options)
+											<li class="poll-op">@include('polls.poll_display', $options )</li>
+										@endforeach
+                                    </ul>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </div>                    
+
+                    <div class="tab-pane" id="tab3">
+                        <div class="well">
                             <script>
                                 var arr = new Array();
-                                var currItems = document.getElementsByClassName('item'); 
+                                var currItems = document.getElementsByClassName('item');
+                                var newItems = []; 
 
                                 function addItem()
                                 {
@@ -74,6 +134,7 @@
                                 		addCurrItems();
 
                                     arr.push(document.getElementById('addItemText').value);
+                                    newItems.push(document.getElementById('addItemText').value)
                                     displayList();
                                 }
 
@@ -86,49 +147,47 @@
                                 function displayList() {
 
                                     $("ul#itemlist").empty();
-                                    for (var i in arr) {
+                                    for (var i in arr) 
+                                    {
                                         var li = "<li>";
                                         $("ul#itemlist").append( (li.concat( arr[i] )).concat("</li>") )
                                     }
-                                    document.getElementById('returnlist').value = arr;
+                                    document.getElementById('returnlist').value = newItems;
                                 }
 
                             </script>
 
                             <legend>Edit An Event Item List</legend>
                             <fieldset>
-                                <div class="panel-body">
-	                                <div class="form-group">
-	                                	<div class="col-lg-10">
-	                                		<table>
-	                                			<tr>
-				                                    <td>
-				                                    	{!! Form::label('addItem', 'Item:', ['class' => 'col-lg-2 control-label']) !!}</td>
-				                                    	<input type="hidden" name="returnlist" id="returnlist" value="">
-				                                    <td>{!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}</td>
-				                                    <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
-			                                   	</tr>
-		                                   	</table>
+                            	<div class="col-lg-10">
+                            		<table>
+                            			<tr>
+		                                    <td>
+		                                    	{!! Form::label('addItem', 'Item:', ['class' => 'col-lg-2 control-label']) !!}</td>
+		                                    	<input type="hidden" name="returnlist" id="returnlist" value="">
+		                                    <td>{!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}</td>
+		                                    <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
+	                                   	</tr>
+                                   	</table>
 
-		                                   	<br>
+                                   	<br>
 
-		                                    <ul class="EventItemList" id="itemlist">
-												@foreach($items_list as $item)
-													<li class="item"> {{ $item->description }} </li>
-												@endforeach
-		                                    </ul>
-	                                    </div>
-	                                </div>
+                                    <ul class="EventItemList" id="itemlist">
+										@foreach($items_list as $item)
+											<li class="item"> {{ $item->description }} </li>
+										@endforeach
+                                    </ul>
                                 </div>
                             </fieldset>
 
                         </div>
                     </div>
-                    <div class="tab-pane well" id="tab3">
+                    <div class="tab-pane well" id="tab4">
                         <script>
                             var inviteeArray = new Array();             
                             var email = "";
                             var currInvitees = document.getElementsByClassName('person'); 
+                            var newInvitees = [];
 
                             function addInvitee()
                             {
@@ -142,6 +201,7 @@
                                     document.getElementById('email-error').style.display = "none";
                                     document.getElementById('emails').value = "";
                                     inviteeArray.push(email);
+                                    newInvitees.push(email);
                                     displayInviteeList();
                                 } 
                                 else 
@@ -188,44 +248,43 @@
                             function displayInviteeList() 
                             {
                                 $("ul#invitee-list").empty();
-                                for (var i in inviteeArray) {
+                                for (var i in inviteeArray) 
+                                {
                                     var li = "<li>";
                                     $("ul#invitee-list").append( (li.concat( inviteeArray[i] )).concat("</li>") )
                                 }
-                                document.getElementById('email-list').value = inviteeArray;
+                                document.getElementById('email-list').value = newInvitees;
                             }
 
                         </script>
                         <legend>Invite Guests</legend>
                         <fieldset>
-                            <div class="panel-body">
-                                <!-- Email Invitees -->
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <table>
-                                            <tr>
-                                                <td>{!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                                <td>
-                                                    {!! Form::text('emails', null, ['class' => 'form-control', 'id' => 'emails']) !!}
-                                                    <span id="email-error" style="color:red; display:none;"></span>
-                                                    <input type="hidden" name="email-list" id="email-list" value="">
-                                                </td>
-                                                <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><span id="email-error" style="color:red; display:none;"></span></td>
-                                            </tr>
-                                        </table>
+                            <!-- Email Invitees -->
+                            <div class="form-group">
 
-                                        <br>
+                                <table>
+                                    <tr>
+                                        <td>{!! Form::label('emails', 'Emails:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                        <td>
+                                            {!! Form::text('emails', null, ['class' => 'form-control', 'id' => 'emails']) !!}
+                                            <span id="email-error" style="color:red; display:none;"></span>
+                                            <input type="hidden" name="email-list" id="email-list" value="">
+                                        </td>
+                                        <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addInvitee(this.form)', 'autofocus'] ) !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span id="email-error" style="color:red; display:none;"></span></td>
+                                    </tr>
+                                </table>
 
-	                                    <ul class="InviteeList" id="invitee-list">
-											@foreach($invites as $person)
-												<li class="person">{{print_r($person, true)}}</li>
-											@endforeach
-	                                    </ul>
-                                    </div>
-                                </div>
+                                <br>
+
+                                <ul class="InviteeList" id="invitee-list">
+									@foreach($invites as $person)
+										<li class="person">{{print_r($person, true)}}</li>
+									@endforeach
+                                </ul>
+
                             </div>
                         </fieldset>
                     </div>

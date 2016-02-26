@@ -64,33 +64,46 @@
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
-                            <legend>Create A Poll</legend>
+                            <script>
+                                var datePollOps = new Array();
+
+                                function displayDatePoll() {
+
+                                    //var arr = ["list", "items", "here"];
+                                    //$("displayList").append("<ul></ul>");
+                                    $("ul#datepolllist").empty();
+                                    for (var i in datePollOps) {
+                                        var li = "<li>";
+                                        $("ul#datepolllist").append( (li.concat( datePollOps[i] )).concat("</li>") )
+                                    }
+                                    document.getElementById('returndatepolls').value = datePollOps;
+                                }
+
+                                function addDatePoll(selected)
+                                {
+                                    datePollOps.push(selected);
+                                    displayDatePoll(selected);
+                                }
+
+                            </script>
                             <fieldset>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <table style="width:50%;">
-                                            <tr>
-                                                <td>{!! Form::label('date1', 'Option Type:', ['class' => 'col-lg-10 control-label']) !!}</td>
-                                                <td>{!! Form::select('type', array('time' => 'Time', 'date' => 'Date') ) !!}</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>{!! Form::text('date1', null, ['class' => 'form-control'] ) !!}</td>
-                                            </tr>
-                                            <tr>    
-                                                <td></td>
-                                                <td>{!! Form::text('date2', null, ['class' => 'form-control'] ) !!}</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>{!! Form::text('date3', null, ['class' => 'form-control'] ) !!}</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>{!! Form::text('date4', null, ['class' => 'form-control'] ) !!}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                <legend>Date Proposals</legend>
+                                <p>Select Multiple Dates</p>
+                                <div class="form-group">
+
+                                    <!-- Date -->
+                                    {!! Form::label('addDatePoll', 'Possible Dates', ['class' => 'col-lg-5 control-label']) !!}
+                                    <div id="dateCalendar"></div>
+                                    <!-- Date -->
+
+                                    <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
+
+                                    
+                                    </ul>
                                 </div>
                             </fieldset>
 
