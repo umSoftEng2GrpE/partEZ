@@ -66,6 +66,87 @@ class EventController extends Controller
             ->with('chat_messages', $chat_messages);
     }
 
+    /**
+     * Show the detail screen for an event.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detailsEdit($eid)
+    {
+        $event = Event::getEvent($eid);
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
+        $chat_messages = MessageController::getMessagesFromEid($eid);
+
+        return view('events/event_details_edit')
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
+            ->with('invites', $invites)
+            ->with('user_email', Auth::user()['email']);
+    }
+
+    public function saveEventEdit($eid)
+    {
+        $input = Request::all();
+        $event = Event::find($eid);
+        $string = "/event".$eid."";
+
+        if (array_key_exists('public', $input)) {
+            $event->public = $input['public'];
+        }
+        else
+        {
+            $event->public = '';
+        }
+
+
+        $event->location = $input['location'];
+        $event->description = $input['description'];
+        $event->date = $input['date'];
+        $event->stime = $input['stime'];
+        $event->etime = $input['etime'];
+
+        try
+        {
+            $saveflag = Event::saveEvent($event);
+        }
+        catch(Exception $e)
+        {
+            print '<script type="text/javascript">';
+            print 'alert("The system has encountered an error please try again later")';
+            print '</script>';
+            return view('errors.error_event');
+        }
+
+        $invites = Self::getInvitesFromEid($eid);
+        $all_poll_options = Self::getPollOptionsFromEid($eid);
+        $itemslist = Event::getEventItems($eid);
+        $items = [];
+
+        foreach ($itemslist as $item)
+        {
+            array_push($items, $item);
+        }
+        $chat_messages = MessageController::getMessagesFromEid($eid);
+
+
+
+        return redirect("/event/".$eid."")
+            ->with('event', $event)
+            ->with('all_options', $all_poll_options)
+            ->with('items_list', $items )
+            ->with('invites', $invites)
+            ->with('chat_messages', $chat_messages);
+    }
+
     public function getPollOptionsFromEid($eid)
     {
         $event = Event::find($eid);
@@ -200,8 +281,12 @@ class EventController extends Controller
         $input = Request::all();
         $emails = $input['email-list'];
 
-        $emails = array_map('trim', explode(',', $emails));
-        self::inviteUsers($emails, $eid);
+        if($emails) 
+        {
+            $emails = array_map('trim', explode(',', $emails));
+            self::inviteUsers($emails, $eid);
+        }
+
         return view('events/success_event');
     }
 

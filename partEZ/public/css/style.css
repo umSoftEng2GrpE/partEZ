@@ -19,3 +19,7 @@
 .header-icon {
     float: right;
 }
+
+ td {
+	padding: 10px;
+}

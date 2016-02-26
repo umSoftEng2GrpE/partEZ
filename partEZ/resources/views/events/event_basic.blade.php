@@ -8,11 +8,24 @@
         <li> Location: {{ $event['location'] }} </li>
         <li> Description: {{ $event['description'] }} </li>
 
-        <!-- Details Button -->
-        {{ Form::open(array('route' => array('events.event_details', $eid))) }}
-            <button type="submit" href="{{ URL::route('events.event_details', array($eid))     }}"
-                    class="btn btn-mini">Details</button>
-        {{ Form::close() }}
+        <table> 
+            <tr>
+                <td>  
+                    {{ Form::open(array('route' => array('events.event_details', $eid))) }}
+                        <!-- Details Button -->
+                        <button type="submit" href="{{ URL::route('events.event_details', array($eid))     }}"
+                                class="btn btn-mini">Details</button>
+                    {{ Form::close() }} 
+                </td>
+                <td>
+                    {{ Form::open(array('route' => array('events.event_details_edit', $eid))) }}
+                        <!-- Edit Button -->
+                        <button type="submit" href="{{ URL::route('events.event_details_edit', array($eid))     }}"
+                                class="btn btn-mini" style="display:inline-block;">Edit</button>
+                    {{ Form::close() }} 
+                </td>
+            </tr>
+        </table>
     </ul>
     <br>
 </div>
