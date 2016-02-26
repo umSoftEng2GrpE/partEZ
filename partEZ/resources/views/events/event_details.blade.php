@@ -7,10 +7,6 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>
 
-					<div class="event-details">
-	                    {{  $is_public_message =
-	                        $event['public'] == 1 ? "This is a public event" : "This is a private event" }}
-                    </div>
 				<ul class="nav nav-tabs" id="myTabs">
                     <li  ><a href="#tab1" data-toggle="tab">Event Description</a></li>
                     <li><a href="#tab2" data-toggle="tab">Event Poll</a></li>
