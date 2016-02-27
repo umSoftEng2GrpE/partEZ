@@ -46,9 +46,9 @@ class EventController extends Controller
      */
     public function details($eid)
     {
+        $uid = Auth::user()['uid'];
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
@@ -57,6 +57,17 @@ class EventController extends Controller
         {
             array_push($items, $item);
         }
+
+        if ($event->uid == $uid )
+        {
+            $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
+        }
+        else
+        {
+            $all_poll_options = Self::getPollOptionsFromEid($eid);
+        }
+
+
         $chat_messages = MessageController::getMessagesFromEid($eid);
         return view('events/event_details')
             ->with('event', $event)
@@ -74,16 +85,25 @@ class EventController extends Controller
      */
     public function detailsEdit($eid)
     {
+        $uid = Auth::user()['uid'];
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
-
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
         }
+
+        if ($event->uid == $uid )
+        {
+            $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
+        }
+        else
+        {
+            $all_poll_options = Self::getPollOptionsFromEid($eid);
+        }
+
 
         return view('events/event_details_edit')
             ->with('event', $event)
@@ -195,23 +215,26 @@ class EventController extends Controller
 
     public function declarePollWinner()
     {
+        $uid = Auth::user()['uid'];
         $input = Request::all();
         $event = Event::getEvent($input['eid'] );
         $event->date = $input['value'];
-
-        try
-        {
-            Event::saveEvent($event);
+        if( $uid == $event->uid) {
+            try {
+                Event::saveEvent($event);
+            } catch (Exception $e) {
+                print '<script type="text/javascript">';
+                print 'alert("The system has encountered an error please try again later")';
+                print '</script>';
+                return view('errors.error_event');
+            }
+            return view('events/success_date')
+                ->with('date', $input['value']);
         }
-        catch (Exception $e)
+        else
         {
-            print '<script type="text/javascript">';
-            print 'alert("The system has encountered an error please try again later")';
-            print '</script>';
             return view('errors.error_event');
         }
-        return view('events/success_date')
-            ->with('date', $input['value']);
     }
 
     public function getInvitesFromEid($eid)
