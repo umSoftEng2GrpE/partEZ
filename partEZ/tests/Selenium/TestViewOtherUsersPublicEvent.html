@@ -24,12 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=email</td>
-	<td>partEZSelenium@gmail.com</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=password</td>
-	<td>secret</td>
+	<td>partezselenium@gmail.com</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -42,19 +37,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=name</td>
-	<td>My Public Event</td>
-</tr>
-<tr>
 	<td>click</td>
-	<td>name=public</td>
+	<td>link=Event Details</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
+	<td>id=name</td>
+	<td>test public event</td>
+</tr>
+<tr>
+	<td>type</td>
 	<td>id=location</td>
-	<td>Home</td>
+	<td>home</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -63,32 +58,27 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=29</td>
+	<td>css=#ui-datepicker-div &gt; table.ui-datepicker-calendar &gt; tbody &gt; tr &gt; td.. &gt; a.ui-state-default.ui-state-hover</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='tab1']/div/fieldset/div/table/tbody/tr[2]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=public</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=description</td>
-	<td>A test to see if other users can see my public events. </td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Invitations</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=emails</td>
-	<td>partEZSelenium2@gmail.com</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>xpath=(//button[@type='button'])[3]</td>
-	<td></td>
+	<td>This is a public event. Can you see it?</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Create Event!']</td>
+	<td>name=creEvent</td>
 	<td></td>
 </tr>
 <tr>
@@ -108,18 +98,13 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Login</td>
+	<td>css=i.fa.fa-info-circle</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=email</td>
-	<td>partEZSelenium2@gmail.com</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=password</td>
-	<td>secret</td>
+	<td>partezSelenium2@gmail.com</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -127,8 +112,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>css=button.btn.btn-mini</td>
+	<td>click</td>
+	<td>link=Event Description</td>
 	<td></td>
 </tr>
 <tr>
@@ -139,11 +124,6 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Logout</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertVisible</td>
-	<td>name=details-button</td>
 	<td></td>
 </tr>
 </tbody></table>
