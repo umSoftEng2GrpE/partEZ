@@ -11,6 +11,7 @@
 <tr><td><a href="TestUserLogin.html">TestUserLogin</a></td></tr>
 <tr><td><a href="TestCreateAndViewEvent.html">TestCreateAndViewEvent</a></td></tr>
 <tr><td><a href="TestViewOtherUsersPublicEvent.html">TestViewOtherUsersPublicEvent</a></td></tr>
+<tr><td><a href="TestRSVPAndChangeResponse.html">TestRSVPAndChangeResponse</a></td></tr>
 </tbody></table>
 </body>
 </html>
