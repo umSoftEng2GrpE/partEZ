@@ -28,12 +28,11 @@ class MessageController extends Controller
     {
         $chat_messages = [];
         $chat_logDB = Message::getAllMessagesByEid($eid);
-
         foreach($chat_logDB as $message){
             $user = User::getById($message->uid);
             $temp_msg=array("msg" => $message->message, "firstname" => $user->firstname, "lastname" => $user->lastname, "created" => $message->created);
             array_push($chat_messages, $temp_msg);
-        } 
+        }
         return $chat_messages;
     }
 
