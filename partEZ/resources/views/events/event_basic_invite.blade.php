@@ -1,6 +1,6 @@
 <div class="event-row container">
     <div class="event-title">
-        <h5> {{ $event['name'] }}</h5>
+        <h5> {{ $invite['name'] }}</h5>
     </div>
         
     <div class="event-btn-container">
