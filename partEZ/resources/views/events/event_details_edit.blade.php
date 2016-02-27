@@ -112,9 +112,15 @@
 
                                     <h4>Selected Dates:</h4>
                                     <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
-                            			@foreach($all_options as $options)
-											<li class="poll-op">@include('polls.poll_display', $options )</li>
-										@endforeach
+                                        @if ($event['uid'] == Auth::user()->uid)
+                                            @foreach($all_options as $options)
+                                                <li class="poll-op">@include('polls.poll_display', $options )</li>
+                                            @endforeach
+                                        @else
+                                            @foreach($all_options as $options)
+                                                <li class="poll-op">@include('polls.poll_vote', $options )</li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                             </fieldset>
