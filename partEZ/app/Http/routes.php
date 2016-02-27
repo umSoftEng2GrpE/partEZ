@@ -72,6 +72,8 @@ Route::group(['prefix' => 'api'], function()
     Route::resource('api_submit_event', 'ApiControllers\Events\ApiCreateEventController@submitEvent');
     Route::resource('api_event_details', 'ApiControllers\Events\ApiEventDetailsController@details');
 
+    Route::resource('api_edit_event', 'ApiControllers\Events\ApiEditEventController@editEvent');
+
     Route::resource('api_get_messages', 'ApiControllers\Events\ApiMessageController@getMessages');
     Route::resource('api_save_message', 'ApiControllers\Events\ApiMessageController@saveNewMessage');
 });

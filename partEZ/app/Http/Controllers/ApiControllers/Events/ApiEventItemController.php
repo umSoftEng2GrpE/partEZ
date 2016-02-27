@@ -19,10 +19,11 @@ class ApiEventItemController extends Controller
     public static function submitItems( Request $request, $eid )
     {
         $itemlist = json_decode($request->getContent());
+        $uid = Auth::User()->uid;
         foreach( $itemlist->items as $item )
         {
             $newItem = new EventListItem();
-            $newItem->uid = $item->uid;
+            $newItem->uid = $uid;
             $newItem->eid = $eid;
             $newItem->description = $item->description;
             $newItem->save();
