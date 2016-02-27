@@ -121,7 +121,6 @@ class EventController extends Controller
         $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
-
         if (array_key_exists('public', $input)) {
             $event->public = $input['public'];
         }
@@ -129,7 +128,6 @@ class EventController extends Controller
         {
             $event->public = '';
         }
-
         $event->name = $input['name'];
         $event->location = $input['location'];
         $event->description = $input['description'];
@@ -137,13 +135,10 @@ class EventController extends Controller
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
-
         if($input['returnlist'])
             EventItemController::submitItems($event->eid);
         if($input['email-list'])
             $this->splitEmails( $event->eid );
-        if($input['returndatepolls'])
-            $this->validatePoll( $event->eid );
 
         try
         {
@@ -156,14 +151,11 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
-
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
         }
-
         $chat_messages = MessageController::getMessagesFromEid($eid);
-
         return redirect("/event/".$eid."")
             ->with('event', $event)
             ->with('all_options', $all_poll_options)

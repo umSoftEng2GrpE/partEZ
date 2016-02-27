@@ -20,7 +20,7 @@
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
                         <div class="well">
-                        	<legend>Edit An Event</legend>
+                            <legend>Edit An Event</legend>
                             <fieldset>
                                 <div class="form-group">
                                     <table>
@@ -40,8 +40,8 @@
                                         <tr>
                                             <td>{!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{{ Form::text('stime', $event->stime, array('id' => 'timepicker') ) }}
-                                            <b>To</b>
-                                            {{ Form::text('etime', $event->etime, array('id' => 'timepicker1') ) }}</td>
+                                                <b>To</b>
+                                                {{ Form::text('etime', $event->etime, array('id' => 'timepicker1') ) }}</td>
                                         <tr>
                                         <tr>
                                             <td>{!! Form::label('publicText', 'Public:', ['class' => 'col-lg-2 control-label']) !!}</td>
@@ -63,127 +63,63 @@
                     <div class="tab-pane" id="tab2">
                         <div class="well">
 
-                            <script>
-                                var datePollOps = new Array();
-                                var currPollOps = document.getElementsByClassName('poll-op');
-                                var newPollOps = [];
-
-                                function addCurrPollOps()
-                                {
-                                	for(var i = 0; i < currPollOps.length; i++)
-                                		datePollOps.push(currPollOps[i].innerHTML);
-                                }
-
-                                function displayDatePoll() 
-                                {
-                                    $("ul#datepolllist").empty();
-                                    for (var i in datePollOps) 
-                                    {
-                                        var li = "<li>";
-                                        $("ul#datepolllist").append( (li.concat( datePollOps[i] )).concat("</li>") )
-                                    }
-                                    document.getElementById('returndatepolls').value = newPollOps;
-                                }
-
-                                function addDatePoll(selected)
-                                {
-                                	if(currItems.length > 0 && datePollOps.length == 0) 
-                                		addCurrPollOps();
-
-                                    datePollOps.push(selected);
-                                    newPollOps.push(selected);
-                                    displayDatePoll(selected);
-                                }
-
-                            </script>
-                            <fieldset>
-                                <legend>Date Proposals</legend>
-                                <p>Choose multiple dates</p>
-                                <div class="form-group">
-
-                                    <!-- Date -->
-                                    {!! Form::label('addDatePoll', 'Possible Dates', ['class' => 'col-lg-5 control-label']) !!}
-                                    <div id="dateCalendar"></div>
-                                    <!-- Date -->
-
-                                    <input type="hidden" name="returndatepolls" id="returndatepolls" value="">
-
-                                    <br>
-
-                                    <h4>Selected Dates:</h4>
-                                    <ul class="EventDatePollList" id="datepolllist" style="list-style: none;">
-                                        @if ($event['uid'] == Auth::user()->uid)
-                                            @foreach($all_options as $options)
-                                                <li class="poll-op">@include('polls.poll_display', $options )</li>
-                                            @endforeach
-                                        @else
-                                            @foreach($all_options as $options)
-                                                <li class="poll-op">@include('polls.poll_vote', $options )</li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                </div>
-                            </fieldset>
+                            <p>
+                                Cannot be edited from this menu.
+                            </p>
 
                         </div>
-                    </div>                    
+                    </div>
 
                     <div class="tab-pane" id="tab3">
                         <div class="well">
                             <script>
                                 var arr = new Array();
                                 var currItems = document.getElementsByClassName('item');
-                                var newItems = []; 
-
+                                var newItems = [];
                                 function addItem()
                                 {
-                                	if(currItems.length > 0 && arr.length == 0) 
-                                		addCurrItems();
-
+                                    if(currItems.length > 0 && arr.length == 0)
+                                        addCurrItems();
                                     arr.push(document.getElementById('addItemText').value);
                                     newItems.push(document.getElementById('addItemText').value)
                                     displayList();
                                 }
-
                                 function addCurrItems()
                                 {
-                                	for(var i = 0; i < currItems.length; i++)
-                                		arr.push(currItems[i].innerHTML);
+                                    for(var i = 0; i < currItems.length; i++)
+                                        arr.push(currItems[i].innerHTML);
                                 }
-
                                 function displayList() {
-
                                     $("ul#itemlist").empty();
-                                    for (var i in arr) 
+                                    for (var i in arr)
                                     {
                                         var li = "<li>";
                                         $("ul#itemlist").append( (li.concat( arr[i] )).concat("</li>") )
                                     }
                                     document.getElementById('returnlist').value = newItems;
                                 }
-
                             </script>
 
                             <legend>Edit An Event Item List</legend>
                             <fieldset>
-                            	<div class="col-lg-10">
-                            		<table>
-                            			<tr>
-		                                    <td>
-		                                    	{!! Form::label('addItem', 'Item:', ['class' => 'col-lg-2 control-label']) !!}</td>
-		                                    	<input type="hidden" name="returnlist" id="returnlist" value="">
-		                                    <td>{!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}</td>
-		                                    <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
-	                                   	</tr>
-                                   	</table>
+                                <div class="col-lg-10">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                {!! Form::label('addItem', 'Item:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <input type="hidden" name="returnlist" id="returnlist" value="">
+                                            <td>{!! Form::text('addItemText', null, ['class' => 'form-control', 'id'=>'addItemText'] ) !!}</td>
+                                            <td>{!! Form::button('Add', ['class' => 'btn btn-lg btn-info pull-right','onclick'=>'addItem(this.form)', 'autofocus'] ) !!}</td>
+                                        </tr>
+                                    </table>
 
-                                   	<br>
+                                    <br>
 
                                     <h4>Selected Items:</h4>
                                     <ul class="EventItemList" id="itemlist">
-										@foreach($items_list as $item)
-											<li class="item"> {{ $item->description }} </li>
-										@endforeach
+                                        @foreach($items_list as $item)
+                                            <li class="item"> {{ $item->description }} </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </fieldset>
@@ -192,48 +128,41 @@
                     </div>
                     <div class="tab-pane well" id="tab4">
                         <script>
-                            var inviteeArray = new Array();             
+                            var inviteeArray = new Array();
                             var email = "";
-                            var currInvitees = document.getElementsByClassName('person'); 
+                            var currInvitees = document.getElementsByClassName('person');
                             var newInvitees = [];
-
                             function addInvitee()
                             {
                                 email = document.getElementById('emails').value.toLowerCase().trim();
-
                                 if(currInvitees.length > 0 && inviteeArray.length == 0)
-                                	addCurrInvitees();
-
-                                if(validEmail(email)) 
+                                    addCurrInvitees();
+                                if(validEmail(email))
                                 {
                                     document.getElementById('email-error').style.display = "none";
                                     document.getElementById('emails').value = "";
                                     inviteeArray.push(email);
                                     newInvitees.push(email);
                                     displayInviteeList();
-                                } 
-                                else 
+                                }
+                                else
                                     document.getElementById('email-error').style.display = "block";
                             }
-
-							function addCurrInvitees() 
+                            function addCurrInvitees()
                             {
-                            	for(var i = 0; i < currInvitees.length; i++)
-                            		inviteeArray.push(currInvitees[i].innerHTML);
+                                for(var i = 0; i < currInvitees.length; i++)
+                                    inviteeArray.push(currInvitees[i].innerHTML);
                             }
-
                             function validEmail(email)
                             {
                                 var isValid = true;
                                 var regex = /\S+@\S+\.\S+/;
                                 var userEmail = <?php echo json_encode($user_email); ?>;
                                 var errorMessage = "";
-
                                 isValid = regex.test(email);
-
-                                if(isValid) 
+                                if(isValid)
                                 {
-                                    if (inviteeArray.indexOf(email) >= 0) 
+                                    if (inviteeArray.indexOf(email) >= 0)
                                     {
                                         isValid = false;
                                         errorMessage = "Cannot add duplicate emails!";
@@ -241,29 +170,26 @@
                                     else if (email == userEmail)
                                     {
                                         isValid = false;
-                                        errorMessage = "Cannot add event creator!";                                       
+                                        errorMessage = "Cannot add event creator!";
                                     }
                                 }
                                 else
                                 {
                                     errorMessage = "Invalid email syntax!";
                                 }
-
                                 document.getElementById('email-error').innerHTML = errorMessage;
                                 return isValid;
                             }
-
-                            function displayInviteeList() 
+                            function displayInviteeList()
                             {
                                 $("ul#invitee-list").empty();
-                                for (var i in inviteeArray) 
+                                for (var i in inviteeArray)
                                 {
                                     var li = "<li>";
                                     $("ul#invitee-list").append( (li.concat( inviteeArray[i] )).concat("</li>") )
                                 }
                                 document.getElementById('email-list').value = newInvitees;
                             }
-
                         </script>
                         <legend>Invite Guests</legend>
                         <fieldset>
@@ -289,9 +215,9 @@
 
                                 <h4>Selected Emails:</h4>
                                 <ul class="InviteeList" id="invitee-list">
-									@foreach($invites as $person)
-										<li class="person">{{print_r($person, true)}}</li>
-									@endforeach
+                                    @foreach($invites as $person)
+                                        <li class="person">{{print_r($person, true)}}</li>
+                                    @endforeach
                                 </ul>
 
                             </div>
