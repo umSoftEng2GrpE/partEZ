@@ -466,15 +466,33 @@ class EventController extends Controller
 
     public function inviteAccept($eid, $uid) 
     {
-        Invite::changeStatus($eid, $uid, "accepted");
-
+        try
+        {
+            Invite::changeStatus($eid, $uid, "accepted");
+        }
+        catch(Exception $e)
+        {
+            print '<script type="text/javascript">';
+            print 'alert("The system has encountered an error please try again later")';
+            print '</script>';
+            return view('errors.error_event');
+        }
         return redirect('invite_response');
     }
 
     public function inviteDecline($eid, $uid)
     {
-        Invite::changeStatus($eid, $uid, "declined");
-
+        try
+        {
+            Invite::changeStatus($eid, $uid, "declined");
+        }
+        catch(Exception $e)
+        {
+            print '<script type="text/javascript">';
+            print 'alert("The system has encountered an error please try again later")';
+            print '</script>';
+            return view('errors.error_event');
+        }
         return redirect('invite_response');
     }
 }
