@@ -1,18 +1,14 @@
-<div class="container">
-    <br>
-    <h3> {{ $invite['name'] }} </h3>
-    <br>
-    <ul>
-        <li> Date:{{ $invite['date'] }} </li>
-        <li> Start Time: {{ $invite['stime']}} End Time: {{ $invite['etime']}} </li>
-        <li> Location: {{ $invite['location'] }} </li>
-        <li> Description: {{ $invite['description'] }} </li>
-
-        <!-- Details Button -->
-        {{ Form::open(array('route' => array('events.event_details', $eid))) }}
-            <button type="submit" name="details-button" href="{{ URL::route('events.event_details', array($eid))     }}"
-                    class="btn btn-mini">Details</button>
-        {{ Form::close() }}
-    </ul>
-    <br>
+<div class="event-row container">
+    <div class="event-title">
+        <h5> {{ $invite['name'] }}</h5>
+    </div>
+        
+    <div class="event-btn-container">
+        <div class="event-btn">
+            <!-- Details Button -->
+            <a title="Details" href="{{ URL::route('events.event_details', array($eid)) }}" class="btn-link">
+                <i class="fa fa-info-circle"></i>
+            </a>
+        </div>
+    </div>
 </div>

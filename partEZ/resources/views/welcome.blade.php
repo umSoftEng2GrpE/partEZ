@@ -18,7 +18,7 @@
                             @include('events.event_basic', $event)
                         @endforeach
                     @else
-                        <p>You have no events.</p>
+                        <p>There are no public events.</p>
                     @endif
 
                 </div>
