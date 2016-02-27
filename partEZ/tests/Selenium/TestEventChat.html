@@ -4,21 +4,16 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8000/" />
-<title>TestUserLogin</title>
+<title>TestEventChat</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">TestUserLogin</td></tr>
+<tr><td rowspan="1" colspan="3">TestEventChat</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Login</td>
+	<td>/login</td>
 	<td></td>
 </tr>
 <tr>
@@ -37,6 +32,41 @@
 	<td></td>
 </tr>
 <tr>
+	<td>clickAndWait</td>
+	<td>name=details-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=message</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=message</td>
+	<td>this is a chat</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=message</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>link=test user</td>
 	<td></td>
@@ -46,6 +76,7 @@
 	<td>link=Logout</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

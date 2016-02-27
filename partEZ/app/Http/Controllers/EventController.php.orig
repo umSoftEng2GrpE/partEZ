@@ -174,6 +174,7 @@ class EventController extends Controller
         return $all_poll_options;
     }
 
+<<<<<<< HEAD
     public function getPollOptionsWithVotesFromEid($eid)
     {
         //Retrieving Polls for Display
@@ -215,6 +216,9 @@ class EventController extends Controller
     }
 
     public function getInvitesFromEid($eid)
+=======
+    public static function getInvitesFromEid($eid)
+>>>>>>> 9ebfc4e0a9970ba1b11d7ded829cbfff7b410be5
     {
         $invites = [];
         //Retrieving Invitees for Display
@@ -226,20 +230,6 @@ class EventController extends Controller
         }
 
         return $invites;
-    }
-
-    public function inviteDetails($eid)
-    {
-        $event = Event::find($eid);
-        $invites = Self::getInvitesFromEid($eid);
-        $all_poll_options = Self::getPollOptionsFromEid($eid);
-        $chat_messages = MessageController::getMessagesFromEid($eid);
-
-        return view('events/event_details_invite')
-            ->with('event', $event)
-            ->with('all_options', $all_poll_options)
-            ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages);
     }
 
     public function create()
@@ -272,9 +262,7 @@ class EventController extends Controller
                 return view('errors.error_event');
             }
         }
-
         return view('events/success_event');
-
     }
 
     public function store()
@@ -379,7 +367,6 @@ class EventController extends Controller
         }
         return view('events/invite_event')
             ->with('eventID', $eid);
-
     }
 
     public static function inviteUsers($emails, $eid)

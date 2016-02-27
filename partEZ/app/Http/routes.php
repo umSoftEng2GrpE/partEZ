@@ -41,28 +41,34 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('accept_invite/{eid}/{uid}', ['as' => 'accept_invite', 'uses' => 'EventController@inviteAccept']);
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
     Route::get('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
-    Route::get('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
+    Route::get('event/edit/{id}', ['as' => 'events.event_details_edit', 'uses' => 'EventController@detailsEdit']);
     
+    Route::post('event_details_edit/{id}', ['as' => 'event_details_edit', 'uses' => 'EventController@saveEventEdit']);
     Route::post('create_event', 'EventController@store');
     Route::post('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::post('invite_event', 'EventController@splitEmails');
     Route::post('send_invites', 'EventController@inviteUsers');
-    Route::post('invite/{id}', ['as' => 'events.event_details_invite', 'uses' => 'EventController@inviteDetails']);
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
     Route::post('declare_poll_winner',['as' => 'declare_poll_winner', 'uses' => 'EventController@declarePollWinner'] );
     Route::post('details_chat','MessageController@saveNewMessageDetails');
-    Route::post('invite_chat','MessageController@saveNewMessageInvite');
 
 
 });
 
 Route::group(['prefix' => 'api'], function()
 {
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-    Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::resource('authenticate', 'ApiControllers\Auth\AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'ApiControllers\Auth\AuthenticateController@authenticate');
+    Route::post('register', 'ApiControllers\Auth\AuthenticateController@register');
 
-    Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController', ['only' => ['index']]);
-    Route::resource('api_home', 'ApiControllers\Views\ApiHomeController', ['only' => ['index']]);
+    Route::resource('api_welcome', 'ApiControllers\Views\ApiWelcomeController@index');
+    Route::resource('api_home', 'ApiControllers\Views\ApiHomeController@index');
+
+    Route::resource('api_get_event_items', 'ApiControllers\Events\ApiEventItemController@getEventItems');
+    Route::resource('api_submit_items', 'ApiControllers\Events\ApiEventItemController@submitItems');
+
+    Route::resource('api_submit_event', 'ApiControllers\Events\ApiCreateEventController@submitEvent');
+    Route::resource('api_event_details', 'ApiControllers\Events\ApiEventDetailsController@details');
 });

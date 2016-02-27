@@ -19,3 +19,48 @@
 .header-icon {
     float: right;
 }
+
+td {
+	padding: 10px;
+}
+
+.event-details {
+	padding: 20px;
+}
+
+.event-row {
+	width: 100%;
+	border-radius: 5px;
+}
+
+.event-row:hover {
+	background-color: #ddd;
+}
+
+.event-title {
+	display: inline-block;
+}
+
+.event-title h5 {
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.event-access-ico {
+	font-size: 13px;
+}
+
+.event-btn-container {
+	display: inline-block;
+	padding-top: 6px;
+	float: right;
+}
+
+.event-btn {
+	display: inline-block;
+	padding-left: 4px;
+}
+.btn-link {
+	color: #333;
+	font-size: 18px;
+}

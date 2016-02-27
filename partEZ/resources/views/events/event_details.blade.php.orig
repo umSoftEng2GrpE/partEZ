@@ -39,6 +39,16 @@
 						
                 	</div>
                 	<div class="tab-pane" id="tab2">
+<<<<<<< HEAD
+                		<h4>Polls</h4>
+						@if (count($all_options))
+							@foreach($all_options as $options)
+							@include('polls.poll_display', $options)
+							@endforeach
+						@else
+						<p>This event has no polls.</p>
+						@endif
+=======
                 		<div class="event-details">
                 		<h4>Dates</h4>
 							@if (count($all_options))
@@ -49,6 +59,7 @@
 							<p>This event has no polls.</p>
 							@endif
 						</div>
+>>>>>>> 9ebfc4e0a9970ba1b11d7ded829cbfff7b410be5
                 	</div>
                 	<div class="tab-pane" id="tab3">
                 		<div class="event-details">

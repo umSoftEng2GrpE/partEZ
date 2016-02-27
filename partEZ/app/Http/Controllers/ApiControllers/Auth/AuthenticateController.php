@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers\Auth;
 
 use Illuminate\Http\Request;
 
@@ -17,7 +17,7 @@ class AuthenticateController extends Controller
         // Apply the jwt.auth middleware to all methods in this controller
         // except for the authenticate method. We don't want to prevent
         // the user from retrieving their token if they don't already have it
-        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+        $this->middleware('jwt.auth', ['except' => ['authenticate', 'register']]);
     }
     public function index()
     {
@@ -40,6 +40,26 @@ class AuthenticateController extends Controller
         }
 
         // if no errors are encountered we can return a JWT
+        return response()->json(compact('token'));
+    }
+
+    public function register( Request $request )
+    {
+        $credentials = $request->only( 'firstname', 'lastname', 'email', 'password' );
+
+        try {
+            $user = User::create([
+                'firstname' => $credentials['firstname'],
+                'lastname' => $credentials['lastname'],
+                'email'=>$credentials['email'],
+                'password' =>bcrypt($credentials['password'])
+            ] );
+        } catch (Exception $e) {
+            return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+        }
+
+        $token = JWTAuth::fromUser($user);
+
         return response()->json(compact('token'));
     }
 }
