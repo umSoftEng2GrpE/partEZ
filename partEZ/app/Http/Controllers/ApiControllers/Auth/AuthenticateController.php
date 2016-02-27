@@ -55,7 +55,7 @@ class AuthenticateController extends Controller
                 'password' =>bcrypt($credentials['password'])
             ] );
         } catch (Exception $e) {
-            return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+            return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
         }
 
         $token = JWTAuth::fromUser($user);
