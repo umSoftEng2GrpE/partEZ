@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8000/" />
-<title>TestEventChat</title>
+<title>TestRSVPAndChangeResponse</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">TestEventChat</td></tr>
+<tr><td rowspan="1" colspan="3">TestRSVPAndChangeResponse</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -20,11 +20,6 @@
 	<td>clickAndWait</td>
 	<td>link=Login</td>
 	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>partezselenium@gmail.com</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -44,17 +39,12 @@
 <tr>
 	<td>type</td>
 	<td>id=name</td>
-	<td>test chat</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=public</td>
-	<td></td>
+	<td>My Public Event</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=location</td>
-	<td>here</td>
+	<td>Anywhere</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -67,8 +57,63 @@
 	<td></td>
 </tr>
 <tr>
+	<td>click</td>
+	<td>name=public</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=description</td>
+	<td>A fun party!!!</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Date Proposals</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=17</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=18</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Item List</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addItemText</td>
+	<td>Drinks</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=addIte</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Invitations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=emails</td>
+	<td>partEZSelenium2@gmail.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=addInv</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>name=creEvent</td>
+	<td>//input[@value='Create Event!']</td>
 	<td></td>
 </tr>
 <tr>
@@ -78,17 +123,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='user-events']/div[14]/div[2]/div/a/i</td>
+	<td>xpath=(//button[@type='submit'])[21]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>name=message</td>
-	<td>Hello is anybody there?</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Submit']</td>
+	<td>click</td>
+	<td>link=Items List</td>
 	<td></td>
 </tr>
 <tr>
@@ -109,11 +149,61 @@
 <tr>
 	<td>type</td>
 	<td>name=email</td>
-	<td>partezselenium2@gmail.com</td>
+	<td>partEZSelenium2@gmail.com</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-mini</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Accept</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-mini</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Decline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-mini</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Description</td>
 	<td></td>
 </tr>
 <tr>
@@ -126,41 +216,7 @@
 	<td>link=Logout</td>
 	<td></td>
 </tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//body[@id='app-layout']/div/div/div/div/div[2]/div[2]/div[2]/div/a/i</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>partezselenium2@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=button.btn.btn-primary</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=message</td>
-	<td>I hear you can you hear me?</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Submit']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=test user2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Logout</td>
-	<td></td>
-</tr>
+
 </tbody></table>
 </body>
 </html>

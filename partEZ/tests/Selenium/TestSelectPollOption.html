@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8000/" />
-<title>TestEventChat</title>
+<title>TestSelectPollOption</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">TestEventChat</td></tr>
+<tr><td rowspan="1" colspan="3">TestSelectPollOption</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -44,17 +44,7 @@
 <tr>
 	<td>type</td>
 	<td>id=name</td>
-	<td>test chat</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=public</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=location</td>
-	<td>here</td>
+	<td>test select poll options</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -63,7 +53,42 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>xpath=(//a[contains(text(),'10')])[2]</td>
+	<td>css=#ui-datepicker-div &gt; table.ui-datepicker-calendar &gt; tbody &gt; tr &gt; td.. &gt; a.ui-state-default.ui-state-hover</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=datepicker</td>
+	<td>02/02/2016</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=location</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location</td>
+	<td>Home</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Date Proposals</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=3</td>
 	<td></td>
 </tr>
 <tr>
@@ -78,17 +103,42 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='user-events']/div[14]/div[2]/div/a/i</td>
+	<td>//div[@id='user-events']/div[11]/div[2]/div/a/i</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>name=message</td>
-	<td>Hello is anybody there?</td>
+	<td>click</td>
+	<td>link=Event Description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Poll</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Submit']</td>
+	<td>//div[@id='tab2']/div/ol/li[2]/form/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.panel-body &gt; button[type=&quot;button&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='user-events']/div[11]/div[2]/div/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Poll</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Description</td>
 	<td></td>
 </tr>
 <tr>
@@ -101,66 +151,7 @@
 	<td>link=Logout</td>
 	<td></td>
 </tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Login</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>partezselenium2@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=button.btn.btn-primary</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=test user2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Logout</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//body[@id='app-layout']/div/div/div/div/div[2]/div[2]/div[2]/div/a/i</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>partezselenium2@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=button.btn.btn-primary</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=message</td>
-	<td>I hear you can you hear me?</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Submit']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=test user2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Logout</td>
-	<td></td>
-</tr>
+
 </tbody></table>
 </body>
 </html>
