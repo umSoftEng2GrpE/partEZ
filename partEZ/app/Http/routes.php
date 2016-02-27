@@ -51,7 +51,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('polls/{polls}', ['as' => 'polls.poll_options', 'uses' => 'EventController@details']);
     Route::post('create_poll', 'EventController@validatePoll');
     Route::post('submit_poll', 'EventController@submitPoll');
-
+    Route::post('declare_poll_winner',['as' => 'declare_poll_winner', 'uses' => 'EventController@declarePollWinner'] );
     Route::post('details_chat','MessageController@saveNewMessageDetails');
 
 
