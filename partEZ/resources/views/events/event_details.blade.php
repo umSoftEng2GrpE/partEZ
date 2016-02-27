@@ -34,10 +34,8 @@
 								<a class='btn btn-lg btn-info' href="{!! route('decline_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Decline</a>			
 							@endif
 						</div>
-						
-			
-						
                 	</div>
+
                 	<div class="tab-pane" id="tab2">
                 		<div class="event-details">
                             <h4>Dates</h4>
@@ -56,6 +54,7 @@
                             @endif
 						</div>
                 	</div>
+
                 	<div class="tab-pane" id="tab3">
                 		<div class="event-details">
                 		<h4>Items</h4>
@@ -68,6 +67,7 @@
 							@endif
 						</div>
                 	</div>
+
                 	<div class="tab-pane" id="tab4">
                 		<div class="event-details">
                 		<h4>Invited</h4>
@@ -88,6 +88,7 @@
 				<h4>Messages</h4>
 
 				@include('partials.chat_box',array('chat_message' => $chat_messages))
+
 				<div class="form-group" >
 					<div class="col-lg-10">
 
