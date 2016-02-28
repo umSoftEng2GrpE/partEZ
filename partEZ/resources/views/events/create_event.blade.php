@@ -6,6 +6,7 @@
         <script>
             $(document).ready(function() {
                 $('#rootwizard').bootstrapWizard();
+                $('.form-control.hidden').hide();
             });
         </script>
         <div class="row">
@@ -15,6 +16,7 @@
                     <li><a href="#tab2" data-toggle="tab">Date Proposals</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
                     <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
+
                 </ul>
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
@@ -30,7 +32,7 @@
                                         </tr>
                                         <tr>
                                             <td>{!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control']) !!}</td>
+                                            <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control', 'id' => 'location']) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>{!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}</td>
@@ -52,11 +54,17 @@
                                             <td>
                                                 {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                                                 <span class="help-block">Anymore details you may want to add for the party.</span>
+                                                {!! Form::text('city', '', ['id' => 'city', 'class'=>'form-control hidden']) !!}
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                             </fieldset>
+
+
+                            <script>
+                                document.getElementById("city").defaultValue = geoplugin_city();
+                            </script>
 
 
                         </div>
@@ -69,8 +77,6 @@
 
                                 function displayDatePoll() {
 
-                                    //var arr = ["list", "items", "here"];
-                                    //$("displayList").append("<ul></ul>");
                                     $("ul#datepolllist").empty();
                                     for (var i in datePollOps) {
                                         var li = "<li>";
@@ -114,8 +120,6 @@
 
                                 function displayList() {
 
-                                    //var arr = ["list", "items", "here"];
-                                    //$("displayList").append("<ul></ul>");
                                     $("ul#itemlist").empty();
                                     for (var i in arr) {
                                         var li = "<li>";

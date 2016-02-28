@@ -104,7 +104,6 @@ class EventController extends Controller
             $all_poll_options = Self::getPollOptionsFromEid($eid);
         }
 
-
         return view('events/event_details_edit')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
@@ -308,6 +307,7 @@ class EventController extends Controller
         }
 
         $event->location = $input['location'];
+        $event->city = $input['city'];
         $event->description = $input['description'];
         $event->date = $input['date'];
         $event->stime = $input['stime'];
