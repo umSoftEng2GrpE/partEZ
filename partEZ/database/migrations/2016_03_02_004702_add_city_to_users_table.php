@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddCityToUsersTable extends Migration
@@ -27,9 +26,10 @@ class AddCityToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function($table)
-        {
-            $table->dropColumn('city');
-        });
+        if (Schema::hasColumn('users', 'city')) {
+            Schema::table('users', function ($table) {
+                $table->dropColumn('city');
+            });
+        }
     }
 }

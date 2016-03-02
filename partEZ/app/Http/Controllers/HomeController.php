@@ -8,6 +8,7 @@ use DB;
 use Mail;
 use App\Event;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -43,7 +44,7 @@ class HomeController extends Controller
     {
         $input = Request::all();
         $user = Auth::user();
-        $city = $input['city'] != null ? $input['city'] : $user->city;
+        $city =  array_key_exists ('city' , $input) ? $input['city'] : $user->city;
         $user->city = $city;
         $user->save();
     }
