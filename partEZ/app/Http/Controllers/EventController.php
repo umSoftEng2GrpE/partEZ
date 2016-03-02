@@ -112,6 +112,15 @@ class EventController extends Controller
             ->with('user_email', Auth::user()['email']);
     }
 
+    public function deleteEvent($eid)
+    {
+        // Delete event functionality:
+        // - Delete associated polls and poll options
+        // - Delete associated invites and send cancellation notifications
+        // - Delete Event
+        // - return confirmation page
+    }
+
     public function saveEventEdit($eid)
     {
         $input = Request::all();
