@@ -16,7 +16,6 @@
                     <li><a href="#tab2" data-toggle="tab">Date Proposals</a></li>
                     <li><a href="#tab3" data-toggle="tab">Item List</a></li>
                     <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
-
                 </ul>
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
@@ -60,7 +59,6 @@
                                     </table>
                                 </div>
                             </fieldset>
-
 
                             <script>
                                 document.getElementById("city").defaultValue = geoplugin_city();

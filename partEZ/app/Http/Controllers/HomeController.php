@@ -24,12 +24,28 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($local_events_only = false)
     {
+        $user = Auth::user();
         $events = $this->getUsersEvents();
         $invites = $this->getUserInvitedEvents();
+        $public_events = Event::getPublicEvents();
+        $this->updateCity();
 
-        return view('home')->with('events', $events)->with('invites', $invites);
+        return view('home')->with('events', $events)
+            ->with('invites', $invites)
+            ->with('public_events', $public_events)
+            ->with('local_events_only', $local_events_only)
+            ->with('city', $user->city);
+    }
+
+    public function updateCity()
+    {
+        $input = Request::all();
+        $user = Auth::user();
+        $city = $input['city'] != null ? $input['city'] : $user->city;
+        $user->city = $city;
+        $user->save();
     }
 
     public function getUsersEvents()
@@ -44,7 +60,6 @@ class HomeController extends Controller
 
     public function getUserInvitedEvents()
     {
-        $user = Auth::user();
         $invites = Invite::getActiveUserInvites();
         $events = [];
         foreach($invites as $invite)

@@ -399,7 +399,6 @@ class EventController extends Controller
 
     public static function inviteUsers($emails, $eid)
     {
-        $uid = Auth::user()['uid'];
         $users = [];
 
         foreach($emails as $email)

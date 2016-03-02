@@ -47,18 +47,40 @@
                             @endif
                         </div>
                     </div>
-                    
-
                     <div id="public-event-header" class="panel panel-default event-header">
                         <div class="panel-heading header-content">
                             Public Events <i class="header-icon fa fa-chevron-down"></i>
                         </div>
 
-                        <div id="public-events" class="panel-body">        
-                            <p>No public events.</p>
-                        </div>
-                    </div>    
+                        <div id="public-events" class="panel-body">
+                            {!! Form::text('city', '', ['id' => 'city', 'class'=>'form-control hidden']) !!}
+                            <script>
+                                document.getElementById("city").defaultValue = geoplugin_city();
+                            </script>
 
+                            @if(!$local_events_only)
+                                {{Form::open(array('route' => array('show_local_events', 'show_local_events' => true)))}}
+                                    <button href="{{URL::route('show_local_events', true)}}">Local Events Only</button>
+                                    {{ Form::text('newcity', null) }}
+                                    {{ Form::submit('Change City!', ['name' => 'creEvent', 'class' => 'btn btn-lg btn-info pull-right'] ) }}
+                                {{Form::close() }}
+                            @else
+                                {{Form::open(array('route' => array('home')))}}
+                                    <button href="{{ URL::route('home') }}">All Public Events</button>
+                                {{Form::close() }}
+                            @endif
+
+                            @if (count($public_events))
+                                @foreach($public_events as $event)
+                                    @if($local_events_only && $event['city']==$city || !$local_events_only)
+                                        @include('events.event_basic', $event)
+                                    @endif
+                                @endforeach
+                            @else
+                                <p>There are no public events.</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
