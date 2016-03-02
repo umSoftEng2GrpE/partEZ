@@ -67,6 +67,7 @@
                                     @if($local_events_only && $event['city']==$city || !$local_events_only)
                                         @include('events.event_basic', $event)
                                     @endif
+
                                 @endforeach
                             @else
                                 <p>There are no public events.</p>
