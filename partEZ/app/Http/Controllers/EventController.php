@@ -118,7 +118,7 @@ class EventController extends Controller
         // - Delete associated polls and poll options
         // - Delete associated invites and send cancellation notifications
         // - Delete Event
-        // - return confirmation page
+        return view('events/success_delete_event');
     }
 
     public function saveEventEdit($eid)
