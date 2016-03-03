@@ -37,7 +37,6 @@
 								<p>This event has no polls.</p>
 							@endif
 						</div>
-
                 	</div>
 
                 	<div class="tab-pane" id="tab3">
@@ -45,17 +44,12 @@
                 	</div>
 
                 	<div class="tab-pane" id="tab4">
-
 						@include('tab_detail.invitee_list',$invites)
-
 					</div>
 				</div>
 			</div>
-
 				<h4>Messages</h4>
-
 				@include('partials.chat_box',array('chat_message' => $chat_messages))
-
 				<div class="form-group" >
 					@include('tab_detail.messages',$event)
 				</div>
