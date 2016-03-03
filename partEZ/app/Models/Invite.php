@@ -66,12 +66,16 @@ class Invite extends Model
     {
         $result = DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
 
-        if(!$result){
-            DB::table('invites')->insert(array(
-            'eid' => $eid,
-            'uid' => $uid,
-            'status' => $status
-            ));
+        if(!$result)
+        {
+            if(is_null(Invite::where('eid', $eid)->where('uid', $uid)->first()))
+            {
+                DB::table('invites')->insert(array(
+                'eid' => $eid,
+                'uid' => $uid,
+                'status' => $status
+                ));
+            }         
         }
 
     }
