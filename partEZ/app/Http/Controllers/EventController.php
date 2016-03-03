@@ -117,7 +117,7 @@ class EventController extends Controller
     {
         EventListItem::deleteEventListItem($eid);
         Poll::deleteEventPolls($eid);
-
+        
         $users = Invite::deleteInvites($eid);
 
         foreach($users as $user)
@@ -125,7 +125,7 @@ class EventController extends Controller
             Self::sendCancellation($eid, $user->email);
         }
         
-        
+        Event::deleteEvent($eid);
 
         return view('events/success_delete_event');
     }
