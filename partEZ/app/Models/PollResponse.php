@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class PollResponse extends Model
@@ -21,4 +22,9 @@ class PollResponse extends Model
     protected $guarded = [
         'uid', 'oid', 'pid',
     ];
+
+    public static function deletePollResponses($pid)
+    {
+        return DB::table('poll_responses')->where('pid', $pid)->delete();
+    }
 }

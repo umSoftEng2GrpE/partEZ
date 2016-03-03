@@ -8,6 +8,7 @@ use Auth;
 use Mail;
 use Exception;
 use App\Event;
+use App\EventListItem;
 use App\User;
 use App\Invite;
 use App\Poll;
@@ -114,8 +115,10 @@ class EventController extends Controller
 
     public function deleteEvent($eid)
     {
+        EventListItem::deleteEventListItem($eid);
+        Poll::deleteEventPolls($eid);
+
         // Delete event functionality:
-        // - Delete associated polls and poll options
         // - Delete associated invites and send cancellation notifications
         // - Delete Event
         return view('events/success_delete_event');
