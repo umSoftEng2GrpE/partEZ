@@ -118,9 +118,15 @@ class EventController extends Controller
         EventListItem::deleteEventListItem($eid);
         Poll::deleteEventPolls($eid);
 
-        // Delete event functionality:
-        // - Delete associated invites and send cancellation notifications
-        // - Delete Event
+        $users = Invite::deleteInvites($eid);
+
+        foreach($users as $user)
+        {
+            Self::sendCancellation($eid, $user->email);
+        }
+        
+        
+
         return view('events/success_delete_event');
     }
 
@@ -464,6 +470,17 @@ class EventController extends Controller
             $message->from(env('MAIL_USERNAME'), 'partEz');
             $message->to($email)->subject('Event Invitation');
 
+        });
+    }
+
+    public static function sendCancellation($eid, $email)
+    {
+        $event = Event::getByID($eid);
+        $data = array('eventname' => $event->name,);
+
+        Mail::send('emails.cancellation', $data, function($message) use ($email){
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($email)->subject('Event Cancellation');
         });
     }
 
