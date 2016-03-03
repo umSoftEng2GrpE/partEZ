@@ -63,7 +63,7 @@ class Event extends Model
 
     public static function deleteEvent($eid)
     {
-        return DB::table('event')->where('eid', $eid)->delete();
+        return DB::table('events')->where('eid', $eid)->delete();
     }
 
 }
