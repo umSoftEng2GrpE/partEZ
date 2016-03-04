@@ -38,4 +38,15 @@ class Poll extends Model
     {
         return DB::table('polls')->where('eid', $eid)->get();
     }
+
+    public static function deleteEventPolls($eid)
+    {
+        $polls = DB::table('polls')->where('eid', $eid)->get();
+        
+        foreach ($polls as $poll){
+            PollOption::deletePollOptions($poll->pid);
+        }
+
+        return DB::table('polls')->where('eid', $eid)->delete();
+    }
 }

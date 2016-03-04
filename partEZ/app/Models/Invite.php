@@ -90,4 +90,18 @@ class Invite extends Model
         $record = DB::table('invites')->where('uid', Auth::user()->uid)->where('eid', $eid)->first();   
         return is_null($record) ? "pending" : $record->status;
     }
+
+    public static function deleteInvites($eid)
+    {
+        $invitees = DB::table('invites')->where('eid', $eid)->get();
+        $users = [];
+        foreach($invitees as $invite)
+        {
+            array_push($users, User::getById($invite->uid));
+        }
+
+        DB::table('invites')->where('eid', $eid)->delete();
+
+        return $users;
+    }
 }

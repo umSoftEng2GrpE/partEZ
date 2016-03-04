@@ -8,6 +8,7 @@ use Auth;
 use Mail;
 use Exception;
 use App\Event;
+use App\EventListItem;
 use App\User;
 use App\Invite;
 use App\Poll;
@@ -110,6 +111,23 @@ class EventController extends Controller
             ->with('items_list', $items )
             ->with('invites', $invites)
             ->with('user_email', Auth::user()['email']);
+    }
+
+    public function deleteEvent($eid)
+    {
+        EventListItem::deleteEventListItem($eid);
+        Poll::deleteEventPolls($eid);
+
+        $users = Invite::deleteInvites($eid);
+
+        foreach($users as $user)
+        {
+            Self::sendCancellation($eid, $user->email);
+        }
+        
+        Event::deleteEvent($eid);
+
+        return view('events/success_delete_event');
     }
 
     public function saveEventEdit($eid)
@@ -287,7 +305,7 @@ class EventController extends Controller
             }
         }
 
-        return view('events/success_event');
+        return view('events/success_event_vote');
 
     }
 
@@ -452,6 +470,17 @@ class EventController extends Controller
             $message->from(env('MAIL_USERNAME'), 'partEz');
             $message->to($email)->subject('Event Invitation');
 
+        });
+    }
+
+    public static function sendCancellation($eid, $email)
+    {
+        $event = Event::getByID($eid);
+        $data = array('eventname' => $event->name,);
+
+        Mail::send('emails.cancellation', $data, function($message) use ($email){
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($email)->subject('Event Cancellation');
         });
     }
 

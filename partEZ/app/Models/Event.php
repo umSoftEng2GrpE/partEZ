@@ -61,4 +61,9 @@ class Event extends Model
         return DB::table('event_list_items')->where('eid', $eid)->get();
     }
 
+    public static function deleteEvent($eid)
+    {
+        return DB::table('events')->where('eid', $eid)->delete();
+    }
+
 }

@@ -14,8 +14,8 @@
                     Public Events:
 
                     @if (count($public_events))
-                        @foreach($public_events as $event)
-                            @include('events.event_basic', $event)
+                        @foreach($public_events as $invite)
+                            @include('events.event_basic_invite', $invite)
                         @endforeach
                     @else
                         <p>There are no public events.</p>

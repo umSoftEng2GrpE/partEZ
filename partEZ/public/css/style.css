@@ -64,3 +64,17 @@ td {
 	color: #333;
 	font-size: 18px;
 }
+
+.public-filter {
+	display: block;
+}
+
+.form-control {
+	width: 80%;
+	display: inline-block;
+}
+
+.creEvent {
+	width: 19%;
+	padding: 4px 16px;
+}
