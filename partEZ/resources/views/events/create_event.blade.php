@@ -34,10 +34,13 @@
                                             <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control', 'id' => 'location']) !!}</td>
                                         </tr>
                                         <tr>
+                                            <td>{!! Form::label('city', 'City:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::text('city', null, ['required'], ['class' => 'form-control', 'id' => 'city']) !!}</td>
+                                        </tr>
+                                        <tr>
                                             <td>{!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{{ Form::text('date', null, array('id' => 'datepicker') ) }}</td>
                                         </tr>
-
                                         <tr>
                                             <td>{!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{{ Form::text('stime', null, array('id' => 'timepicker') ) }}
@@ -53,18 +56,14 @@
                                             <td>
                                                 {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                                                 <span class="help-block">Anymore details you may want to add for the party.</span>
-                                                {!! Form::text('city', '', ['id' => 'city', 'class'=>'form-control hidden']) !!}
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                             </fieldset>
-
                             <script>
                                 document.getElementById("city").defaultValue = geoplugin_city();
                             </script>
-
-
                         </div>
                     </div>
                     <div class="tab-pane" id="tab2">
