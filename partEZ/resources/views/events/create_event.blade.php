@@ -6,6 +6,7 @@
         <script>
             $(document).ready(function() {
                 $('#rootwizard').bootstrapWizard();
+                $('.form-control.hidden').hide();
             });
         </script>
         <div class="row">
@@ -30,13 +31,16 @@
                                         </tr>
                                         <tr>
                                             <td>{!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control']) !!}</td>
+                                            <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control', 'id' => 'location']) !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{!! Form::label('city', 'City:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::text('city', null, ['required'], ['class' => 'form-control', 'id' => 'city']) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>{!! Form::label('date', 'When:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{{ Form::text('date', null, array('id' => 'datepicker') ) }}</td>
                                         </tr>
-
                                         <tr>
                                             <td>{!! Form::label('time', 'Time:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{{ Form::text('stime', null, array('id' => 'timepicker') ) }}
@@ -57,8 +61,9 @@
                                     </table>
                                 </div>
                             </fieldset>
-
-
+                            <script>
+                                document.getElementById("city").defaultValue = geoplugin_city();
+                            </script>
                         </div>
                     </div>
                     <div class="tab-pane" id="tab2">
@@ -69,8 +74,6 @@
 
                                 function displayDatePoll() {
 
-                                    //var arr = ["list", "items", "here"];
-                                    //$("displayList").append("<ul></ul>");
                                     $("ul#datepolllist").empty();
                                     for (var i in datePollOps) {
                                         var li = "<li>";
@@ -114,8 +117,6 @@
 
                                 function displayList() {
 
-                                    //var arr = ["list", "items", "here"];
-                                    //$("displayList").append("<ul></ul>");
                                     $("ul#itemlist").empty();
                                     for (var i in arr) {
                                         var li = "<li>";
