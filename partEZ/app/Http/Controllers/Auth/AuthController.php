@@ -65,7 +65,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         $user = User::where('email', '=', $data['email'])->first();
-        
+
         if($user == null)
         {
             $user = User::create([
