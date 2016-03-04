@@ -51,7 +51,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -64,11 +64,39 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user = User::where('email', '=', $data['email'])->first();
+        
+        if($user == null)
+        {
+            $user = User::create([
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+        }
+        else
+        {
+            $user = $this->registerNoAuthUser($data);
+        }
+
+        return $user;
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function registerNoAuthUser(array $data)
+    {
+        $user = User::where('email', '=', $data['email'])->first();
+
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
+        return $user;
     }
 }
