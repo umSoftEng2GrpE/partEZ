@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class EventListItem extends Model
@@ -22,5 +23,10 @@ class EventListItem extends Model
     public static function saveEventListItem( $listItem )
     {
     	return $listItem->save();
+    }
+
+    public static function deleteEventListItem($eid)
+    {
+        return DB::table('event_list_items')->where('eid', $eid)->delete();
     }
 }

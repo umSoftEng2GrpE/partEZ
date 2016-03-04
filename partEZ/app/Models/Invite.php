@@ -66,12 +66,16 @@ class Invite extends Model
     {
         $result = DB::table('invites')->where('eid', $eid)->where('uid', $uid)->update(['status' => $status]);
 
-        if(!$result){
-            DB::table('invites')->insert(array(
-            'eid' => $eid,
-            'uid' => $uid,
-            'status' => $status
-            ));
+        if(!$result)
+        {
+            if(is_null(Invite::where('eid', $eid)->where('uid', $uid)->first()))
+            {
+                DB::table('invites')->insert(array(
+                'eid' => $eid,
+                'uid' => $uid,
+                'status' => $status
+                ));
+            }         
         }
 
     }
@@ -85,5 +89,19 @@ class Invite extends Model
     {
         $record = DB::table('invites')->where('uid', Auth::user()->uid)->where('eid', $eid)->first();   
         return is_null($record) ? "pending" : $record->status;
+    }
+
+    public static function deleteInvites($eid)
+    {
+        $invitees = DB::table('invites')->where('eid', $eid)->get();
+        $users = [];
+        foreach($invitees as $invite)
+        {
+            array_push($users, User::getById($invite->uid));
+        }
+
+        DB::table('invites')->where('eid', $eid)->delete();
+
+        return $users;
     }
 }
