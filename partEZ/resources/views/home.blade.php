@@ -63,9 +63,9 @@
                             @endif
 
                             @if (count($public_events))
-                                @foreach($public_events as $event)
+                                @foreach($public_events as $invite)
                                     @if($local_events_only && $event['city']==$city || !$local_events_only)
-                                        @include('events.event_basic', $event)
+                                        @include('events.event_basic_invite', $invite)
                                     @endif
 
                                 @endforeach
