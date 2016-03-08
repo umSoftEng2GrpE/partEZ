@@ -16,6 +16,8 @@
 <tr><td><a href="TestEventItems.html">TestEventItems</a></td></tr>
 <tr><td><a href="TestEditEvent.html">TestEditEvent</a></td></tr>
 <tr><td><a href="TestSelectPollOption.html">TestSelectPollOption</a></td></tr>
+<tr><td><a href="TestLocalPublicEvents.html">TestLocalPublicEvents</a></td></tr>
+<tr><td><a href="TestNoAuthUserRegistration.html">TestNoAuthUserRegistration</a></td></tr>
 </tbody></table>
 </body>
 </html>
