@@ -241,7 +241,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             {
                 // If the response is JSONObject instead of expected JSONArray
                 showProgress(false);
-                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
 
                 try
                 {
@@ -260,7 +259,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             {
                 // Do something with the response
                 showProgress(false);
-                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
