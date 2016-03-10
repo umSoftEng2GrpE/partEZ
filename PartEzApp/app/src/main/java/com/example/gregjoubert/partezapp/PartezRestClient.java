@@ -22,7 +22,16 @@ public class PartezRestClient
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void postCred(String url,RequestParams params, String token, AsyncHttpResponseHandler responseHandler)
+    {
+        client.post(getAbsoluteURLWithToken(url, token), params, responseHandler);
+    }
+
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
+    }
+    private static String getAbsoluteURLWithToken(String relativeUrl,String token)
+    {
+        return BASE_URL + relativeUrl + "?token=" + token;
     }
 }
