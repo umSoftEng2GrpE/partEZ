@@ -8,22 +8,24 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by gregjoubert on 2016-03-08.
  */
+
 public class HomeActivity extends Activity
 {
     private static final String TAG = "HomeActivity";
@@ -55,13 +57,10 @@ public class HomeActivity extends Activity
     private void getHomeInfo(String token)
     {
         showProgress(true);
-
         RequestParams params = new RequestParams();
-        params.put("token", token);
-
         try
         {
-            getPublicTimeline(params);
+            getPublicTimeline(params, token);
         }
         catch (Exception e)
         {
@@ -69,26 +68,15 @@ public class HomeActivity extends Activity
         }
     }
 
-    public void getPublicTimeline(RequestParams params) throws JSONException
+    public void getPublicTimeline(RequestParams params, String token) throws JSONException
     {
-        PartezRestClient.post("authenticate", params, new JsonHttpResponseHandler()
+        PartezRestClient.postCred("api_home", params, token, new JsonHttpResponseHandler()
         {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
                 // If the response is JSONObject instead of expected JSONArray
                 showProgress(false);
-                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                try
-                {
-                    response.getString("token");
-                }
-                catch (JSONException error)
-                {
-                    error.getStackTrace();
-                    Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -96,7 +84,6 @@ public class HomeActivity extends Activity
             {
                 // Do something with the response
                 showProgress(false);
-                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -104,6 +91,9 @@ public class HomeActivity extends Activity
             {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 showProgress(false);
+                Log.d(TAG, Arrays.toString(headers));
+                Log.d(TAG, Integer.toString(statusCode) );
+                Log.d(TAG,response.toString());
                 Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
             }
         });
