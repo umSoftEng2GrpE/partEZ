@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Event;
+use App\Invite;
 use Illuminate\Console\Command;
-use app\Event;
+use Illuminate\Support\Facades\Mail;
 
 class SendDailyNotification extends Command
 {
@@ -39,11 +41,35 @@ class SendDailyNotification extends Command
     public function handle()
     {
         $events = Event::all();
-
+        $this->sendNotificationsToAllEventInvitees($events);
     }
 
-    public function sendSingleNotification()
+    public function sendNotificationsToAllEventInvitees($events)
     {
-        
+        foreach ($events as $event)
+        {
+            $invitees = Invite::getInvites($event->eid);
+            $this->sendNotificationsToInviteeList($invitees);
+        }
+    }
+
+    public function sendNotificationsToInviteeList($invitees)
+    {
+        foreach ($invitees as $invitee)
+        {
+            $this->sendSingleNotification($invitee->email);
+        }
+    }
+
+    public function sendSingleNotification($invitee_email)
+    {
+        $email = array(
+            'event_creator' => 'Somebody',
+        );
+
+        Mail::send('emails.notification', $email, function ($message) use ($invitee_email) {
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($invitee_email)->subject('Something is different.');
+        });
     }
 }
