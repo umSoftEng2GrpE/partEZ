@@ -8,8 +8,12 @@
 
 <div>
     Hey,
+
     {!! $event_creator !!}'s event is coming up soon, you're invited!!!
+
     <br>
+
+    It starts on {!! $date !!}!
 
     <!--Should be changed in production to http://ec2-54-84-176-22.compute-1.amazonaws.com/-->
     <a href="http://localhost:8000/">Take a look.</a>

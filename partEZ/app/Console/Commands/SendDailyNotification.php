@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Event;
 use App\Invite;
+use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -48,28 +49,31 @@ class SendDailyNotification extends Command
     {
         foreach ($events as $event)
         {
+            $creator = User::find($event->uid);
+            $date = $event->date;
             $invitees = Invite::getInvites($event->eid);
-            $this->sendNotificationsToInviteeList($invitees);
+            $this->sendNotificationsToInviteeList($invitees, $creator->firstname, $date);
         }
     }
 
-    public function sendNotificationsToInviteeList($invitees)
+    public function sendNotificationsToInviteeList($invitees, $creators_name, $date)
     {
         foreach ($invitees as $invitee)
         {
-            $this->sendSingleNotification($invitee->email);
+            $this->sendSingleNotification($creators_name, $invitee->email, $date);
         }
     }
 
-    public function sendSingleNotification($invitee_email)
+    public function sendSingleNotification($creators_name, $invitee_email, $date)
     {
         $email = array(
-            'event_creator' => 'Somebody',
+            'event_creator' => $creators_name,
+            'date' => $date,
         );
 
-        Mail::send('emails.notification', $email, function ($message) use ($invitee_email) {
+        Mail::send('emails.daily_notification', $email, function ($message) use ($invitee_email) {
             $message->from(env('MAIL_USERNAME'), 'partEz');
-            $message->to($invitee_email)->subject('Something is different.');
+            $message->to($invitee_email)->subject('Upcoming Event');
         });
     }
 }
