@@ -30,7 +30,6 @@ class EventItemController extends Controller
     public static function submitItems($eid)
     {
         $input = Request::all();
-        $uid = Auth::user()['uid'];
         $itemsList = $input['returnlist'];
 
         $itemArray = array_map( 'trim', explode(',', $itemsList));
@@ -39,7 +38,7 @@ class EventItemController extends Controller
         {
             $newItem = new EventListItem();
             $newItem->eid = $eid;
-            $newItem->uid = $uid;
+            $newItem->uid = 0;
             $newItem->description = $item;
             $newItem->save();
         }
@@ -48,5 +47,11 @@ class EventItemController extends Controller
     public function getEventItems( $eid )
     {
         return Event::getEventItems( $eid );
+    }
+
+    public static function assignUser( $iid, $eid )
+    {
+        EventListItem::assignUser($iid, $eid, Auth::user()['uid']);
+        return redirect()->route('events.event_details', [$eid]);;
     }
 }

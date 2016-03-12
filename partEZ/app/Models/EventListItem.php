@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class EventListItem extends Model
 {
@@ -22,5 +23,11 @@ class EventListItem extends Model
     public static function saveEventListItem( $listItem )
     {
     	return $listItem->save();
+    }
+
+    public static function assignUser( $iid, $eid, $uid )
+    {
+        $result = DB::table('event_list_items')->where('eid', $eid)->where('iid', $iid)->update(['uid' => $uid]);
+        return $result;
     }
 }

@@ -52,10 +52,17 @@ class EventController extends Controller
         $itemslist = Event::getEventItems($eid);
         $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
+        $item_users = [];
 
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
+            if( $item->uid != 0 )
+            {
+                $tmpUser = User::getById($item->uid);
+                array_push( $item_users, $tmpUser);
+            }
+
         }
 
         if ($event->uid == $uid )
@@ -73,6 +80,7 @@ class EventController extends Controller
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
             ->with('items_list', $items )
+            ->with('item_users', $item_users)
             ->with('invites', $invites)
             ->with('chat_messages', $chat_messages)
             ->with('rsvp_status', $userRSVP);
