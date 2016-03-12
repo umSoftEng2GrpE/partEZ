@@ -22,7 +22,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public'
+        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public', 'city'
     ];
 
     public static function getByID($eid)
@@ -59,6 +59,11 @@ class Event extends Model
     public static function getEventItems( $eid )
     {
         return DB::table('event_list_items')->where('eid', $eid)->get();
+    }
+
+    public static function deleteEvent($eid)
+    {
+        return DB::table('events')->where('eid', $eid)->delete();
     }
 
 }

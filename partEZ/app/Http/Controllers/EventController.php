@@ -8,6 +8,7 @@ use Auth;
 use Mail;
 use Exception;
 use App\Event;
+use App\EventListItem;
 use App\User;
 use App\Invite;
 use App\Poll;
@@ -112,13 +113,29 @@ class EventController extends Controller
             $all_poll_options = Self::getPollOptionsFromEid($eid);
         }
 
-
         return view('events/event_details_edit')
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
             ->with('items_list', $items )
             ->with('invites', $invites)
             ->with('user_email', Auth::user()['email']);
+    }
+
+    public function deleteEvent($eid)
+    {
+        EventListItem::deleteEventListItem($eid);
+        Poll::deleteEventPolls($eid);
+
+        $users = Invite::deleteInvites($eid);
+
+        foreach($users as $user)
+        {
+            Self::sendCancellation($eid, $user->email);
+        }
+        
+        Event::deleteEvent($eid);
+
+        return view('events/success_delete_event');
     }
 
     public function saveEventEdit($eid)
@@ -129,7 +146,6 @@ class EventController extends Controller
         $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
-
         if (array_key_exists('public', $input)) {
             $event->public = $input['public'];
         }
@@ -137,7 +153,6 @@ class EventController extends Controller
         {
             $event->public = '';
         }
-
         $event->name = $input['name'];
         $event->location = $input['location'];
         $event->description = $input['description'];
@@ -145,13 +160,10 @@ class EventController extends Controller
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
-
         if($input['returnlist'])
             EventItemController::submitItems($event->eid);
         if($input['email-list'])
             $this->splitEmails( $event->eid );
-        if($input['returndatepolls'])
-            $this->validatePoll( $event->eid );
 
         try
         {
@@ -164,14 +176,11 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
-
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
         }
-
         $chat_messages = MessageController::getMessagesFromEid($eid);
-
         return redirect("/event/".$eid."")
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
@@ -304,7 +313,7 @@ class EventController extends Controller
             }
         }
 
-        return view('events/success_event');
+        return view('events/success_event_vote');
 
     }
 
@@ -324,6 +333,7 @@ class EventController extends Controller
         }
 
         $event->location = $input['location'];
+        $event->city = $input['city'];
         $event->description = $input['description'];
         $event->date = $input['date'];
         $event->stime = $input['stime'];
@@ -415,7 +425,6 @@ class EventController extends Controller
 
     public static function inviteUsers($emails, $eid)
     {
-        $uid = Auth::user()['uid'];
         $users = [];
 
         foreach($emails as $email)
@@ -469,6 +478,17 @@ class EventController extends Controller
             $message->from(env('MAIL_USERNAME'), 'partEz');
             $message->to($email)->subject('Event Invitation');
 
+        });
+    }
+
+    public static function sendCancellation($eid, $email)
+    {
+        $event = Event::getByID($eid);
+        $data = array('eventname' => $event->name,);
+
+        Mail::send('emails.cancellation', $data, function($message) use ($email){
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($email)->subject('Event Cancellation');
         });
     }
 

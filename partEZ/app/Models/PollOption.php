@@ -52,4 +52,8 @@ class PollOption extends Model
         return $pollOption->save();
     }
 
+    public static function deletePollOptions($pid)
+    {
+        return (PollResponse::deletePollResponses($pid) && DB::table('poll_options')->where('pid')->delete());
+    }
 }

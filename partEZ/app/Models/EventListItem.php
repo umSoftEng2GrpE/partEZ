@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -29,5 +30,10 @@ class EventListItem extends Model
     {
         $result = DB::table('event_list_items')->where('eid', $eid)->where('iid', $iid)->update(['uid' => $uid]);
         return $result;
+    }
+
+    public static function deleteEventListItem($eid)
+    {
+        return DB::table('event_list_items')->where('eid', $eid)->delete();
     }
 }

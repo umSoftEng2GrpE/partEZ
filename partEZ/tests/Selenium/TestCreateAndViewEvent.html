@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=email</td>
-	<td>partEZSelenium@gmail.com</td>
+	<td>partezselenium@gmail.com</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -49,17 +49,7 @@
 <tr>
 	<td>type</td>
 	<td>id=name</td>
-	<td>Party</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=public</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=location</td>
-	<td>Home</td>
+	<td>test create event</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -68,32 +58,37 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=29</td>
+	<td>//div[@id='ui-datepicker-div']/table/tbody/tr/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=datepicker</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='tab1']/div/fieldset/div/table/tbody/tr[3]/td[2]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=description</td>
-	<td>Come on down! Super fun party at my house!</td>
+	<td>Can you see me?</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Invitations</td>
+	<td>name=creEvent</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=emails</td>
-	<td>example@example.com</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>xpath=(//button[@type='button'])[3]</td>
-	<td></td>
+	<td>id=location</td>
+	<td>home</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@value='Create Event!']</td>
+	<td>name=creEvent</td>
 	<td></td>
 </tr>
 <tr>
@@ -103,7 +98,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//button[@type='submit'])[11]</td>
+	<td>//div[@id='user-events']/div[11]/div[2]/div/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Event Description</td>
 	<td></td>
 </tr>
 <tr>
@@ -116,7 +116,6 @@
 	<td>link=Logout</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

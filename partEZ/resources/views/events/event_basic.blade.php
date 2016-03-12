@@ -25,5 +25,11 @@
             </a>
         </div>
 
+        <div class="event-btn">
+            <!-- Edit Button -->
+            <a title="Delete" href="{{ URL::route('events.event_delete', array($eid)) }}" class="btn-link">
+                <i class="fa fa-trash"></i>
+            </a>
+        </div>
     </div>
 </div>
