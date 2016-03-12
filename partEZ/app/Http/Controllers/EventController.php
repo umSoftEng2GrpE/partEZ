@@ -138,6 +138,7 @@ class EventController extends Controller
         $all_poll_options = Self::getPollOptionsFromEid($eid);
         $itemslist = Event::getEventItems($eid);
         $items = [];
+
         if (array_key_exists('public', $input)) {
             $event->public = $input['public'];
         }
@@ -145,6 +146,7 @@ class EventController extends Controller
         {
             $event->public = '';
         }
+
         $event->name = $input['name'];
         $event->location = $input['location'];
         $event->description = $input['description'];
@@ -152,6 +154,7 @@ class EventController extends Controller
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
+
         if($input['returnlist'])
             EventItemController::submitItems($event->eid);
         if($input['email-list'])
@@ -168,11 +171,16 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
+
         foreach ($itemslist as $item)
         {
             array_push($items, $item);
         }
+
         $chat_messages = MessageController::getMessagesFromEid($eid);
+
+        self::sendAllChangeNotifications($eid);
+
         return redirect("/event/".$eid."")
             ->with('event', $event)
             ->with('all_options', $all_poll_options)
@@ -436,6 +444,30 @@ class EventController extends Controller
             }
 
         }
+    }
+
+    public function sendAllChangeNotifications($eid)
+    {
+        $invites = Self::getInvitesFromEid($eid);
+
+        foreach($invites as $invite)
+        {
+            self::sendChangeNotification($invite);
+        }
+    }
+
+    public function sendChangeNotification($invite)
+    {
+        $email = array(
+            'event_creator' => Auth::user()->firstname,
+        );
+
+        Mail::send('emails.notification', $email, function ($message) use ($invite) {
+            $message->from(env('MAIL_USERNAME'), 'partEz');
+            $message->to($invite)->subject('Something is different.');
+        });
+
+        return view('success');
     }
 
     private static function getInvites($eid)
