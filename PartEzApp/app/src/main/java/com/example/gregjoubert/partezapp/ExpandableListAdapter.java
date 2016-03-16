@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.gregjoubert.partezapp.DataWrapper.Result;
+
 /**
  * Created by gregjoubert on 2016-03-16.
  */
@@ -19,10 +21,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<String, List<Result>> _listDataChild;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<String>> listChildData) {
+                                 HashMap<String, List<Result>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -43,7 +45,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String childText = (String) getChild(groupPosition, childPosition);
+        final String childText = (String) getChild(groupPosition, childPosition).toString();
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
