@@ -73,7 +73,7 @@ public class HomeActivity extends Activity
 
         }
 
-        Button createEventButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button createEventButton = (Button) findViewById(R.id.create_event);
         createEventButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
