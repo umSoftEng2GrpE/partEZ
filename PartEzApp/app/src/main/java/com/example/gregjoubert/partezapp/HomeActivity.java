@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class HomeActivity extends Activity
     private static final String TAG = "HomeActivity";
     private View mProgressView;
     private View mHomeFormView;
+    private String token;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -61,17 +63,36 @@ public class HomeActivity extends Activity
 //        mHomeFormView = findViewById(R.id.home_form);
         mProgressView = findViewById(R.id.home_progress);
 
-        String value = "Missing Token";
+        token = "Missing Token";
         Bundle extras = getIntent().getExtras();
 
         if (extras != null)
         {
-            value = extras.getString("token");
-            Log.d(TAG ,value);
+            token = extras.getString("token");
+            Log.d(TAG ,token);
 
         }
 
-        getHomeInfo(value);
+        Button createEventButton = (Button) findViewById(R.id.email_sign_in_button);
+        createEventButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                createEvent();
+            }
+        });
+
+        getHomeInfo(token);
+
+    }
+
+    public void createEvent()
+    {
+//        Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
+//        intent.putExtra("token", token);
+//        startActivity(intent);
+        Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.create_event), Toast.LENGTH_SHORT).show();
 
     }
 
