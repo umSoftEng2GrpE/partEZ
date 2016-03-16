@@ -22,18 +22,7 @@ public class Result {
     @Override
     public String toString()
     {
-        return "Result{" +
-                "uid='" + uid + '\'' +
-                ", sTime='" + sTime + '\'' +
-                ", eTime='" + eTime + '\'' +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", eid='" + eid + '\'' +
-                ", createdAt='" + createdAt + '\'' +
-                ", updatedAt='" + updatedAt + '\'' +
-                '}';
+        return  name;
     }
 
 
