@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -43,14 +45,20 @@ public class HomeActivity extends Activity
     private View mProgressView;
     private View mHomeFormView;
 
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         // Set View to register.xml
         setContentView(R.layout.home);
+//        setContentView(R.layout.activity_main);
 
-
-        mHomeFormView = findViewById(R.id.home_form);
+//        mHomeFormView = findViewById(R.id.home_form);
         mProgressView = findViewById(R.id.home_progress);
 
         String value = "Missing Token";
@@ -59,6 +67,8 @@ public class HomeActivity extends Activity
         if (extras != null)
         {
             value = extras.getString("token");
+            Log.d(TAG ,value);
+
         }
 
         getHomeInfo(value);
@@ -67,7 +77,7 @@ public class HomeActivity extends Activity
 
     private void getHomeInfo(String token)
     {
-        showProgress(true);
+//        showProgress(true);
         RequestParams params = new RequestParams();
         try
         {
@@ -87,7 +97,7 @@ public class HomeActivity extends Activity
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
                 // If the response is JSONObject instead of expected JSONArray
-                showProgress(false);
+//                showProgress(false);
                 createScreen(response);
             }
 
@@ -95,14 +105,14 @@ public class HomeActivity extends Activity
             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline)
             {
                 // Do something with the response
-                showProgress(false);
+//                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response)
             {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                showProgress(false);
+//                showProgress(false);
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
                 Log.d(TAG, response.toString());
@@ -111,45 +121,45 @@ public class HomeActivity extends Activity
         });
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show)
-    {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
-        {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mHomeFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter()
-            {
-                @Override
-                public void onAnimationEnd(Animator animation)
-                {
-                    mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter()
-            {
-                @Override
-                public void onAnimationEnd(Animator animation)
-                {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else
-        {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
+//    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+//    private void showProgress(final boolean show)
+//    {
+//        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+//        // for very easy animations. If available, use these APIs to fade-in
+//        // the progress spinner.
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
+//        {
+//            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+//
+//            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mHomeFormView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter()
+//            {
+//                @Override
+//                public void onAnimationEnd(Animator animation)
+//                {
+//                    mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//                }
+//            });
+//
+//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+//            mProgressView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 1 : 0).setListener(new AnimatorListenerAdapter()
+//            {
+//                @Override
+//                public void onAnimationEnd(Animator animation)
+//                {
+//                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+//                }
+//            });
+//        } else
+//        {
+//            // The ViewPropertyAnimator APIs are not available, so simply show
+//            // and hide the relevant UI components.
+//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+//            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//        }
+//    }
 
     private void createScreen(JSONObject response)
     {
@@ -169,5 +179,108 @@ public class HomeActivity extends Activity
         {
             Log.d(TAG , "empty arraylist");
         }
+
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        // preparing list data
+        prepareListData(searchResponse.array);
+
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+    }
+
+    /*
+     * Preparing the list data
+     */
+    private void prepareListData(ArrayList<Result> resultArray)
+    {
+        setOnClickListeners();
+
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("My Events");
+        listDataHeader.add("Invited Events");
+        listDataHeader.add("Public Events");
+
+        // Adding child data
+        List<String> myEvents = new ArrayList<String>();
+
+        for (Result result : resultArray)
+        {
+            Log.d(TAG , result.toString());
+            myEvents.add(result.name);
+        }
+
+        List<String> invitedEvents = new ArrayList<String>();
+//        for (Result result : resultArray)
+//        {
+//            Log.d(TAG , result.toString());
+//            myEvents.add(result.name);
+//        }
+
+        List<String> publicEvents = new ArrayList<String>();
+//        for (Result result : resultArray)
+//        {
+//            Log.d(TAG , result.toString());
+//            myEvents.add(result.name);
+//        }
+
+        listDataChild.put(listDataHeader.get(0), myEvents); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), invitedEvents);
+        listDataChild.put(listDataHeader.get(2), publicEvents);
+
+    }
+
+    private void setOnClickListeners()
+    {
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
+        {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id)
+            {
+                Toast.makeText(
+                        getApplicationContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener()
+        {
+
+            @Override
+            public void onGroupExpand(int groupPosition)
+            {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener()
+        {
+
+            @Override
+            public void onGroupCollapse(int groupPosition)
+            {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }
