@@ -20,7 +20,6 @@
                 	</div>
 
                 	<div class="tab-pane" id="tab2">
-
 						<div class="event-details">
 							<h4>Dates</h4>
 							@if (count($all_options))
