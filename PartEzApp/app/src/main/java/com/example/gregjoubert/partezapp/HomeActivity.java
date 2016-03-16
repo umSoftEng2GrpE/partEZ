@@ -12,13 +12,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.gregjoubert.partezapp.DataWrapper.Result;
+import com.example.gregjoubert.partezapp.DataWrapper.SearchResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -77,6 +88,7 @@ public class HomeActivity extends Activity
             {
                 // If the response is JSONObject instead of expected JSONArray
                 showProgress(false);
+                createScreen(response);
             }
 
             @Override
@@ -92,8 +104,8 @@ public class HomeActivity extends Activity
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 showProgress(false);
                 Log.d(TAG, Arrays.toString(headers));
-                Log.d(TAG, Integer.toString(statusCode) );
-                Log.d(TAG,response.toString());
+                Log.d(TAG, Integer.toString(statusCode));
+                Log.d(TAG, response.toString());
                 Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
             }
         });
@@ -139,4 +151,23 @@ public class HomeActivity extends Activity
         }
     }
 
+    private void createScreen(JSONObject response)
+    {
+        Log.d(TAG ,response.toString());
+
+        Gson gson = new Gson();
+        SearchResponse searchResponse = gson.fromJson(response.toString(), SearchResponse.class);
+
+        if(!searchResponse.array.isEmpty())
+        {
+            for (Result result : searchResponse.array)
+            {
+                Log.d(TAG , result.toString());
+            }
+        }
+        else
+        {
+            Log.d(TAG , "empty arraylist");
+        }
+    }
 }
