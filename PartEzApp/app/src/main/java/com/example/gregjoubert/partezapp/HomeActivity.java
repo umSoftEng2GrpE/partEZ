@@ -48,7 +48,7 @@ public class HomeActivity extends Activity
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    HashMap<String, List<Result>> listDataChild;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -200,7 +200,7 @@ public class HomeActivity extends Activity
         setOnClickListeners();
 
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataChild = new HashMap<String, List<Result>>();
 
         // Adding child data
         listDataHeader.add("My Events");
@@ -208,22 +208,21 @@ public class HomeActivity extends Activity
         listDataHeader.add("Public Events");
 
         // Adding child data
-        List<String> myEvents = new ArrayList<String>();
+        List<Result> myEvents = new ArrayList<>();
 
         for (Result result : resultArray)
         {
-            Log.d(TAG , result.toString());
-            myEvents.add(result.name);
+            myEvents.add(result);
         }
 
-        List<String> invitedEvents = new ArrayList<String>();
+        List<Result> invitedEvents = new ArrayList<>();
 //        for (Result result : resultArray)
 //        {
 //            Log.d(TAG , result.toString());
 //            myEvents.add(result.name);
 //        }
 
-        List<String> publicEvents = new ArrayList<String>();
+        List<Result> publicEvents = new ArrayList<>();
 //        for (Result result : resultArray)
 //        {
 //            Log.d(TAG , result.toString());
@@ -250,9 +249,10 @@ public class HomeActivity extends Activity
                         getApplicationContext(),
                         listDataHeader.get(groupPosition)
                                 + " : "
-                                + listDataChild.get(
+                                + (listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
+                                childPosition)).name
+                                  , Toast.LENGTH_SHORT)
                         .show();
                 return false;
             }
