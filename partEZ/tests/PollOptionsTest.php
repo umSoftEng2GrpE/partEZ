@@ -29,7 +29,7 @@ class PollOptionsTest extends TestCase
         $poll_option->pid = $this->poll->pid;
         $poll_option->save();
 
-        $this->seeInDatabase('events', ['name'=>'The Red Wedding']);
+        $this->seeInDatabase('poll_options', array('option'=>'some option'));
 
     }
 
