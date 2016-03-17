@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 /**
  * Created by gregjoubert on 2016-03-08.
@@ -15,6 +15,10 @@ public class PartezRestClient
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void getCred(String url, RequestParams params, String token, AsyncHttpResponseHandler responseHandler) {
+        client.get(getAbsoluteURLWithToken(url, token), params, responseHandler);
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler)

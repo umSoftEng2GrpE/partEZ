@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.*;
 import com.loopj.android.http.*;
+import com.partez.gregjoubert.partezapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,7 +165,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -246,6 +247,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 {
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra("token", response.getString("token"));
+                    intent.putExtra("user_email",mEmailView.getText().toString());
                     startActivity(intent);
                 } catch (JSONException error)
                 {
@@ -374,7 +376,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery
     {
         String[] PROJECTION = {
@@ -385,5 +386,4 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
-
 }

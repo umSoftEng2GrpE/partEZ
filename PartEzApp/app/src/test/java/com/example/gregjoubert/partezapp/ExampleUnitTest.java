@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez.gregjoubert.partezapp;
 
 import org.junit.Test;
 
