@@ -11,16 +11,13 @@ class EventTest extends TestCase
     public function startUp()
     {
         $this->lastEvent = Event::max('eid');
-
-        User::create(array('firstname' => 'Simon', 'email' => 'simon2@gmail.com'));
-
-        $this->uid = User::max('uid');
+        $this->user = User::create(array('firstname' => 'Simon', 'email' => 'simon2@gmail.com'));
     }
 
     public function testEventInsert()
     {
         $this->startUp();
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->uid, 'location' => 'Winnipeg'));
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
 
         $this->seeInDatabase('events', ['name'=>'The Red Wedding']);
     }
@@ -28,7 +25,7 @@ class EventTest extends TestCase
     public function testEventRetrieve()
     {
         $this->startUp();
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->uid, 'location' => 'Winnipeg'));
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event = Event::find($event->eid);
 
         $this->assertNotNull($event, 'Could not retrieve event');
@@ -38,7 +35,7 @@ class EventTest extends TestCase
     {
         $this->startUp();
 
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->uid, 'location' => 'Winnipeg'));
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event->location = 'Castle Frey';
 
         $eid = $event->eid;
@@ -54,7 +51,7 @@ class EventTest extends TestCase
     {
         $this->startUp();
         
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->uid, 'location' => 'Winnipeg'));
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event->delete();
 
         $this->notSeeInDatabase('events', array('name'=>'TheRedWedding'));
@@ -75,6 +72,6 @@ class EventTest extends TestCase
             Event::where('eid', '>', $this->lastEvent)->delete();   
         }
 
-        User::where('uid', $this->uid)->delete();
+        User::where('uid', $this->user->uid)->delete();
     }
 }
