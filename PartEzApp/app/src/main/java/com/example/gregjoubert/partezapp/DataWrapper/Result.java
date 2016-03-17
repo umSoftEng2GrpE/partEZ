@@ -14,6 +14,8 @@ public class Result {
     public String name;
     public String date;
     public String eid;
+    @SerializedName("public")
+    public String eventPublic;
     @SerializedName("created_at")
     public String createdAt;
     @SerializedName("updated_at")
