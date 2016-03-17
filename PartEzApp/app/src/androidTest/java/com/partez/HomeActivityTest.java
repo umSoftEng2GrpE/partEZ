@@ -30,7 +30,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActivity>
 {
-
+    private static final String TAG = "HomeActivityTest";
     public HomeActivityTest()
     {
         super(HomeActivity.class);
@@ -44,6 +44,18 @@ public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActiv
     public void tearDown() throws Exception
     {
 
+    }
+
+    public void testGetHomeInfo() throws Exception
+    {
+        HomeActivity homeActivity = new HomeActivity();
+        assert(homeActivity.getHomeInfo());
+    }
+
+    public void testGetUserInfo() throws Exception
+    {
+        HomeActivity homeActivity = new HomeActivity();
+        assert(homeActivity.getUserInfo());
     }
 
     public void testPrepareListData() throws Exception
@@ -108,11 +120,110 @@ public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActiv
                 "      \"public\": \"1\",\n" +
                 "      \"city\": \"\"\n" +
                 "    }";
-        ArrayList<Result> resultArray;
+        ArrayList<Result> resultArray = new ArrayList<>();
         Gson gson = new Gson();
-        SearchResponse searchResponse = gson.fromJson(str, SearchResponse.class);
+        SearchResponse searchResponse = new SearchResponse();//gson.fromJson(str, SearchResponse.class);
+        searchResponse.user_events = resultArray;
+        searchResponse.public_events = resultArray;
+        searchResponse.invited_events = resultArray;
         HomeActivity homeActivity = new HomeActivity();
         int result = homeActivity.prepareListData(searchResponse);
         assertEquals(true, result == 0);
+    }
+    public void testGetPublicTimeline() throws Throwable {
+        final CountDownLatch signal = new CountDownLatch(1);
+        final AsyncHttpClient httpClient = new AsyncHttpClient();
+        final StringBuilder strBuilder = new StringBuilder();
+
+        runTestOnUiThread(new Runnable() { // THIS IS THE KEY TO SUCCESS
+            @Override
+            public void run() {
+                RequestParams params = new RequestParams();
+                String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2VjMi01NC04NC0xNzYtMjIuY29tcHV0ZS0xLmFtYXpvbmF3cy5jb21cL2FwaVwvYXV0aGVudGljYXRlIiwiaWF0IjoxNDU4Mjc1ODAxLCJleHAiOjE0NTgyNzk0MDEsIm5iZiI6MTQ1ODI3NTgwMSwianRpIjoiYTg5NWE3ZTc4MjU5NDg5ZWU0ZTQ2NDBkMTQ4YWY0ZTEifQ.kYKLRjh-kkhFSVDGU4KhwiHKbv3wm3Rf5V9RALVCIsk";
+                PartezRestClient.postCred("api_home", params, token, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        strBuilder.append(response);
+                    }
+
+                    public void onFinish() {
+                        signal.countDown();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        strBuilder.append(response);
+                    }
+                });
+
+
+                try {
+                    signal.await(30, TimeUnit.SECONDS); // wait for callback
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    JSONObject jsonRes = new JSONObject(strBuilder.toString());
+                    // Test your jsonResult here
+                    assertEquals(true, strBuilder.toString().contains("token"));
+                    Log.d(TAG, strBuilder.toString());
+                } catch (Exception e) {
+
+                }
+//                assertEquals(0, signal.getCount());
+            }
+        });
+    }
+
+    public void testGetUserInfoRequest() throws Throwable
+    {
+        final CountDownLatch signal = new CountDownLatch(1);
+        final AsyncHttpClient httpClient = new AsyncHttpClient();
+        final StringBuilder strBuilder = new StringBuilder();
+
+        runTestOnUiThread(new Runnable() { // THIS IS THE KEY TO SUCCESS
+            @Override
+            public void run() {
+                RequestParams params = new RequestParams();
+                String token =  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2VjMi01NC04NC0xNzYtMjIuY29tcHV0ZS0xLmFtYXpvbmF3cy5jb21cL2FwaVwvYXV0aGVudGljYXRlIiwiaWF0IjoxNDU4Mjc1ODAxLCJleHAiOjE0NTgyNzk0MDEsIm5iZiI6MTQ1ODI3NTgwMSwianRpIjoiYTg5NWE3ZTc4MjU5NDg5ZWU0ZTQ2NDBkMTQ4YWY0ZTEifQ.kYKLRjh-kkhFSVDGU4KhwiHKbv3wm3Rf5V9RALVCIsk";
+                PartezRestClient.getCred("api_home", params, token, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        strBuilder.append(response);
+                    }
+
+                    public void onFinish() {
+                        signal.countDown();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        strBuilder.append(response);
+                    }
+                });
+
+
+                try {
+                    signal.await(30, TimeUnit.SECONDS); // wait for callback
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    JSONObject jsonRes = new JSONObject(strBuilder.toString());
+                    // Test your jsonResult here
+                    assertEquals(true, strBuilder.toString().contains("token"));
+                    Log.d(TAG, strBuilder.toString());
+                } catch (Exception e) {
+
+                }
+//                assertEquals(0, signal.getCount());
+            }
+        });
     }
 }
