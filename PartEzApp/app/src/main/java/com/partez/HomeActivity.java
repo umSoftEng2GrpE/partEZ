@@ -1,38 +1,31 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gregjoubert.partezapp.DataWrapper.Result;
-import com.example.gregjoubert.partezapp.DataWrapper.SearchResponse;
-import com.example.gregjoubert.partezapp.DataWrapper.User;
+import com.partez.DataWrapper.Result;
+import com.partez.DataWrapper.SearchResponse;
+import com.partez.DataWrapper.User;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.partez.gregjoubert.partezapp.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 

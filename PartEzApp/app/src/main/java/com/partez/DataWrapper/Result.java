@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp.DataWrapper;
+package com.partez.DataWrapper;
 import com.google.gson.annotations.SerializedName;
 /**
  * Created by gregjoubert on 2016-03-16.

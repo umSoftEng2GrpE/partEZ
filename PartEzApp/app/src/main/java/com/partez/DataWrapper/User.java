@@ -1,5 +1,5 @@
-package com.example.gregjoubert.partezapp.DataWrapper;
-import com.google.gson.annotations.SerializedName;
+package com.partez.DataWrapper;
+
 /**
  * Created by gregjoubert on 2016-03-16.
  */

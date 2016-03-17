@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.partez.gregjoubert.partezapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

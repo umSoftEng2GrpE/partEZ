@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.*;
 import com.loopj.android.http.*;
+import com.partez.gregjoubert.partezapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

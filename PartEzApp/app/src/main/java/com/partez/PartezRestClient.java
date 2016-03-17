@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 /**
  * Created by gregjoubert on 2016-03-08.

@@ -1,4 +1,4 @@
-package com.example.gregjoubert.partezapp;
+package com.partez;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.gregjoubert.partezapp.DataWrapper.Result;
+import com.partez.DataWrapper.Result;
+import com.partez.gregjoubert.partezapp.R;
 
 /**
  * Created by gregjoubert on 2016-03-16.
