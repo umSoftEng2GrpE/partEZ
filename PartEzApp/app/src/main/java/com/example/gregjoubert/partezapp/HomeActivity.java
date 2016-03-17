@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.example.gregjoubert.partezapp.DataWrapper.Result;
 import com.example.gregjoubert.partezapp.DataWrapper.SearchResponse;
+import com.example.gregjoubert.partezapp.DataWrapper.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
@@ -46,6 +48,10 @@ public class HomeActivity extends Activity
     private View mProgressView;
     private View mHomeFormView;
     private String token;
+    private String userEmail;
+    private String uid;
+    private User[] users;
+    private SearchResponse searchResponse;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -69,8 +75,9 @@ public class HomeActivity extends Activity
         if (extras != null)
         {
             token = extras.getString("token");
+            userEmail = extras.getString("user_email");
             Log.d(TAG ,token);
-
+            Log.d(TAG ,userEmail);
         }
 
         Button createEventButton = (Button) findViewById(R.id.create_event);
@@ -83,7 +90,8 @@ public class HomeActivity extends Activity
             }
         });
 
-        getHomeInfo(token);
+        getUserInfo();
+
 
     }
 
@@ -96,7 +104,7 @@ public class HomeActivity extends Activity
 
     }
 
-    private void getHomeInfo(String token)
+    private void getHomeInfo()
     {
 //        showProgress(true);
         RequestParams params = new RequestParams();
@@ -119,6 +127,22 @@ public class HomeActivity extends Activity
             {
                 // If the response is JSONObject instead of expected JSONArray
 //                showProgress(false);
+
+                Gson gson = new Gson();
+                searchResponse = gson.fromJson(response.toString(), SearchResponse.class);
+
+                if(!searchResponse.array.isEmpty())
+                {
+                    for (Result result : searchResponse.array)
+                    {
+                        Log.d(TAG , result.toString());
+                    }
+                }
+                else
+                {
+                    Log.d(TAG , "empty arraylist");
+                }
+
                 createScreen(response);
             }
 
@@ -134,6 +158,84 @@ public class HomeActivity extends Activity
             {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
 //                showProgress(false);
+                Log.d(TAG, Arrays.toString(headers));
+                Log.d(TAG, Integer.toString(statusCode));
+                Log.d(TAG, response.toString());
+                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getUserInfo()
+    {
+        RequestParams params = new RequestParams();
+        try
+        {
+            getUserInfoRest(params);
+        }
+        catch (Exception e)
+        {
+            e.getStackTrace();
+        }
+
+    }
+
+    private void getUserInfoRest(RequestParams params) throws JSONException
+    {
+        PartezRestClient.getCred("authenticate", params, token, new JsonHttpResponseHandler()
+        {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
+                // If the response is JSONObject instead of expected JSONArray
+//                showProgress(false);
+                Log.d(TAG, response.toString());
+
+                Gson gson = new Gson();
+                users = gson.fromJson(response.toString(), User[].class);
+
+                Log.d(TAG, Arrays.toString(users));
+
+                for(User account: users )
+                {
+                    if(account.email.equals(userEmail))
+                    {
+                        uid = account.uid;
+                    }
+                }
+                Log.d(TAG, uid);
+                getHomeInfo();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response)
+            {
+                // Do something with the response
+//                showProgress(false);
+                Log.d(TAG, response.toString());
+
+                Gson gson = new Gson();
+                users = gson.fromJson(response.toString(), User[].class);
+
+                Log.d(TAG, Arrays.toString(users));
+
+                for(User account: users )
+                {
+                    if(account.email.equals(userEmail))
+                    {
+                        uid = account.uid;
+                    }
+                }
+                Log.d(TAG, uid);
+                getHomeInfo();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response)
+            {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+//                showProgress(false);
+                Log.d(TAG, "GetonFailure JSONArray");
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
                 Log.d(TAG, response.toString());
@@ -184,28 +286,12 @@ public class HomeActivity extends Activity
 
     private void createScreen(JSONObject response)
     {
-        Log.d(TAG ,response.toString());
-
-        Gson gson = new Gson();
-        SearchResponse searchResponse = gson.fromJson(response.toString(), SearchResponse.class);
-
-        if(!searchResponse.array.isEmpty())
-        {
-            for (Result result : searchResponse.array)
-            {
-                Log.d(TAG , result.toString());
-            }
-        }
-        else
-        {
-            Log.d(TAG , "empty arraylist");
-        }
 
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
         // preparing list data
-        prepareListData(searchResponse.array);
+        prepareListData();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
@@ -216,7 +302,7 @@ public class HomeActivity extends Activity
     /*
      * Preparing the list data
      */
-    private void prepareListData(ArrayList<Result> resultArray)
+    private void prepareListData()
     {
         setOnClickListeners();
 
@@ -231,24 +317,32 @@ public class HomeActivity extends Activity
         // Adding child data
         List<Result> myEvents = new ArrayList<>();
 
+        ArrayList<Result> resultArray = searchResponse.array;
         for (Result result : resultArray)
         {
-            myEvents.add(result);
+            if(result.uid.equals(uid))
+            {
+                myEvents.add(result);
+            }
         }
 
         List<Result> invitedEvents = new ArrayList<>();
-//        for (Result result : resultArray)
-//        {
-//            Log.d(TAG , result.toString());
-//            myEvents.add(result.name);
-//        }
+        for (Result result : resultArray)
+        {
+            if(!result.uid.equals(uid) && Integer.parseInt(result.eventPublic) == 0)
+            {
+                invitedEvents.add(result);
+            }
+        }
 
         List<Result> publicEvents = new ArrayList<>();
-//        for (Result result : resultArray)
-//        {
-//            Log.d(TAG , result.toString());
-//            myEvents.add(result.name);
-//        }
+        for (Result result : resultArray)
+        {
+            if(Integer.parseInt(result.eventPublic) != 0)
+            {
+                publicEvents.add(result);
+            }
+        }
 
         listDataChild.put(listDataHeader.get(0), myEvents); // Header, Child data
         listDataChild.put(listDataHeader.get(1), invitedEvents);
