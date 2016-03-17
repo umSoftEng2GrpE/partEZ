@@ -62,7 +62,19 @@ class EventTest extends TestCase
 
     protected function tearDown()
     {
-        Event::where('eid', '>', $this->lastEvent)->delete();
+        if(is_null($this->lastEvent))
+        {
+            $event = Event::first();
+            if(!is_null($event))
+            {
+                $event->delete();
+            }
+        }
+        else
+        {
+            Event::where('eid', '>', $this->lastEvent)->delete();   
+        }
+
         User::where('uid', $this->uid)->delete();
     }
 }
