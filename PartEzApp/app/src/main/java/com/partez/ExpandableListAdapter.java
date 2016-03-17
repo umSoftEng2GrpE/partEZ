@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import com.partez.DataWrapper.Result;
-import com.partez.gregjoubert.partezapp.R;
 
 /**
  * Created by gregjoubert on 2016-03-16.

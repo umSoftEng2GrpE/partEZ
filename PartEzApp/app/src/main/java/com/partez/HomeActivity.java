@@ -18,8 +18,6 @@ import com.partez.DataWrapper.User;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.partez.gregjoubert.partezapp.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
