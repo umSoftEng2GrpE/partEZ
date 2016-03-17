@@ -17,6 +17,10 @@ public class PartezRestClient
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void getCred(String url, RequestParams params, String token, AsyncHttpResponseHandler responseHandler) {
+        client.get(getAbsoluteURLWithToken(url, token), params, responseHandler);
+    }
+
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler)
     {
         client.post(getAbsoluteUrl(url), params, responseHandler);
