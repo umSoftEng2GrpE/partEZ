@@ -164,3 +164,41 @@ TA and decided to focus on improving the clarity of documentation. Max and Jen w
 ---------------------------------------------------------------------------------
 Feb 24, 2016
 Confirmed that everything is on track for submission. Nick asked that UI changes be done asap so he can do selenium tests.
+---------------------------------------------------------------------------------
+Feb 29, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Jen	- Delroy - Greg
+Discussed release plan for Iteration 3 and delegated tasks.
+---------------------------------------------------------------------------------
+Mar 3, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Jen	- Delroy - Greg
+Brief meeting to determine everyone was on task.
+---------------------------------------------------------------------------------
+Mar 8, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Jen	- Delroy - Greg
+Met to discuss Android app layout and development plan.
+---------------------------------------------------------------------------------
+Mar 9, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Jen   - Greg	 - Delroy
+Got together as a group to get iteration features finalized.
+---------------------------------------------------------------------------------
+Mar 14, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Greg	- Delroy - Jen
+Met to discuss iteration 2 feedback and adjust development plan to address issues.
+Delegated tasks to fix issues and continue Android development.
+---------------------------------------------------------------------------------
+Mar 17, 2016
+Attendance:
+- Bri	- Nick	 - Max
+- Greg	- Delroy - Jen
+Group coding session to finalize iteration and finish Android development. Ensured
+tests were running successfully. Delroy joined via Skype.
