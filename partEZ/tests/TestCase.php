@@ -27,6 +27,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     public function startup()
     {
-        $this->seed();
+        //$this->seed();
     }
 }
