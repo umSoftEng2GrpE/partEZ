@@ -46,7 +46,6 @@ public class HomeActivity extends Activity
 {
     private static final String TAG = "HomeActivity";
     private View mProgressView;
-    private View mHomeFormView;
     private String token;
     private String userEmail;
     private String uid;
@@ -66,7 +65,6 @@ public class HomeActivity extends Activity
         setContentView(R.layout.home);
 //        setContentView(R.layout.activity_main);
 
-//        mHomeFormView = findViewById(R.id.home_form);
         mProgressView = findViewById(R.id.home_progress);
 
         token = "Missing Token";
@@ -106,7 +104,7 @@ public class HomeActivity extends Activity
 
     private void getHomeInfo()
     {
-//        showProgress(true);
+        showProgress(true);
         RequestParams params = new RequestParams();
         try
         {
@@ -126,7 +124,7 @@ public class HomeActivity extends Activity
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
                 // If the response is JSONObject instead of expected JSONArray
-//                showProgress(false);
+                showProgress(false);
 
                 Gson gson = new Gson();
                 searchResponse = gson.fromJson(response.toString(), SearchResponse.class);
@@ -150,14 +148,14 @@ public class HomeActivity extends Activity
             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline)
             {
                 // Do something with the response
-//                showProgress(false);
+                showProgress(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response)
             {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-//                showProgress(false);
+                showProgress(false);
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
                 Log.d(TAG, response.toString());
@@ -188,30 +186,14 @@ public class HomeActivity extends Activity
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
                 // If the response is JSONObject instead of expected JSONArray
-//                showProgress(false);
                 Log.d(TAG, response.toString());
-
-                Gson gson = new Gson();
-                users = gson.fromJson(response.toString(), User[].class);
-
-                Log.d(TAG, Arrays.toString(users));
-
-                for(User account: users )
-                {
-                    if(account.email.equals(userEmail))
-                    {
-                        uid = account.uid;
-                    }
-                }
-                Log.d(TAG, uid);
-                getHomeInfo();
+                showProgress(false);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response)
             {
                 // Do something with the response
-//                showProgress(false);
                 Log.d(TAG, response.toString());
 
                 Gson gson = new Gson();
@@ -234,7 +216,7 @@ public class HomeActivity extends Activity
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response)
             {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-//                showProgress(false);
+                showProgress(false);
                 Log.d(TAG, "GetonFailure JSONArray");
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
@@ -244,45 +226,33 @@ public class HomeActivity extends Activity
         });
     }
 
-//    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-//    private void showProgress(final boolean show)
-//    {
-//        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-//        // for very easy animations. If available, use these APIs to fade-in
-//        // the progress spinner.
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
-//        {
-//            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-//
-//            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mHomeFormView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter()
-//            {
-//                @Override
-//                public void onAnimationEnd(Animator animation)
-//                {
-//                    mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//                }
-//            });
-//
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mProgressView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 1 : 0).setListener(new AnimatorListenerAdapter()
-//            {
-//                @Override
-//                public void onAnimationEnd(Animator animation)
-//                {
-//                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//                }
-//            });
-//        } else
-//        {
-//            // The ViewPropertyAnimator APIs are not available, so simply show
-//            // and hide the relevant UI components.
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mHomeFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//        }
-//    }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show)
+    {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
+        {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else
+        {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
 
     private void createScreen(JSONObject response)
     {
@@ -299,9 +269,6 @@ public class HomeActivity extends Activity
         expListView.setAdapter(listAdapter);
     }
 
-    /*
-     * Preparing the list data
-     */
     private void prepareListData()
     {
         setOnClickListeners();
