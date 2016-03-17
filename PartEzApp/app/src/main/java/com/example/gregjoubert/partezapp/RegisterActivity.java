@@ -232,6 +232,7 @@ public class RegisterActivity extends Activity
                 {
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra("token", response.getString("token"));
+                    intent.putExtra("user_email",mEmailView.getText().toString());
                     startActivity(intent);
                 } catch (JSONException error)
                 {
