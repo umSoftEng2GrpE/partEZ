@@ -33,6 +33,5 @@ class ApiMessageController extends Controller
     {
         $input = json_decode($request->getContent());
         $msgCreated=Message::createMessage($input->chat_message[0]->eid, $input->chat_message[0]->message);
-
     }
 }

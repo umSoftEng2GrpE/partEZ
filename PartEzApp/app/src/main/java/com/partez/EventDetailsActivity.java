@@ -97,6 +97,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         for(int i = 0; i < layout.getChildCount(); i++)
         {
             View v = layout.getChildAt(i);
+            // get comma separated list of emails
 
             if (v instanceof EditText) {
                 String element = ((EditText) v).getText().toString();
