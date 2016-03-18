@@ -1,0 +1,156 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.partez.LoginActivity">
+
+    <!--  Header  Starts-->
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip">
+        <!-- Logo Start-->
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"/>
+        <!-- Logo Ends -->
+
+    </LinearLayout>
+    <!--  Header Ends -->
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/create_event_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit_event"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/submit_event"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:onClick="submitEvent"
+            />
+        <EditText
+            android:id="@+id/event_name"
+            android:hint="@string/event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <requestFocus />
+        </EditText>
+        <EditText
+            android:id="@+id/event_location"
+            android:hint="@string/event_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </EditText>
+        <EditText
+            android:id="@+id/event_city"
+            android:hint="@string/event_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <requestFocus />
+        </EditText>
+        <EditText
+            android:id="@+id/event_description"
+            android:hint="@string/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </EditText>
+        <DatePicker
+            android:id="@+id/event_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:endYear="2100"
+            android:startYear="1900" >
+        </DatePicker>
+        <TimePicker
+            android:id="@+id/stime_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TimePicker
+            android:id="@+id/etime_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton android:id="@+id/public_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"/>
+
+            <LinearLayout
+                android:id="@+id/pollEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_poll_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_poll_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addPollEditText"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/itemEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_item_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_item_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addItemEditText"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inviteEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_email_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_email_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addInvitationEditText"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

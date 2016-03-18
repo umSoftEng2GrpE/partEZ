@@ -5,3 +5,8 @@ Homestead.json
 /.idea/*
 .env
 /config/jwt.php
+PartEzApp/app/.idea/
+PartEzApp/app/gradle/
+PartEzApp/app/gradlew
+PartEzApp/app/gradlew.bat
+PartEzApp/app/local.properties

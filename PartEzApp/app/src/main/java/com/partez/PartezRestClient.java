@@ -4,7 +4,11 @@ package com.partez;
  * Created by gregjoubert on 2016-03-08.
  */
 
+import android.content.Context;
+
 import com.loopj.android.http.*;
+
+import cz.msebera.android.httpclient.HttpEntity;
 
 public class PartezRestClient
 {
@@ -24,6 +28,11 @@ public class PartezRestClient
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler)
     {
         client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void postEntity(Context context, String url, String token, HttpEntity entity, AsyncHttpResponseHandler responseHandler)
+    {
+        client.post(context, getAbsoluteURLWithToken(url, token), entity, "application/json", responseHandler);
     }
 
     public static void postCred(String url,RequestParams params, String token, AsyncHttpResponseHandler responseHandler)

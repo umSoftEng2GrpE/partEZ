@@ -50,9 +50,7 @@ public class HomeActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        // Set View to register.xml
         setContentView(R.layout.home);
-//        setContentView(R.layout.activity_main);
 
         mProgressView = findViewById(R.id.home_progress);
 
@@ -84,11 +82,10 @@ public class HomeActivity extends Activity
 
     public void createEvent()
     {
-//        Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
-//        intent.putExtra("token", token);
-//        startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
+        intent.putExtra("token", token);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.create_event), Toast.LENGTH_SHORT).show();
-
     }
 
     protected void getHomeInfo()
