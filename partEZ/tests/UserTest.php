@@ -9,29 +9,15 @@ class UserTest extends TestCase
 
     public function startup()
     {
-        $this->seed();
-    }
-
-    public function testUserRetrieval()
-    {
-        $this->startup();
-        $user = User::find(1);
-        $this->assertNotNull($user, 'The user could not be retrieved from the database.');
+       $this->uid = User::max('uid');
     }
 
     public function testUserName()
     {
-        User::create(array('firstname' => 'Simon', 'email' => 'simon@gmail.com'));
+        $this->startUp();
+
+        User::create(array('firstname' => 'Simon', 'lastname' => 'Milo', 'email' => 'simon@gmail.com'));
         $this->seeInDatabase('users', ['firstname' => 'Simon']);
-    }
-
-    public function testUserGetAll()
-    {
-        $this->startup();
-
-        $count = User::all()->count();
-        $result = $count > 0;
-        $this->assertTrue($result);
     }
 
     public function testUserSave()
@@ -48,6 +34,8 @@ class UserTest extends TestCase
 
     public function testUserGetId()
     {
+        $this->startUp();
+
         $user = User::create(array('firstname'=>'Cap', 'lastname'=>'Reynolds', 'email'=>'mel@test.com'));
         $insertId = $user->uid;
 
@@ -56,17 +44,38 @@ class UserTest extends TestCase
 
     public function testUserUpdate()
     {
+        $this->startUp();
+
         $user = User::create(['firstname'=>'Jayne', 'lastname'=>'Cobb', 'email'=>'jayne@notagirl.com']);
+        $user->email = 'jaynenew@notagirl.com';
         $user->save();
 
-        $this->seeInDatabase('users', ['email' => 'jayne@notagirl.com']);
+        $this->seeInDatabase('users', ['email' => 'jaynenew@notagirl.com']);
     }
 
     public function testUserDelete()
     {
+        $this->startUp();
+
         $user = User::create(array('firstname'=>'Wash', 'lastname'=>'Washburne', 'email'=>'wash@dinosaurs.com'));
         $user->delete();
 
         $this->notSeeInDatabase('users', ['firstname' => 'Wash']);
+    }
+
+    protected function tearDown()
+    {
+        if(is_null($this->uid))
+        {
+            $user = User::first();
+            if(!is_null($user))
+            {
+                $user->delete();
+            }
+        }
+        else
+        {
+            User::where('uid', '>', $this->uid)->delete();
+        }
     }
 }
