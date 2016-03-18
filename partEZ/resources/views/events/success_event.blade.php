@@ -11,7 +11,7 @@
                         You have successfully created an event!
 
                         <br><br>
-                        <button type="button" onclick="window.location='{{ url("/home") }}'">Return Home</button>
+                        <a class="btn btn-lg btn-info" name="return_home" href='{{ url("/home") }}'>Return Home</a>
 
                     </div>
                 </div>

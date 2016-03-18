@@ -13,21 +13,21 @@
     <div class="event-btn-container">
         <div class="event-btn">
             <!-- Details Button -->
-            <a title="Details" href="{{ URL::route('events.event_details', array($eid)) }}" class="btn-link">
+            <a name="details_btn" title="Details" href="{{ URL::route('events.event_details', array($eid)) }}" class="btn-link">
                 <i class="fa fa-info-circle"></i>
             </a>
         </div>
 
         <div class="event-btn">
             <!-- Edit Button -->
-            <a title="Edit" href="{{ URL::route('events.event_details_edit', array($eid)) }}" class="btn-link">
+            <a name="edit_btn" title="Edit" href="{{ URL::route('events.event_details_edit', array($eid)) }}" class="btn-link">
                 <i class="fa fa-pencil-square"></i>
             </a>
         </div>
 
         <div class="event-btn">
             <!-- Edit Button -->
-            <a title="Delete" href="{{ URL::route('events.event_delete', array($eid)) }}" class="btn-link">
+            <a name="delete_btn" title="Delete" href="{{ URL::route('events.event_delete', array($eid)) }}" class="btn-link">
                 <i class="fa fa-trash"></i>
             </a>
         </div>
