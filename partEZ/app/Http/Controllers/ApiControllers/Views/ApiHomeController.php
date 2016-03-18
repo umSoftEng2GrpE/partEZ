@@ -19,7 +19,7 @@ class ApiHomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+        $this->middleware('jwt.auth');
     }
 
     /**
@@ -29,10 +29,13 @@ class ApiHomeController extends Controller
      */
     public function index()
     {
-        $events = $this->getUsersEvents();
-        $invites = $this->getUserInvitedEvents();
-        $array = array_merge($events->toArray(), $invites);
-        return response()->json(compact('array'));
+        $user_events = $this->getUsersEvents();
+        $user_events = $user_events->toArray();
+        $invited_events = $this->getUserInvitedEvents();
+
+        $public_events = $this->getPublicEvents();
+        $public_events = $public_events->toArray();
+        return response()->json(compact('user_events', 'invited_events', 'public_events'));
     }
 
         //TODO: perhaps just call these functions from the regular home controller instead of having duplicates here
@@ -43,6 +46,12 @@ class ApiHomeController extends Controller
         $events = Event::getUserEvents($user->uid);
         return $events;
 
+    }
+
+    public function getPublicEvents()
+    {
+        $events = Event::getPublicEvents();
+        return $events;
     }
 
     public function getUserInvitedEvents()
