@@ -81,6 +81,7 @@
         </EditText>
         <DatePicker
             android:id="@+id/event_date"
+            android:hint="@string/event_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:endYear="2100"

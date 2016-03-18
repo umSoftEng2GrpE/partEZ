@@ -26,4 +26,5 @@
     <string name="add_poll_edit">Add Poll</string>
     <string name="add_item_edit">Add Item</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="event_date">Event Date</string>
 </resources>
