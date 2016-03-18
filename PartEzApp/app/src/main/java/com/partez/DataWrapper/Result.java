@@ -27,5 +27,9 @@ public class Result {
         return  name;
     }
 
+    public String getInfo()
+    {
+        return uid + " " + eventPublic;
+    }
 
 }
