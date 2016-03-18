@@ -1,6 +1,7 @@
 package com.partez;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.partez.DataWrapper.Result;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +33,7 @@ import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 public class EventDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "EventActivity";
+    private static Result resultForNextScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
         // return emails without trailing comma
-        return emails.substring(0,emails.length()-1);
+        if(emails.length() > 0)
+            emails = emails.substring(0,emails.length()-1);
+
+        return emails;
     }
 
     private JSONArray getJsonEditTextOutput(LinearLayout layout, String name) throws JSONException {
@@ -148,6 +154,16 @@ public class EventDetailsActivity extends AppCompatActivity {
         Boolean isPublic = ((RadioButton)findViewById(R.id.public_event)).isActivated();
         String publicEvent = isPublic ? "1" : "0";
 
+        resultForNextScreen = new Result();
+        resultForNextScreen.name = name;
+        resultForNextScreen.location = location;
+        resultForNextScreen.description = description;
+        resultForNextScreen.date = eventDate;
+        resultForNextScreen.stime = stime;
+        resultForNextScreen.etime = etime;
+        resultForNextScreen.eventPublic = publicEvent;
+
+
         event.put("name", name);
         event.put("location", location);
         event.put("description", description);
@@ -197,6 +213,9 @@ public class EventDetailsActivity extends AppCompatActivity {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("eventToPass", resultForNextScreen);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Created Event", Toast.LENGTH_SHORT).show();
             }
         });

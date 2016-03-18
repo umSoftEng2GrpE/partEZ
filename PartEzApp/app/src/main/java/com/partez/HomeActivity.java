@@ -88,8 +88,9 @@ public class HomeActivity extends Activity
         Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.create_event), Toast.LENGTH_SHORT).show();
     }
 
-    protected void getHomeInfo()
+    protected Boolean getHomeInfo()
     {
+        Boolean success = true;
         showProgress(true);
         RequestParams params = new RequestParams();
         try
@@ -98,8 +99,10 @@ public class HomeActivity extends Activity
         }
         catch (Exception e)
         {
+            success = false;
             e.getStackTrace();
         }
+        return success;
     }
 
     public void getPublicTimeline(RequestParams params, String token) throws JSONException
@@ -149,8 +152,9 @@ public class HomeActivity extends Activity
         });
     }
 
-    public void getUserInfo()
+    public Boolean getUserInfo()
     {
+        Boolean success = true;
         RequestParams params = new RequestParams();
         try
         {
@@ -158,9 +162,10 @@ public class HomeActivity extends Activity
         }
         catch (Exception e)
         {
+            success = false;
             e.getStackTrace();
         }
-
+        return success;
     }
 
     protected void getUserInfoRest(RequestParams params) throws JSONException
