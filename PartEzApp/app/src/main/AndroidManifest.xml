@@ -35,7 +35,7 @@
             android:label="Logged in to home"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".DataWrapper.EventActivity"
+            android:name=".EventActivity"
             android:label="@string/title_activity_event"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

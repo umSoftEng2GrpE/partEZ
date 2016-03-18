@@ -13,10 +13,8 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.partez.DataWrapper.EventActivity;
 import com.partez.DataWrapper.Result;
 import com.partez.DataWrapper.SearchResponse;
-import com.partez.DataWrapper.User;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

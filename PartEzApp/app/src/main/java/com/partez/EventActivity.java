@@ -1,9 +1,10 @@
-package com.partez.DataWrapper;
+package com.partez;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.partez.DataWrapper.Result;
 import com.partez.R;
 
 public class EventActivity extends AppCompatActivity {
