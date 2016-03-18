@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.partez.DataWrapper.EventActivity;
 import com.partez.DataWrapper.Result;
 import com.partez.DataWrapper.SearchResponse;
 import com.partez.DataWrapper.User;
@@ -318,15 +320,10 @@ public class HomeActivity extends Activity
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id)
             {
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + (listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition)).name
-                                  , Toast.LENGTH_SHORT)
-                        .show();
+                Result eventToPass = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("eventToPass",eventToPass);
+                startActivity(intent);
                 return false;
             }
         });
