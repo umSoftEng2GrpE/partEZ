@@ -13,10 +13,8 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.partez.DataWrapper.EventActivity;
 import com.partez.DataWrapper.Result;
 import com.partez.DataWrapper.SearchResponse;
-import com.partez.DataWrapper.User;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -41,8 +39,6 @@ public class HomeActivity extends Activity
     private View mProgressView;
     private String token;
     private String userEmail;
-    private String uid;
-    private User[] users;
     private SearchResponse searchResponse;
 
     ExpandableListAdapter listAdapter;
@@ -92,7 +88,7 @@ public class HomeActivity extends Activity
         Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.create_event), Toast.LENGTH_SHORT).show();
     }
 
-    private void getHomeInfo()
+    protected void getHomeInfo()
     {
         showProgress(true);
         RequestParams params = new RequestParams();
@@ -115,21 +111,20 @@ public class HomeActivity extends Activity
             {
                 // If the response is JSONObject instead of expected JSONArray
                 showProgress(false);
-
+                Log.d(TAG, response.toString());
                 Gson gson = new Gson();
                 searchResponse = gson.fromJson(response.toString(), SearchResponse.class);
 
-                if(!searchResponse.array.isEmpty())
-                {
-                    for (Result result : searchResponse.array)
-                    {
-                        Log.d(TAG , result.toString());
-                    }
-                }
-                else
-                {
-                    Log.d(TAG , "empty arraylist");
-                }
+//                if (!searchResponse.array.isEmpty())
+//                {
+//                    for (Result result : searchResponse.array)
+//                    {
+//                        Log.d(TAG, result.toString());
+//                    }
+//                } else
+//                {
+//                    Log.d(TAG, "empty arraylist");
+//                }
 
                 createScreen(response);
             }
@@ -168,7 +163,7 @@ public class HomeActivity extends Activity
 
     }
 
-    private void getUserInfoRest(RequestParams params) throws JSONException
+    protected void getUserInfoRest(RequestParams params) throws JSONException
     {
         PartezRestClient.getCred("authenticate", params, token, new JsonHttpResponseHandler()
         {
@@ -186,19 +181,7 @@ public class HomeActivity extends Activity
                 // Do something with the response
                 Log.d(TAG, response.toString());
 
-                Gson gson = new Gson();
-                users = gson.fromJson(response.toString(), User[].class);
 
-                Log.d(TAG, Arrays.toString(users));
-
-                for(User account: users )
-                {
-                    if(account.email.equals(userEmail))
-                    {
-                        uid = account.uid;
-                    }
-                }
-                Log.d(TAG, uid);
                 getHomeInfo();
             }
 
@@ -217,7 +200,7 @@ public class HomeActivity extends Activity
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show)
+    protected void showProgress(final boolean show)
     {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -244,14 +227,14 @@ public class HomeActivity extends Activity
         }
     }
 
-    private void createScreen(JSONObject response)
+    protected void createScreen(JSONObject response)
     {
-
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
         // preparing list data
-        prepareListData();
+        setOnClickListeners();
+        prepareListData(searchResponse);
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
@@ -259,10 +242,8 @@ public class HomeActivity extends Activity
         expListView.setAdapter(listAdapter);
     }
 
-    private void prepareListData()
+    protected int prepareListData(SearchResponse searchResponse)
     {
-        setOnClickListeners();
-
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Result>>();
 
@@ -274,40 +255,31 @@ public class HomeActivity extends Activity
         // Adding child data
         List<Result> myEvents = new ArrayList<>();
 
-        ArrayList<Result> resultArray = searchResponse.array;
-        for (Result result : resultArray)
+        for (Result result : searchResponse.user_events)
         {
-            if(result.uid.equals(uid))
-            {
-                myEvents.add(result);
-            }
+            myEvents.add(result);
         }
 
         List<Result> invitedEvents = new ArrayList<>();
-        for (Result result : resultArray)
+        for (Result result : searchResponse.invited_events)
         {
-            if(!result.uid.equals(uid) && Integer.parseInt(result.eventPublic) == 0)
-            {
-                invitedEvents.add(result);
-            }
+            invitedEvents.add(result);
         }
 
         List<Result> publicEvents = new ArrayList<>();
-        for (Result result : resultArray)
+        for (Result result : searchResponse.public_events)
         {
-            if(Integer.parseInt(result.eventPublic) != 0)
-            {
-                publicEvents.add(result);
-            }
+            publicEvents.add(result);
         }
 
         listDataChild.put(listDataHeader.get(0), myEvents); // Header, Child data
         listDataChild.put(listDataHeader.get(1), invitedEvents);
         listDataChild.put(listDataHeader.get(2), publicEvents);
 
+        return myEvents.size();
     }
 
-    private void setOnClickListeners()
+    protected void setOnClickListeners()
     {
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()

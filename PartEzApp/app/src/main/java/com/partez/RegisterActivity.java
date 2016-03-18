@@ -81,7 +81,6 @@ public class RegisterActivity extends Activity
 
     }
 
-
     /**
      * Shows the progress UI and hides the register form.
      */
