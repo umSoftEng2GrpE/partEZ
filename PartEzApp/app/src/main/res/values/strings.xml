@@ -25,5 +25,5 @@
     <string name="add_email_edit">Add Invitee</string>
     <string name="add_poll_edit">Add Poll</string>
     <string name="add_item_edit">Add Item</string>
-
+    <string name="title_activity_event">EventActivity</string>
 </resources>
