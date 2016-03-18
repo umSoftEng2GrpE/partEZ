@@ -8,29 +8,24 @@ class EventTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function startup()
+    public function startUp()
     {
-        $this->seed();
-    }
-
-    public function setUpEventTest()
-    {
-        User::create(array('name'=>'Badger'));
+        $this->lastEvent = Event::max('eid');
+        $this->user = User::create(array('firstname' => 'Simon', 'email' => 'simon2@gmail.com'));
     }
 
     public function testEventInsert()
     {
-        $this->startup();
+        $this->startUp();
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
 
-        Event::create(array('name'=>'The Red Wedding', 'uid'=>'5', 'location' => 'Winnipeg'));
         $this->seeInDatabase('events', ['name'=>'The Red Wedding']);
     }
 
     public function testEventRetrieve()
     {
-        $this->startup();
-
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>'4', 'location' => 'Winnipeg'));
+        $this->startUp();
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event = Event::find($event->eid);
 
         $this->assertNotNull($event, 'Could not retrieve event');
@@ -38,9 +33,9 @@ class EventTest extends TestCase
 
     public function testEventUpdate()
     {
-        $this->startup();
+        $this->startUp();
 
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>'3', 'location' => 'Winnipeg'));
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event->location = 'Castle Frey';
 
         $eid = $event->eid;
@@ -54,11 +49,29 @@ class EventTest extends TestCase
 
     public function testEventDelete()
     {
-        $this->startup();
-
-        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>'2', 'location' => 'Winnipeg'));
+        $this->startUp();
+        
+        $event = Event::create(array('name'=>'The Red Wedding', 'uid'=>$this->user->uid, 'location' => 'Winnipeg'));
         $event->delete();
 
         $this->notSeeInDatabase('events', array('name'=>'TheRedWedding'));
+    }
+
+    protected function tearDown()
+    {
+        if(is_null($this->lastEvent))
+        {
+            $event = Event::first();
+            if(!is_null($event))
+            {
+                $event->delete();
+            }
+        }
+        else
+        {
+            Event::where('eid', '>', $this->lastEvent)->delete();   
+        }
+
+        User::where('uid', $this->user->uid)->delete();
     }
 }

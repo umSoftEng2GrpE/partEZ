@@ -16,7 +16,7 @@
     It starts on {!! $date !!}!
 
     <!--Should be changed in production to http://ec2-54-84-176-22.compute-1.amazonaws.com/-->
-    <a href="http://localhost:8000/">Take a look.</a>
+    <a href="http://ec2-54-84-176-22.compute-1.amazonaws.com/">Take a look.</a>
 
     <br>
     <br>
