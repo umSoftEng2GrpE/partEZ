@@ -46,6 +46,95 @@ class IntegrationTest extends TestCase
 
     }
 
+    public function testEventCreation()
+    {
+        self::testAccountCreation();
+
+        $this->visit('/home')
+            ->click('event_button')
+            ->type('Test Event Integration', 'name')
+            ->type('Convention Center', 'location')
+            ->type('Winnipeg', 'city')
+            ->press('creEvent');
+
+        $this->click('return_home')
+            ->seePageIs('/home')
+            ->see('Test Event Integration');
+
+        DB::table('events')
+            ->where('name', 'Test Event Integration')
+            ->delete();
+    }
+
+    public function testEventDetails()
+    {
+        self::testAccountCreation();
+
+        $this->visit('/home')
+            ->click('event_button')
+            ->type('Test Event Integration', 'name')
+            ->type('Convention Center', 'location')
+            ->type('Winnipeg', 'city')
+            ->press('creEvent');
+
+        $this->click('return_home')
+            ->seePageIs('/home')
+            ->see('Test Event Integration');
+
+        $this->click('details_btn')
+            ->see('Test Event Integration');
+
+        DB::table('events')
+            ->where('name', 'Test Event Integration')
+            ->delete();
+    }
+
+    public function testEventEdit()
+    {
+        self::testAccountCreation();
+
+        $this->visit('/home')
+            ->click('event_button')
+            ->type('Test Event Integration', 'name')
+            ->type('Convention Center', 'location')
+            ->type('Winnipeg', 'city')
+            ->press('creEvent');
+
+        $this->click('return_home')
+            ->seePageIs('/home')
+            ->see('Test Event Integration');
+
+        $this->click('edit_btn')
+            ->type('Test Event Integration 2', 'name')
+            ->press('save_event');
+
+        $this->visit('/home')
+            ->see('Test Event Integration 2');
+
+        DB::table('events')
+            ->where('name', 'Test Event Integration')
+            ->delete();
+    }
+
+    public function testEventDeletion()
+    {
+       self::testAccountCreation();
+
+        $this->visit('/home')
+            ->click('event_button')
+            ->type('Test Event Integration', 'name')
+            ->type('Convention Center', 'location')
+            ->type('Winnipeg', 'city')
+            ->press('creEvent');
+
+        $this->click('return_home')
+            ->seePageIs('/home')
+            ->see('Test Event Integration');
+            
+        $this->click('delete_btn')
+            ->see('You have successfully deleted the event!'); 
+    }
+
     public function testLogging()
     {
        self::testAccountCreation();

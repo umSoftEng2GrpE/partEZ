@@ -12,10 +12,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul class="nav nav-tabs" id="myTabs">
-                    <li><a href="#tab1" data-toggle="tab">Event Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Date Proposals</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Item List</a></li>
-                    <li><a href="#tab4" data-toggle="tab">Invitations</a></li>
+                    <li><a name="details" href="#tab1" data-toggle="tab">Event Details</a></li>
+                    <li><a name="polls" href="#tab2" data-toggle="tab">Date Proposals</a></li>
+                    <li><a name="items" href="#tab3" data-toggle="tab">Item List</a></li>
+                    <li><a name="invites" href="#tab4" data-toggle="tab">Invitations</a></li>
                 </ul>
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">

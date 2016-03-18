@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        {!! Form::submit('Save Event!', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
+                        {!! Form::submit('Save Event!', ['name' => 'save_event', 'class' => 'btn btn-lg btn-info pull-right'] ) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
