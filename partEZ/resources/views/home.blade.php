@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     You are logged in!
                     <br><br>
-                    <button type="button" name="event_button" onclick="window.location='{{ url("/create_event") }}'">Create Event</button>
+                    <a class="btn btn-lg btn-info" name="event_button" href='{{ url("/create_event") }}'>Create Event</a>
                     <br><br>
 
                     <div id="user-event-header" class="panel panel-default event-header">
