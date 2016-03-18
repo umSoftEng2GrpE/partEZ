@@ -1,0 +1,239 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.partez.LoginActivity">
+
+    <!--  Header  Starts-->
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip">
+        <!-- Logo Start-->
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"/>
+        <!-- Logo Ends -->
+    </LinearLayout>
+    <!--  Header Ends -->
+    <ScrollView
+        android:id="@+id/event_display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/event_info_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Name"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:lines="2"
+                android:fontFamily="Arial"
+                android:typeface="serif"
+                android:textSize="25sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/event_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:lines="2"
+                android:fontFamily="Arial"
+                android:typeface="serif"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Date"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:lines="2"
+                android:fontFamily="Arial"
+                android:typeface="serif"
+                android:textSize="15sp"
+            />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/event_start_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Time:"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Time"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_end_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="to"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event End Time"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/event_location_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="location"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/event_privacy_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This event is"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="description"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="6dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/event_description_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/event_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="description"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:lines="2"
+                    android:fontFamily="Arial"
+                    android:typeface="serif"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

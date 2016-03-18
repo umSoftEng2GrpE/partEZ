@@ -17,4 +17,13 @@
     <string name="error_password_different">This password is different</string>
     <string name="permission_rationale">Contacts permissions are needed for providing email</string>
     <string name="create_event">"Create Event</string>
+    <string name="submit_event">"Submit</string>
+    <string name="event_description">Description</string>
+    <string name="event_city">City</string>
+    <string name="event_location">Location</string>
+    <string name="event_name">Name</string>
+    <string name="add_email_edit">Add Invitee</string>
+    <string name="add_poll_edit">Add Poll</string>
+    <string name="add_item_edit">Add Item</string>
+    <string name="title_activity_event">EventActivity</string>
 </resources>
