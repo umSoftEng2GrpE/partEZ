@@ -30,13 +30,15 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 
-public class EventDetailsActivity extends AppCompatActivity {
+public class EventDetailsActivity extends AppCompatActivity
+{
 
     private static final String TAG = "EventActivity";
     private static Result resultForNextScreen;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
     }
@@ -77,7 +79,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         {
             View v = linearLayout.getChildAt(i);
             // get comma separated list of emails
-            if (v instanceof EditText) {
+            if (v instanceof EditText)
+            {
                 String email = ((EditText) v).getText().toString();
                 emails += email + ",";
             }
@@ -90,7 +93,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         return emails;
     }
 
-    private JSONArray getJsonEditTextOutput(LinearLayout layout, String name) throws JSONException {
+    private JSONArray getJsonEditTextOutput(LinearLayout layout, String name) throws JSONException
+    {
         JSONObject pair = new JSONObject();
         JSONArray result = new JSONArray();
 
@@ -98,7 +102,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         {
             View v = layout.getChildAt(i);
             // get comma separated list of emails
-            if (v instanceof EditText) {
+            if (v instanceof EditText)
+            {
                 String element = ((EditText) v).getText().toString();
 
                 pair.put(name, element);
@@ -110,7 +115,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void submitEvent(View view) throws JSONException {
+    public void submitEvent(View view) throws JSONException
+    {
         String token = "Missing Token";
         Bundle extras = getIntent().getExtras();
 
@@ -136,7 +142,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         JSONArray invitees = new JSONArray();
         String emails = getEmails();
-        invitees.put(emails);
+        if(emails.length() > 0)
+            invitees.put(emails);
 
         String name   = ((EditText)findViewById(R.id.event_name)).getText().toString();
         String location   = ((EditText)findViewById(R.id.event_location)).getText().toString();
@@ -180,9 +187,11 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         ByteArrayEntity entity = new ByteArrayEntity(outerJson.toString().getBytes());
 
-        PartezRestClient.postEntity(getApplicationContext(), "api_submit_event", token, entity, new JsonHttpResponseHandler() {
+        PartezRestClient.postEntity(getApplicationContext(), "api_submit_event", token, entity, new JsonHttpResponseHandler()
+        {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
                 // If the response is JSONObject instead of expected JSONArray
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
@@ -191,7 +200,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline)
+            {
                 // Do something with the response
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
@@ -200,7 +210,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response) {
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response)
+            {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
@@ -209,7 +220,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String someString, Throwable e) {
+            public void onFailure(int statusCode, Header[] headers, String someString, Throwable e)
+            {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.d(TAG, Arrays.toString(headers));
                 Log.d(TAG, Integer.toString(statusCode));
