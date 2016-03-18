@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete()
+    protected void populateAutoComplete()
     {
         if (!mayRequestContacts())
         {
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private boolean mayRequestContacts()
+    protected boolean mayRequestContacts()
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
         {
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin()
+    protected void attemptLogin()
     {
 //        if (mAuthTask != null) {
 //            return;
@@ -272,13 +272,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
     }
 
-    private boolean isEmailValid(String email)
+    protected boolean isEmailValid(String email)
     {
         //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password)
+    protected boolean isPasswordValid(String password)
     {
         //TODO: Replace this with your own logic
         return password.length() > 4;
@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show)
+    protected void showProgress(final boolean show)
     {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -365,7 +365,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection)
+    protected void addEmailsToAutoComplete(List<String> emailAddressCollection)
     {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
@@ -375,7 +375,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-    private interface ProfileQuery
+    protected interface ProfileQuery
     {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
