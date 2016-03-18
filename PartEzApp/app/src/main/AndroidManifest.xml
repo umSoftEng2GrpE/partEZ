@@ -29,19 +29,24 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register New Account"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".HomeActivity"
             android:label="Logged in to home"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DataWrapper.EventActivity"
             android:label="@string/title_activity_event"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.partez.HomeActivity" />
+        </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.partez.EventDetailsActivity"
+            android:label="Editing Event">
         </activity>
     </application>
 
