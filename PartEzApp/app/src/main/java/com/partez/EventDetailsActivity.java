@@ -3,10 +3,7 @@ package com.partez;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -71,7 +68,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private String getEmails()
     {
         String emails = "";
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.editTextGroupLayout);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.inviteEditTextGroupLayout);
 
         for(int i = 0; i < linearLayout.getChildCount(); i++)
         {
@@ -119,10 +116,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
 
         LinearLayout pollInput = (LinearLayout) findViewById(R.id.pollEditTextGroupLayout);
-        JSONArray polloptions = getJsonEditTextOutput(pollInput, "polloptions");
+        JSONArray polloptions = getJsonEditTextOutput(pollInput, "option");
 
         LinearLayout itemInput = (LinearLayout) findViewById(R.id.itemEditTextGroupLayout);
-        JSONArray items = getJsonEditTextOutput(itemInput, "items");
+        JSONArray items = getJsonEditTextOutput(itemInput, "description");
 
         // LinkedHashMap event = new LinkedHashMap();
         JsonObject json = new JsonObject();
@@ -161,6 +158,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         jsonArray.put(event);
         outerJson.put("event", event);
+        outerJson.put("polloptions", polloptions);
+        outerJson.put("items", items);
         outerJson.put("emails", invitees);
 
         ByteArrayEntity entity = new ByteArrayEntity(outerJson.toString().getBytes());
