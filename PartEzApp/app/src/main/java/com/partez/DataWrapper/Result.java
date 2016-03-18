@@ -29,6 +29,8 @@ public class Result implements Parcelable {
     {
         return  name;
     }
+    public Result(){
+    }
     public Result(Parcel in){
         String[] data = new String[11];
         in.readStringArray(data);
