@@ -38,6 +38,11 @@
             android:name="com.partez.HomeActivity"
             android:label="Logged in to home">
         </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.partez.EventDetailsActivity"
+            android:label="Editing Event">
+        </activity>
 
 
     </application>
