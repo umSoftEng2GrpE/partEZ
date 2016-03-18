@@ -22,5 +22,8 @@
     <string name="event_city">City</string>
     <string name="event_location">Location</string>
     <string name="event_name">Name</string>
+    <string name="add_email_edit">Add Invitee</string>
+    <string name="add_poll_edit">Add Poll</string>
+    <string name="add_item_edit">Add Item</string>
 
 </resources>

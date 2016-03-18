@@ -98,6 +98,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"/>
+
+            <LinearLayout
+                android:id="@+id/pollEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_poll_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_poll_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addPollEditText"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/itemEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_item_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_item_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addItemEditText"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inviteEditTextGroupLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/add_email_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_email_edit"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:onClick="addInvitationEditText"
+                    />
+            </LinearLayout>
         </LinearLayout>
+
+
     </ScrollView>
 </LinearLayout>

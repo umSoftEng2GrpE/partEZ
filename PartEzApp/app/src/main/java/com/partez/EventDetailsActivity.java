@@ -8,9 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
@@ -38,6 +41,71 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
     }
 
+    public void addPollEditText(View view)
+    {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.pollEditTextGroupLayout);
+        EditText editTextView = new EditText(this);
+        editTextView.setGravity(Gravity.CENTER);
+
+        linearLayout.addView(editTextView);
+    }
+
+    public void addItemEditText(View view)
+    {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.itemEditTextGroupLayout);
+        EditText editTextView = new EditText(this);
+        editTextView.setGravity(Gravity.CENTER);
+
+        linearLayout.addView(editTextView);
+    }
+
+    public void addInvitationEditText(View view)
+    {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.inviteEditTextGroupLayout);
+        EditText editTextView = new EditText(this);
+        editTextView.setGravity(Gravity.CENTER);
+
+        linearLayout.addView(editTextView);
+    }
+
+    private String getEmails()
+    {
+        String emails = "";
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.editTextGroupLayout);
+
+        for(int i = 0; i < linearLayout.getChildCount(); i++)
+        {
+            View v = linearLayout.getChildAt(i);
+            // get comma separated list of emails
+            if (v instanceof EditText) {
+                String email = ((EditText) v).getText().toString();
+                emails += email + ",";
+            }
+        }
+
+        // return emails without trailing comma
+        return emails.substring(0,emails.length()-1);
+    }
+
+    private JSONArray getJsonEditTextOutput(LinearLayout layout, String name) throws JSONException {
+        JSONObject pair = new JSONObject();
+        JSONArray result = new JSONArray();
+
+        for(int i = 0; i < layout.getChildCount(); i++)
+        {
+            View v = layout.getChildAt(i);
+            // get comma separated list of emails
+            if (v instanceof EditText) {
+                String element = ((EditText) v).getText().toString();
+
+                pair.put(name, element);
+                result.put(pair);
+            }
+        }
+
+        return result;
+    }
+
     @TargetApi(Build.VERSION_CODES.M)
     public void submitEvent(View view) throws JSONException {
         String token = "Missing Token";
@@ -50,12 +118,22 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         RequestParams params = new RequestParams();
 
+        LinearLayout pollInput = (LinearLayout) findViewById(R.id.pollEditTextGroupLayout);
+        JSONArray polloptions = getJsonEditTextOutput(pollInput, "polloptions");
+
+        LinearLayout itemInput = (LinearLayout) findViewById(R.id.itemEditTextGroupLayout);
+        JSONArray items = getJsonEditTextOutput(itemInput, "items");
+
         // LinkedHashMap event = new LinkedHashMap();
         JsonObject json = new JsonObject();
 
         JSONArray jsonArray = new JSONArray();
         JSONObject outerJson = new JSONObject();
         JSONObject event = new JSONObject();
+
+        JSONArray invitees = new JSONArray();
+        String emails = getEmails();
+        invitees.put(emails);
 
         String name   = ((EditText)findViewById(R.id.event_name)).getText().toString();
         String location   = ((EditText)findViewById(R.id.event_location)).getText().toString();
@@ -83,6 +161,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         jsonArray.put(event);
         outerJson.put("event", event);
+        outerJson.put("emails", invitees);
+
         ByteArrayEntity entity = new ByteArrayEntity(outerJson.toString().getBytes());
 
         PartezRestClient.postEntity(getApplicationContext(), "api_submit_event", token, entity, new JsonHttpResponseHandler() {
