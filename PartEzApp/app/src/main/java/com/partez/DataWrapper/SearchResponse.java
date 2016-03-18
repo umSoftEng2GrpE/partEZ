@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class SearchResponse
 {
-    public ArrayList<Result> array;
+    public ArrayList<Result> user_events;
+    public ArrayList<Result> invited_events;
+    public ArrayList<Result> public_events;
 
 }
