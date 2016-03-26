@@ -9,7 +9,11 @@
 
                 <div class="panel-body">
 
-                    You've successfully responded to this invitation!
+                    @if($is_full)
+                        Sorry, this event is full.
+                    @else
+                        You've successfully responded to this invitation!
+                    @endif
 
                 </div>
             </div>

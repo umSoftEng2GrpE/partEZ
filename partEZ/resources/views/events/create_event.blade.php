@@ -34,6 +34,10 @@
                                             <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control', 'id' => 'location']) !!}</td>
                                         </tr>
                                         <tr>
+                                            <td>{!! Form::label('max_attendees', 'Maximum Attendees:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::text('max_attendees', null, array('id' => 'max_attendees')) !!}</td>
+                                        </tr>
+                                        <tr>
                                             <td>{!! Form::label('city', 'City:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{!! Form::text('city', null, ['required'], ['class' => 'form-control', 'id' => 'city']) !!}</td>
                                         </tr>
