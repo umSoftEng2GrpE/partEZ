@@ -346,6 +346,8 @@ class EventController extends Controller
         $event->date = $input['date'];
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
+        $event->max_attendees = $input['max_attendees'];
+        $event->attendees = 0;
         $event->uid = Auth::user()['uid'];
 
         try
@@ -526,9 +528,17 @@ class EventController extends Controller
 
     public function inviteAccept($eid, $uid) 
     {
+        $event = Event::find($eid);
+        $is_full = $event->max_attendees <= $event->attendees;
         try
         {
-            Invite::changeStatus($eid, $uid, "accepted");
+            if(!$is_full)
+            {
+                Invite::changeStatus($eid, $uid, "accepted");
+
+                $event->attendees++;
+                $event->save();
+            }
         }
         catch(Exception $e)
         {
@@ -537,7 +547,9 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
-        return redirect('invite_response');
+
+        return view('inviteresponse')
+            ->with('is_full', $is_full);
     }
 
     public function inviteDecline($eid, $uid)

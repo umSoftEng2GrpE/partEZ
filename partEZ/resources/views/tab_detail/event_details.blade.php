@@ -3,6 +3,7 @@
         <ul>
             <li> {{ $event['public'] == 1 ? "This is a public event" : "This is a private event" }} </li>
             <li> Date:{{ $event['date'] }} </li>
+            <li> Attending: {{ $event['attendees']}} Max Attendees: {{ $event['max_attendees']}} </li>
             <li> Start Time: {{ $event['stime']}} End Time: {{ $event['etime']}} </li>
             <li> Location: {{ $event['location'] }} </li>
             <li> Description: {{ $event['description'] }} </li>
