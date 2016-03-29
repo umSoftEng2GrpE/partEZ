@@ -22,6 +22,19 @@
                     <div class="tab-pane" id="tab1">
                         <div class="well">         
 
+                            <script>
+                                function checkvalue() {
+                                    if(!Number.isInteger(Number(document.getElementById('ticketcount').value)) || (Number(document.getElementById('ticketcount').value) < 0)){
+                                        document.getElementById('ticketcount').value = 0;
+                                    }
+                                }
+
+                                function checkprice() {
+                                    if(isNaN(parseFloat(Number(document.getElementById('ticketprice').value)))){
+                                        document.getElementById('ticketprice').value = 0.00;
+                                    }
+                                }
+                            </script>
 
                             <legend>Create An Event</legend>
                             <fieldset>
@@ -60,11 +73,11 @@
 
                                         <tr class="ticketoptions">
                                             <td>{!! Form::label('ticketcountlabel', 'Ticket Count:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>{{ Form::text('ticketcount', null, array('id' => 'ticketcount') ) }}</td>
+                                            <td>{{ Form::text('ticketcount', null, array('id' => 'ticketcount', 'onchange'=>'checkvalue(this.form)', 'autofocus') ) }}</td>
                                         </tr>
                                         <tr class="ticketoptions">
                                             <td>{!! Form::label('ticketpricelabel', 'Ticket Price:', ['class' => 'col-lg-2 control-label']) !!}</td>
-                                            <td>$ {{ Form::text('ticketprice', null, array('id' => 'ticketprice') ) }}</td>
+                                            <td>$ {{ Form::text('ticketprice', null, array('id' => 'ticketprice', 'onchange'=>'checkprice(this.form)', 'autofocus') ) }}</td>
                                         </tr>
 
                                         <tr>
