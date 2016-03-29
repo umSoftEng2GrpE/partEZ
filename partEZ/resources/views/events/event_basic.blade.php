@@ -7,6 +7,14 @@
             @else
                 <i title="This event is private" class="fa fa-lock event-access-ico"></i>
             @endif
+
+            @if ($event['hastickets'])
+                @if ($event['numtickets'] != 0)
+                    <i title="This event has {{ $event['numtickets'] }} tickets available!" class="fa fa-ticket"></i>
+                @else
+                    <i title="This event is sold out." class="fa fa-ticket" style="color:grey"></i>
+                @endif
+            @endif
         </h5>
     </div>
         
