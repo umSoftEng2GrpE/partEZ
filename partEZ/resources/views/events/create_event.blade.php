@@ -81,7 +81,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td>{!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::label('description', 'Description:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>
                                                 {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                                                 <span class="help-block">Anymore details you may want to add for the party.</span>
