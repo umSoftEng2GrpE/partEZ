@@ -20,7 +20,9 @@
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
-                        <div class="well">
+                        <div class="well">         
+
+
                             <legend>Create An Event</legend>
                             <fieldset>
                                 <div class="form-group">
@@ -51,6 +53,20 @@
                                             <td>{!! Form::label('publicText', 'Public:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{!! Form::checkbox('public') !!}</td>
                                         </tr>
+                                        <tr>
+                                            <td>{!! Form::label('tickets', 'Require Tickets:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::checkbox('hastickets') !!}</td>
+                                        </tr>
+
+                                        <tr class="ticketoptions">
+                                            <td>{!! Form::label('ticketcountlabel', 'Ticket Count:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{{ Form::text('ticketcount', null, array('id' => 'ticketcount') ) }}</td>
+                                        </tr>
+                                        <tr class="ticketoptions">
+                                            <td>{!! Form::label('ticketpricelabel', 'Ticket Price:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>$ {{ Form::text('ticketprice', null, array('id' => 'ticketprice') ) }}</td>
+                                        </tr>
+
                                         <tr>
                                             <td>{!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>

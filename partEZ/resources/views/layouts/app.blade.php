@@ -116,6 +116,8 @@
                 var selected = $(this).val();
                 addDatePoll(selected);
             });
+
+            $('.ticketoptions').toggle($($('[name=hastickets]')[0]).is(':checked'));
         });
     </script>
 
@@ -124,6 +126,10 @@
         $(".header-content").on('click', function(){
             $(this).next().slideToggle();
             $(this).find('.header-icon').toggleClass('fa-chevron-right fa-chevron-down');
+        });
+
+        $("[name=hastickets]").on('click', function(){
+            $('.ticketoptions').toggle($($('[name=hastickets]')[0]).is(':checked'));
         });
 
     </script>
