@@ -66,4 +66,9 @@ class Event extends Model
         return DB::table('events')->where('eid', $eid)->delete();
     }
 
+    public static function purchaseTicket($event)
+    {
+        return DB::table('events')->where('eid', $event->eid)->update(['numtickets' => ($event->numtickets-1)]);
+    }
+
 }
