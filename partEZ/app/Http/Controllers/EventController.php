@@ -348,15 +348,16 @@ class EventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
-        $event->numtickets = 0;
-        $event->ticketprice = 0.00;
-
         if (array_key_exists('hastickets', $input)) {
             $event->hastickets = true;
+            $event->numtickets = $input['ticketcount'];
+            $event->ticketprice = $input['ticketprice'];
         }
         else
         {
             $event->hastickets = '';
+            $event->numtickets = 0;
+            $event->ticketprice = 0.00;
         }
 
         try
