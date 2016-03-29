@@ -348,6 +348,17 @@ class EventController extends Controller
         $event->etime = $input['etime'];
         $event->uid = Auth::user()['uid'];
 
+        $event->numtickets = 0;
+        $event->ticketprice = 0.00;
+
+        if (array_key_exists('hastickets', $input)) {
+            $event->hastickets = true;
+        }
+        else
+        {
+            $event->hastickets = '';
+        }
+
         try
         {
             $saveflag = Event::saveEvent($event);
