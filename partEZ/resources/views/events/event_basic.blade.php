@@ -10,7 +10,7 @@
 
             @if ($event['hastickets'])
                 @if ($event['numtickets'] != 0)
-                    <i title="This event has {{ $event['numtickets'] }} tickets available!" class="fa fa-ticket"></i>
+                    <i title="This event has {{ $event['numtickets'] }} ticket(s) available!" class="fa fa-ticket"></i>
                 @else
                     <i title="This event is sold out." class="fa fa-ticket" style="color:grey"></i>
                 @endif
