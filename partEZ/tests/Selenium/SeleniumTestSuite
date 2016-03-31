@@ -18,6 +18,7 @@
 <tr><td><a href="TestSelectPollOption.html">TestSelectPollOption</a></td></tr>
 <tr><td><a href="TestLocalPublicEvents.html">TestLocalPublicEvents</a></td></tr>
 <tr><td><a href="TestNoAuthUserRegistration.html">TestNoAuthUserRegistration</a></td></tr>
+<tr><td><a href="TestCantRSVPWhenEventIsFull.html">TestCantRSVPWhenEventIsFull</a></td></tr>
 </tbody></table>
 </body>
 </html>
