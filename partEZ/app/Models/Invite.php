@@ -71,13 +71,12 @@ class Invite extends Model
             if(is_null(Invite::where('eid', $eid)->where('uid', $uid)->first()))
             {
                 DB::table('invites')->insert(array(
-                'eid' => $eid,
-                'uid' => $uid,
-                'status' => $status
+                    'eid' => $eid,
+                    'uid' => $uid,
+                    'status' => $status
                 ));
-            }         
+            }
         }
-
     }
 
     public static function getActiveUserInvites() 
