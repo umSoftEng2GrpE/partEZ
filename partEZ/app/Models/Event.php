@@ -22,7 +22,9 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public', 'city', 'hastickets', 'numtickets', 'ticketprice'
+
+        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public', 'city', 'hastickets', 'numtickets', 'ticketprice', 'max_attendees', 'attendees'
+
     ];
 
     public static function getByID($eid)
