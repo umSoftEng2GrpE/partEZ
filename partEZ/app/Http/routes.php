@@ -45,6 +45,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('decline_invite/{eid}/{uid}', ['as' => 'decline_invite', 'uses' => 'EventController@inviteDecline']);
     Route::get('event/{id}', ['as' => 'events.event_details', 'uses' => 'EventController@details']);
     Route::get('event/edit/{id}', ['as' => 'events.event_details_edit', 'uses' => 'EventController@detailsEdit']);
+    Route::get('buy_ticket/{eid}', ['as' => 'buy_ticket', 'uses' => 'EventController@ticketGet']);
 
     Route::get('event_delete/{eid}', ['as' => 'events.event_delete', 'uses' => 'EventController@deleteEvent']);
     Route::get('assign_user/{iid}/{eid}', ['as' => 'assign_user', 'uses' => 'EventItemController@assignUser']);
