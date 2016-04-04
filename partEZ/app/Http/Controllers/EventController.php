@@ -397,10 +397,17 @@ class EventController extends Controller
     {
         $input = Request::all();
         $emails = $input['email-list'];
-
         $emails = array_map('trim', explode(',', $emails));
         self::inviteUsers($emails, $eid);
         return view('events/success_event');
+    }
+
+    public function splitPublicEmails()
+    {
+        $input = Request::all();
+        $eid = $input['eid'];
+        self::splitEmails($eid);
+        return view('success');
     }
 
     public function validatePoll( $eid )
@@ -467,8 +474,17 @@ class EventController extends Controller
 
             if (!in_array($user->uid, $invites))
             {
-                Invite::createInviteLog($eid, $user->uid);
-                self::sendInvitation($eid, $user->email, $user->uid);
+                try {
+                    Invite::createInviteLog($eid, $user->uid);
+                    self::sendInvitation($eid, $user->email, $user->uid);
+                }
+                catch(Exception $e)
+                {
+                    print '<script type="text/javascript">';
+                    print 'alert("The system has encountered an error please try again later")';
+                    print '</script>';
+                    return view('errors.error_event');
+                }
             }
 
         }
