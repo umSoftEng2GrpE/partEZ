@@ -75,7 +75,6 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/sendtest') }}"><i class="fa fa-btn fa-envelope"></i>Send Test Email</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -116,6 +115,8 @@
                 var selected = $(this).val();
                 addDatePoll(selected);
             });
+
+            $('.ticketoptions').toggle($($('[name=hastickets]')[0]).is(':checked'));
         });
     </script>
 
@@ -124,6 +125,10 @@
         $(".header-content").on('click', function(){
             $(this).next().slideToggle();
             $(this).find('.header-icon').toggleClass('fa-chevron-right fa-chevron-down');
+        });
+
+        $("[name=hastickets]").on('click', function(){
+            $('.ticketoptions').toggle($($('[name=hastickets]')[0]).is(':checked'));
         });
 
     </script>

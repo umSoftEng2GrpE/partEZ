@@ -54,6 +54,11 @@ class EventController extends Controller
         $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
         $item_users = [];
+        $ticketcost = (string)$event->ticketprice;
+      
+        if (!strpos($ticketcost, '.')){
+            $ticketcost = $ticketcost . ".00";
+        }
 
         foreach ($itemslist as $item)
         {
@@ -84,7 +89,8 @@ class EventController extends Controller
             ->with('item_users', $item_users)
             ->with('invites', $invites)
             ->with('chat_messages', $chat_messages)
-            ->with('rsvp_status', $userRSVP);
+            ->with('rsvp_status', $userRSVP)
+            ->with('ticketcost', $ticketcost);
     }
 
         /**
@@ -350,6 +356,18 @@ class EventController extends Controller
         $event->attendees = 0;
         $event->uid = Auth::user()['uid'];
 
+        if (array_key_exists('hastickets', $input)) {
+            $event->hastickets = true;
+            $event->numtickets = $input['ticketcount'];
+            $event->ticketprice = $input['ticketprice'];
+        }
+        else
+        {
+            $event->hastickets = '';
+            $event->numtickets = 0;
+            $event->ticketprice = 0.00;
+        }
+
         try
         {
             $saveflag = Event::saveEvent($event);
@@ -540,6 +558,18 @@ class EventController extends Controller
             $message->from(env('MAIL_USERNAME'), 'partEz');
             $message->to($email)->subject('Event Cancellation');
         });
+    }
+
+    public function ticketGet($eid){
+        $event = Event::getByID($eid);
+
+        if($event->numtickets > 0){
+            Event::purchaseTicket($event);
+
+            return view('events/ticket_buy_success');
+        }else{
+            return view('events/ticket_buy_failure');
+        }
     }
 
     public function inviteAccept($eid, $uid) 

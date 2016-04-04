@@ -9,8 +9,14 @@
             <li> Description: {{ $event['description'] }} </li>
         </ul>
 
+        @if ($event['hastickets'] && $event['numtickets'] > 0)
+            <h4> Purchase Tickets </h4>
+            <a class='btn btn-lg btn-info' href="{!! route('buy_ticket', ['eid'=>$event['eid']]) !!}">${{ $ticketcost }}</a>
+
+        @endif
+
         @if ($event['uid'] != Auth::user()->uid)
-            <h4> RSVP: </h4>
+            <h4> RSVP </h4>
             Your current status: {{ $rsvp_status }}
             <br>
             <a class='btn btn-lg btn-info' href="{!! route('accept_invite', ['eid'=>$event['eid'], 'uid'=>Auth::user()->uid]) !!}">Accept</a>
