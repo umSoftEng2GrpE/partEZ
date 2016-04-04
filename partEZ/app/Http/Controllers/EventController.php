@@ -381,6 +381,7 @@ class EventController extends Controller
         $emails = $input['email-list'];
         $emails = array_map('trim', explode(',', $emails));
         self::inviteUsers($emails, $eid);
+        return view('events/success_event');
     }
 
     public function splitPublicEmails()
