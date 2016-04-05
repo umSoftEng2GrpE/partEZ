@@ -20,7 +20,22 @@
                 {{Form::open(['url' => 'create_event']) }}
                 <div class="tab-content">
                     <div class="tab-pane" id="tab1">
-                        <div class="well">
+                        <div class="well">         
+
+                            <script>
+                                function checkvalue() {
+                                    if(!Number.isInteger(Number(document.getElementById('ticketcount').value)) || (Number(document.getElementById('ticketcount').value) < 0)){
+                                        document.getElementById('ticketcount').value = 0;
+                                    }
+                                }
+
+                                function checkprice() {
+                                    if(isNaN(parseFloat(Number(document.getElementById('ticketprice').value)))){
+                                        document.getElementById('ticketprice').value = 0.00;
+                                    }
+                                }
+                            </script>
+
                             <legend>Create An Event</legend>
                             <fieldset>
                                 <div class="form-group">
@@ -32,6 +47,10 @@
                                         <tr>
                                             <td>{!! Form::label('location', 'Location:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>{!! Form::text('location', null, ['required'], ['class' => 'form-control', 'id' => 'location']) !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{!! Form::label('max_attendees', 'Maximum Attendees:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::text('max_attendees', null, array('id' => 'max_attendees')) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>{!! Form::label('city', 'City:', ['class' => 'col-lg-2 control-label']) !!}</td>
@@ -52,7 +71,21 @@
                                             <td>{!! Form::checkbox('public') !!}</td>
                                         </tr>
                                         <tr>
-                                            <td>{!! Form::label('description', 'Description', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::label('tickets', 'Require Tickets:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{!! Form::checkbox('hastickets') !!}</td>
+                                        </tr>
+
+                                        <tr class="ticketoptions">
+                                            <td>{!! Form::label('ticketcountlabel', 'Ticket Count:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>{{ Form::text('ticketcount', null, array('id' => 'ticketcount', 'onchange'=>'checkvalue(this.form)', 'autofocus') ) }}</td>
+                                        </tr>
+                                        <tr class="ticketoptions">
+                                            <td>{!! Form::label('ticketpricelabel', 'Ticket Price:', ['class' => 'col-lg-2 control-label']) !!}</td>
+                                            <td>$ {{ Form::text('ticketprice', null, array('id' => 'ticketprice', 'onchange'=>'checkprice(this.form)', 'autofocus') ) }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{!! Form::label('description', 'Description:', ['class' => 'col-lg-2 control-label']) !!}</td>
                                             <td>
                                                 {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                                                 <span class="help-block">Anymore details you may want to add for the party.</span>
