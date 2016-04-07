@@ -22,7 +22,9 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public', 'city'
+
+        'uid', 'name', 'date', 'stime', 'etime', 'location', 'description', 'public', 'city', 'hastickets', 'numtickets', 'ticketprice', 'max_attendees', 'attendees'
+
     ];
 
     public static function getByID($eid)
@@ -64,6 +66,11 @@ class Event extends Model
     public static function deleteEvent($eid)
     {
         return DB::table('events')->where('eid', $eid)->delete();
+    }
+
+    public static function purchaseTicket($event)
+    {
+        return DB::table('events')->where('eid', $event->eid)->update(['numtickets' => ($event->numtickets-1)]);
     }
 
 }

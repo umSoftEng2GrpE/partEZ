@@ -54,6 +54,11 @@ class EventController extends Controller
         $userRSVP = Invite::getUserRSVP($eid);
         $items = [];
         $item_users = [];
+        $ticketcost = (string)$event->ticketprice;
+      
+        if (!strpos($ticketcost, '.')){
+            $ticketcost = $ticketcost . ".00";
+        }
 
         foreach ($itemslist as $item)
         {
@@ -84,7 +89,8 @@ class EventController extends Controller
             ->with('item_users', $item_users)
             ->with('invites', $invites)
             ->with('chat_messages', $chat_messages)
-            ->with('rsvp_status', $userRSVP);
+            ->with('rsvp_status', $userRSVP)
+            ->with('ticketcost', $ticketcost);
     }
 
         /**
@@ -346,7 +352,21 @@ class EventController extends Controller
         $event->date = $input['date'];
         $event->stime = $input['stime'];
         $event->etime = $input['etime'];
+        $event->max_attendees = $input['max_attendees'];
+        $event->attendees = 0;
         $event->uid = Auth::user()['uid'];
+
+        if (array_key_exists('hastickets', $input)) {
+            $event->hastickets = true;
+            $event->numtickets = $input['ticketcount'];
+            $event->ticketprice = $input['ticketprice'];
+        }
+        else
+        {
+            $event->hastickets = '';
+            $event->numtickets = 0;
+            $event->ticketprice = 0.00;
+        }
 
         try
         {
@@ -377,10 +397,17 @@ class EventController extends Controller
     {
         $input = Request::all();
         $emails = $input['email-list'];
-
         $emails = array_map('trim', explode(',', $emails));
         self::inviteUsers($emails, $eid);
         return view('events/success_event');
+    }
+
+    public function splitPublicEmails()
+    {
+        $input = Request::all();
+        $eid = $input['eid'];
+        self::splitEmails($eid);
+        return view('success');
     }
 
     public function validatePoll( $eid )
@@ -447,8 +474,17 @@ class EventController extends Controller
 
             if (!in_array($user->uid, $invites))
             {
-                Invite::createInviteLog($eid, $user->uid);
-                self::sendInvitation($eid, $user->email, $user->uid);
+                try {
+                    Invite::createInviteLog($eid, $user->uid);
+                    self::sendInvitation($eid, $user->email, $user->uid);
+                }
+                catch(Exception $e)
+                {
+                    print '<script type="text/javascript">';
+                    print 'alert("The system has encountered an error please try again later")';
+                    print '</script>';
+                    return view('errors.error_event');
+                }
             }
 
         }
@@ -524,11 +560,31 @@ class EventController extends Controller
         });
     }
 
+    public function ticketGet($eid){
+        $event = Event::getByID($eid);
+
+        if($event->numtickets > 0){
+            Event::purchaseTicket($event);
+
+            return view('events/ticket_buy_success');
+        }else{
+            return view('events/ticket_buy_failure');
+        }
+    }
+
     public function inviteAccept($eid, $uid) 
     {
+        $event = Event::find($eid);
+        $is_full = $event->max_attendees <= $event->attendees;
         try
         {
-            Invite::changeStatus($eid, $uid, "accepted");
+            if(!$is_full)
+            {
+                Invite::changeStatus($eid, $uid, "accepted");
+
+                $event->attendees++;
+                $event->save();
+            }
         }
         catch(Exception $e)
         {
@@ -537,7 +593,9 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
-        return redirect('invite_response');
+
+        return view('inviteresponse')
+            ->with('is_full', $is_full);
     }
 
     public function inviteDecline($eid, $uid)
