@@ -574,7 +574,6 @@ class EventController extends Controller
         }
         catch(Exception $e)
         {
-            print $e;
             print '<script type="text/javascript">';
             print 'alert("The system has encountered an error please try again later")';
             print '</script>';
