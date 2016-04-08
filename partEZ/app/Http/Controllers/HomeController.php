@@ -32,7 +32,7 @@ class HomeController extends Controller
         $invites = $this->getUserInvitedEvents();
         $public_events = Event::getPublicEvents();
         $this->updateCity();
-        
+
         return view('home')->with('events', $events)
             ->with('invites', $invites)
             ->with('public_events', $public_events)
