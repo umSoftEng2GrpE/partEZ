@@ -55,7 +55,7 @@ class EventController extends Controller
         $items = [];
         $item_users = [];
         $ticketcost = (string)$event->ticketprice;
-      
+
         if (!strpos($ticketcost, '.')){
             $ticketcost = $ticketcost . ".00";
         }
@@ -575,7 +575,9 @@ class EventController extends Controller
     public function inviteAccept($eid, $uid) 
     {
         $event = Event::find($eid);
-        $is_full = $event->max_attendees <= $event->attendees;
+
+        $is_full = ($event->max_attendees != "") and ($event->max_attendees <= $event->attendees);
+
         try
         {
             if(!$is_full)
@@ -611,6 +613,7 @@ class EventController extends Controller
             print '</script>';
             return view('errors.error_event');
         }
-        return redirect('invite_response');
+        return view('inviteresponse')
+            ->with('is_full', false);
     }
 }
