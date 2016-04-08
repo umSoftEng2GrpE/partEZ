@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiControllers\Events\ApiEventDetailsController;
 use App\PollResponse;
 use DB;
 use Auth;
@@ -47,7 +48,7 @@ class EventController extends Controller
      */
     public function details($eid)
     {
-        $uid = Auth::user()['uid'];
+        /*$uid = Auth::user()['uid'];
         $event = Event::getEvent($eid);
         $invites = Self::getInvitesFromEid($eid);
         $itemslist = Event::getEventItems($eid);
@@ -90,7 +91,13 @@ class EventController extends Controller
             ->with('invites', $invites)
             ->with('chat_messages', $chat_messages)
             ->with('rsvp_status', $userRSVP)
-            ->with('ticketcost', $ticketcost);
+            ->with('ticketcost', $ticketcost);*/
+
+        $request = new \Illuminate\Http\Request();
+        $request->input('eid');
+        $request->eid = $eid;
+        $response =  ApiEventDetailsController::details($request);
+        return view('events/event_details')->with('data', $response->getData());
     }
 
         /**

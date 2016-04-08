@@ -5,6 +5,16 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
+				<?php
+				//Decode data from api
+				$array = json_decode(json_encode($data), true);//Do a quick object type conversion to get our array
+				$event = $array['event'];
+				$all_options = $array['all_poll_options'];
+				$items_list = $array['items'];
+				$invites = $array['invites'];
+				$chat_messages = $array['chat_messages'];
+
+				?>
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>
 
 				<ul class="nav nav-tabs" id="myTabs">
