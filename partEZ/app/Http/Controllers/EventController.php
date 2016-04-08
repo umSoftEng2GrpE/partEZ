@@ -48,51 +48,6 @@ class EventController extends Controller
      */
     public function details($eid)
     {
-        /*$uid = Auth::user()['uid'];
-        $event = Event::getEvent($eid);
-        $invites = Self::getInvitesFromEid($eid);
-        $itemslist = Event::getEventItems($eid);
-        $userRSVP = Invite::getUserRSVP($eid);
-        $items = [];
-        $item_users = [];
-        $ticketcost = (string)$event->ticketprice;
-
-        if (!strpos($ticketcost, '.')){
-            $ticketcost = $ticketcost . ".00";
-        }
-
-        foreach ($itemslist as $item)
-        {
-            array_push($items, $item);
-            if( $item->uid != 0 )
-            {
-                $tmpUser = User::getById($item->uid);
-                array_push( $item_users, $tmpUser);
-            }
-
-        }
-
-        if ($event->uid == $uid )
-        {
-            $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
-        }
-        else
-        {
-            $all_poll_options = Self::getPollOptionsFromEid($eid);
-        }
-
-
-        $chat_messages = MessageController::getMessagesFromEid($eid);
-        return view('events/event_details')
-            ->with('event', $event)
-            ->with('all_options', $all_poll_options)
-            ->with('items_list', $items )
-            ->with('item_users', $item_users)
-            ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages)
-            ->with('rsvp_status', $userRSVP)
-            ->with('ticketcost', $ticketcost);*/
-
         $request = new \Illuminate\Http\Request();
         $request->input('eid');
         $request->eid = $eid;
