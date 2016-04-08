@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiControllers\Events\ApiEventItemController;
 use App\PollResponse;
 use DB;
 use Auth;
@@ -34,14 +35,10 @@ class EventItemController extends Controller
 
         $itemArray = array_map( 'trim', explode(',', $itemsList));
 
-        foreach ($itemArray as $item)
-        {
-            $newItem = new EventListItem();
-            $newItem->eid = $eid;
-            $newItem->uid = 0;
-            $newItem->description = $item;
-            $newItem->save();
-        }
+        $request = new \Illuminate\Http\Request();
+        $request->input('itemlist');
+        $request->itemlist = $itemArray;
+        ApiEventItemController::submitItems($request, $eid);
     }
 
     public function getEventItems( $eid )

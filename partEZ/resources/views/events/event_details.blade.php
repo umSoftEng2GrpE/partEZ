@@ -13,6 +13,7 @@
 				$items_list = $array['items'];
 				$invites = $array['invites'];
 				$chat_messages = $array['chat_messages'];
+				$item_users = $array['item_users'];
 
 				?>
 				<div class="panel-heading"><h3> {{ $event['name'] }} </h3></div>

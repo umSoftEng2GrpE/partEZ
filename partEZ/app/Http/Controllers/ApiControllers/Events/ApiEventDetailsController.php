@@ -49,10 +49,6 @@ class ApiEventDetailsController extends Controller
 
         }
 
-        foreach ($itemslist as $item)
-        {
-            array_push($items, $item);
-        }
         $chat_messages = MessageController::getMessagesFromEid($eid);
 
         return response()->json(compact('event', 'all_poll_options',

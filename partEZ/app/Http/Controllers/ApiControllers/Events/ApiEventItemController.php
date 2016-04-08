@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Event;
+use Auth;
 
 class ApiEventItemController extends Controller
 {
@@ -18,19 +19,20 @@ class ApiEventItemController extends Controller
 
     public static function submitItems( Request $request, $eid )
     {
-        $itemlist = json_decode($request->getContent());
+        $itemlist = json_decode(json_encode($request->itemlist), true);
         $uid = Auth::User()->uid;
-        foreach( $itemlist->items as $item )
+        var_dump($itemlist);
+        foreach( $itemlist as $item )
         {
             $newItem = new EventListItem();
-            $newItem->uid = $uid;
+            $newItem->uid = 0;
             $newItem->eid = $eid;
-            $newItem->description = $item->description;
+            $newItem->description = $item;
             $newItem->save();
         }
     }
 
-    public function getEventItems( Request $request )
+    public static function getEventItems( Request $request )
     {
         $items = Event::getEventItems( $request['eid'] );
         return response()->json(compact('items'));
