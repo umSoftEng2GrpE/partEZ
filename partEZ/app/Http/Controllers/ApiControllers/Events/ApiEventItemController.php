@@ -37,4 +37,9 @@ class ApiEventItemController extends Controller
         $items = Event::getEventItems( $request['eid'] );
         return response()->json(compact('items'));
     }
+
+    public static function assignUser( Request $request )
+    {
+        EventListItem::assignUser($request->iid, $request->eid, Auth::user()['uid']);
+    }
 }
