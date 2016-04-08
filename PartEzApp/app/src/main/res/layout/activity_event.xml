@@ -28,7 +28,7 @@
     <ScrollView
         android:id="@+id/event_display"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="321dp">
 
         <LinearLayout
             android:id="@+id/event_info_display"
@@ -236,4 +236,5 @@
         </LinearLayout>
 
     </ScrollView>
+
 </LinearLayout>
