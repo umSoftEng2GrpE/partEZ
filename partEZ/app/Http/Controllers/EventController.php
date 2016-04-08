@@ -538,7 +538,7 @@ class EventController extends Controller
     {
         $event = Event::find($eid);
 
-        $is_full = ($event->max_attendees != "") and ($event->max_attendees <= $event->attendees);
+        $is_full = (($event->max_attendees != "") and ($event->max_attendees == $event->attendees));
 
         try
         {
@@ -566,6 +566,14 @@ class EventController extends Controller
     {
         try
         {
+            if(Invite::getUserRSVP($eid) == "accepted")
+            {
+                $event = Event::find($eid);
+
+                $event->attendees--;
+                $event->save();
+            }
+
             Invite::changeStatus($eid, $uid, "declined");
         }
         catch(Exception $e)
