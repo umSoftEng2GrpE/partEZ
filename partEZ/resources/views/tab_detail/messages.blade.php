@@ -7,6 +7,6 @@
     <div style="display:inline-block;">
         {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right'] ) !!}
     </div>
-    {{ Form::hidden('eid', $event->eid) }}
+    {{ Form::hidden('eid', $event['eid']) }}
     {!! Form::close() !!}
 </div>

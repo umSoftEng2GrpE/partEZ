@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiControllers\Events\ApiEventItemController;
 use App\PollResponse;
 use DB;
 use Auth;
@@ -34,24 +35,29 @@ class EventItemController extends Controller
 
         $itemArray = array_map( 'trim', explode(',', $itemsList));
 
-        foreach ($itemArray as $item)
-        {
-            $newItem = new EventListItem();
-            $newItem->eid = $eid;
-            $newItem->uid = 0;
-            $newItem->description = $item;
-            $newItem->save();
-        }
+        $request = new \Illuminate\Http\Request();
+        $request->input('itemlist');
+        $request->itemlist = $itemArray;
+        ApiEventItemController::submitItems($request, $eid);
     }
 
     public function getEventItems( $eid )
     {
-        return Event::getEventItems( $eid );
+        $request = new \Illuminate\Http\Request();
+        $request->input('eid');
+        $request->eid = $eid;
+        $response =  ApiEventItemController::getEventItems($request);
+        return $response->getData();
     }
 
     public static function assignUser( $iid, $eid )
     {
-        EventListItem::assignUser($iid, $eid, Auth::user()['uid']);
+        $request = new \Illuminate\Http\Request();
+        $request->input('eid');
+        $request->eid = $eid;
+        $request->input('iid');
+        $request->iid = $iid;
+        ApiEventItemController::assignUser($request);
         return redirect()->route('events.event_details', [$eid]);;
     }
 }
