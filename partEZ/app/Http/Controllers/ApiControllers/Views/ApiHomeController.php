@@ -27,15 +27,23 @@ class ApiHomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($local_events_only = false, $local_city = null)
     {
+        $user = Auth::user();
         $user_events = $this->getUsersEvents();
         $user_events = $user_events->toArray();
         $invited_events = $this->getUserInvitedEvents();
 
         $public_events = $this->getPublicEvents();
         $public_events = $public_events->toArray();
-        return response()->json(compact('user_events', 'invited_events', 'public_events'));
+
+        if($local_events_only) {
+            $this->updateCity($local_city);
+        }
+
+        $city = $user->city;
+
+        return response()->json(compact('user_events', 'invited_events', 'public_events', 'local_events_only', 'city'));
     }
 
         //TODO: perhaps just call these functions from the regular home controller instead of having duplicates here
@@ -46,6 +54,13 @@ class ApiHomeController extends Controller
         $events = Event::getUserEvents($user->uid);
         return $events;
 
+    }
+
+    public function updateCity($local_city)
+    {
+        $user = Auth::user();
+        $user->city = $local_city;
+        $user->save();
     }
 
     public function getPublicEvents()

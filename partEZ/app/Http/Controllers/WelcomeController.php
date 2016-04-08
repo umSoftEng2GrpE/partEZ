@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiControllers\Views\ApiWelcomeController;
 use App\Http\Requests;
 use App\Event;
 
 
-class WelcomeController extends Controller
+class WelcomeController extends ApiWelcomeController
 {
     /**
      * Show the applications welcome page
@@ -15,8 +16,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $public_events = Event::getPublicEvents();
-
-        return view('welcome')->with('public_events', $public_events);
+        $response =  ApiWelcomeController::index();
+        return view('welcome')->with('data', $response->getData());
     }
 }

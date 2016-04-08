@@ -7,7 +7,15 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
-
+                <?php
+                    //Decode data from api
+                    $array = json_decode(json_encode($data), true);//Do a quick object type conversion to get our array
+                    $events = $array['user_events'];
+                    $invites = $array['invited_events'];
+                    $local_events_only = $array['local_events_only'];
+                    $public_events = $array['public_events'];
+                    $city = $array['city'];
+                ?>
                 <div class="panel-body">
                     You are logged in!
                     <br><br>
@@ -20,7 +28,7 @@
                         </div>
 
                         <div id="user-events" class="panel-body">
-                            @if (count($events))            
+                            @if (count($events))
                                 @foreach($events as $event)
                                     @include('events.event_basic', $event)
                                 @endforeach

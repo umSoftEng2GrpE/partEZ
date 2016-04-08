@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiControllers\Events\ApiEventDetailsController;
 use App\PollResponse;
 use DB;
 use Auth;
@@ -47,50 +48,11 @@ class EventController extends Controller
      */
     public function details($eid)
     {
-        $uid = Auth::user()['uid'];
-        $event = Event::getEvent($eid);
-        $invites = Self::getInvitesFromEid($eid);
-        $itemslist = Event::getEventItems($eid);
-        $userRSVP = Invite::getUserRSVP($eid);
-        $items = [];
-        $item_users = [];
-        $ticketcost = (string)$event->ticketprice;
-
-        if (!strpos($ticketcost, '.')){
-            $ticketcost = $ticketcost . ".00";
-        }
-
-        foreach ($itemslist as $item)
-        {
-            array_push($items, $item);
-            if( $item->uid != 0 )
-            {
-                $tmpUser = User::getById($item->uid);
-                array_push( $item_users, $tmpUser);
-            }
-
-        }
-
-        if ($event->uid == $uid )
-        {
-            $all_poll_options = Self::getPollOptionsWithVotesFromEid($eid);
-        }
-        else
-        {
-            $all_poll_options = Self::getPollOptionsFromEid($eid);
-        }
-
-
-        $chat_messages = MessageController::getMessagesFromEid($eid);
-        return view('events/event_details')
-            ->with('event', $event)
-            ->with('all_options', $all_poll_options)
-            ->with('items_list', $items )
-            ->with('item_users', $item_users)
-            ->with('invites', $invites)
-            ->with('chat_messages', $chat_messages)
-            ->with('rsvp_status', $userRSVP)
-            ->with('ticketcost', $ticketcost);
+        $request = new \Illuminate\Http\Request();
+        $request->input('eid');
+        $request->eid = $eid;
+        $response =  ApiEventDetailsController::details($request);
+        return view('events/event_details')->with('data', $response->getData());
     }
 
         /**
@@ -576,7 +538,7 @@ class EventController extends Controller
     {
         $event = Event::find($eid);
 
-        $is_full = ($event->max_attendees != "") and ($event->max_attendees <= $event->attendees);
+        $is_full = (($event->max_attendees != "") and ($event->max_attendees == $event->attendees));
 
         try
         {
@@ -604,6 +566,14 @@ class EventController extends Controller
     {
         try
         {
+            if(Invite::getUserRSVP($eid) == "accepted")
+            {
+                $event = Event::find($eid);
+
+                $event->attendees--;
+                $event->save();
+            }
+
             Invite::changeStatus($eid, $uid, "declined");
         }
         catch(Exception $e)
