@@ -52,9 +52,8 @@
                         <div id="public-events" class="panel-body">
                             @if(!$local_events_only)
                                 {{Form::open(array('route' => array('show_local_events', 'show_local_events' => true)))}}
-                                    <button class="public-filter" href="{{URL::route('show_local_events', true)}}">Local Events Only</button>
                                     {{ Form::text('city', null, ['class' => 'form-control', 'id'=>'city']) }}
-                                    {{ Form::submit('Change City!', ['city' => 'creEvent', 'class' => 'creEvent btn btn-lg btn-info pull-right'] ) }}
+                                    {{ Form::submit('Local Only', ['city' => 'creEvent', 'class' => 'creEvent btn btn-lg btn-info pull-right'] ) }}
                                 {{Form::close() }}
                             @else
                                 {{Form::open(array('route' => array('home')))}}
@@ -64,7 +63,7 @@
 
                             @if (count($public_events))
                                 @foreach($public_events as $invite)
-                                    @if($local_events_only && $event['city']==$city || !$local_events_only)
+                                    @if($local_events_only && $invite['city']==$city || !$local_events_only)
                                         @include('events.event_basic_invite', $invite)
                                     @endif
 

@@ -1,7 +1,6 @@
 <div class="event-row container">
     <div class="event-title">
         <h5> {{ $invite['name'] }} -
-
             @if ($invite['public'])
                 <i title="This event is public" class="fa fa-unlock event-access-ico"></i>
             @else
