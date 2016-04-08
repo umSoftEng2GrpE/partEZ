@@ -29,7 +29,7 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -82,23 +82,28 @@
         <DatePicker
             android:id="@+id/event_date"
             android:hint="@string/event_date"
-            android:layout_width="wrap_content"
+            android:layout_width="540dp"
             android:layout_height="wrap_content"
             android:endYear="2100"
-            android:startYear="1900" >
+            android:startYear="1900"
+            android:headerBackground="#056f00">
         </DatePicker>
         <TimePicker
             android:id="@+id/stime_picker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:headerBackground="#056f00" />
         <TimePicker
             android:id="@+id/etime_picker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <RadioButton android:id="@+id/public_event"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"/>
+            android:headerBackground="#056f00" />
+        <RadioButton android:id="@+id/public_event"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:allowUndo="true"
+            android:clickable="true"
+            android:text="Public Event" />
 
             <LinearLayout
                 android:id="@+id/pollEditTextGroupLayout"

@@ -62,7 +62,7 @@ public class HomeActivity extends Activity
             token = extras.getString("token");
             userEmail = extras.getString("user_email");
             Log.d(TAG ,token);
-            Log.d(TAG ,userEmail);
+            Log.d(TAG, userEmail);
         }
 
         Button createEventButton = (Button) findViewById(R.id.create_event);
@@ -84,6 +84,7 @@ public class HomeActivity extends Activity
     {
         Intent intent = new Intent(getApplicationContext(), EventDetailsActivity.class);
         intent.putExtra("token", token);
+        intent.putExtra("user_email", userEmail);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.create_event), Toast.LENGTH_SHORT).show();
     }
@@ -296,6 +297,8 @@ public class HomeActivity extends Activity
             {
                 Result eventToPass = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
                 Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("token",token);
+                intent.putExtra("user_email", userEmail);
                 intent.putExtra("eventToPass",eventToPass);
                 startActivity(intent);
                 return false;

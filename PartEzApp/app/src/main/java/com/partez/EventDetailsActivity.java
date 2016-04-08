@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,11 +37,27 @@ public class EventDetailsActivity extends AppCompatActivity
     private static final String TAG = "EventActivity";
     private static Result resultForNextScreen;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
+
+        final RadioButton isPublic = (RadioButton)findViewById(R.id.public_event);
+
+        isPublic.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View view, MotionEvent event)
+            {
+                if(isPublic.isChecked()) {
+                    isPublic.setChecked(false);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void addPollEditText(View view)
@@ -116,6 +134,7 @@ public class EventDetailsActivity extends AppCompatActivity
     @TargetApi(Build.VERSION_CODES.M)
     public void submitEvent(View view) throws JSONException
     {
+        String publicEvent = "0";
         String token = "Missing Token";
         Bundle extras = getIntent().getExtras();
 
@@ -157,8 +176,10 @@ public class EventDetailsActivity extends AppCompatActivity
         TimePicker etimePicker = ((TimePicker)findViewById(R.id.etime_picker));
         String etime = etimePicker.getHour() + ":" + etimePicker.getMinute();
 
-        Boolean isPublic = ((RadioButton)findViewById(R.id.public_event)).isActivated();
-        String publicEvent = isPublic ? "1" : "0";
+        Boolean isPublic = ((RadioButton)findViewById(R.id.public_event)).isChecked();
+
+        if(isPublic)
+            publicEvent = "1";
 
         resultForNextScreen = new Result();
         resultForNextScreen.name = name;
@@ -168,7 +189,6 @@ public class EventDetailsActivity extends AppCompatActivity
         resultForNextScreen.stime = stime;
         resultForNextScreen.etime = etime;
         resultForNextScreen.eventPublic = publicEvent;
-
 
         event.put("name", name);
         event.put("location", location);
